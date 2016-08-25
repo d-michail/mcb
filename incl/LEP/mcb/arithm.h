@@ -1,7 +1,8 @@
+#line 6220 "MIN_CYCLE_BASIS.lw"
 //---------------------------------------------------------------------
 // File automatically generated using notangle from DMIN_CYCLE_BASIS.lw
 //
-// mails and bugs: Dimitrios Michail <dimitrios.michail@gmail.com>
+// emails and bugs: Dimitrios Michail <dimitrios.michail@gmail.com>
 //---------------------------------------------------------------------
 //
 // This program can be freely used in an academic environment
@@ -33,6 +34,7 @@
 // Copyright (C) 2004-2005 - Dimitrios Michail
 
 
+#line 7256 "MIN_CYCLE_BASIS.lw"
 /*! \file arithm.h
  *  \brief Basic arithmetic definitions.
  */
@@ -70,6 +72,7 @@ inline int compare(const ptype& x, const ptype& y)
 
 #endif // ARITHM_H
 
+#line 6217 "MIN_CYCLE_BASIS.lw"
 /* ex: set ts=8 sw=4 sts=4 noet: */
 
 

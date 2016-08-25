@@ -1,4 +1,4 @@
-dnl    $Id: configure.in,v 1.35 2005/11/03 17:03:26 michail Exp $
+dnl    $Id: configure.in,v 1.37 2006/03/20 11:32:07 michail Exp $
 dnl
 dnl    Modified for LEDA LEPS by M. Seel
 dnl
@@ -30,6 +30,7 @@ dnl    some initialization stuff...
 dnl 
 
 AC_INIT(confdir/make.config.in)
+AC_PREREQ(2.50)
 
 dnl not used anymore, all output in make.general and make.config
 dnl AC_CONFIG_HEADER([
@@ -1087,7 +1088,7 @@ dnl
 
 LEP_NAME="mcb"
 LEP_PATH_NAME="mcb"
-LEP_VERSION="0.5"
+LEP_VERSION="0.6"
 
 ${ECHO} ">>LEP Requirements<<"
 dnl

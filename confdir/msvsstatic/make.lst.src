@@ -1,0 +1,11 @@
+#------------------------------------------------------------------------------
+#
+# LEP_SOURCES defines the sources of the library
+#
+#------------------------------------------------------------------------------
+
+
+LEPNAME = mcb
+LEDAFLAGS =
+LEP_SOURCES = MIN_CYCLE_BASIS.c edge_num.c DMIN_CYCLE_BASIS.c fp.c spvecgf2.c
+

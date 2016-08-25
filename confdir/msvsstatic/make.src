@@ -1,0 +1,26 @@
+##
+## Makefile for visual studio
+##
+
+include comp.lst
+include Make.lst
+
+LIB = lib$(LEPNAME).lib
+LEP_OBJECTS = $(LEP_SOURCES:.c=.obj)
+
+all: $(LIB)
+
+.c.obj:
+	$(CC) $(LEDAFLAGS) -I$(LEDAROOT)\incl -I..\incl $*.c
+        @if not exist $(LIB) $(AR0)$(LIB) $(ARC) $*.obj > NUL   
+	$(AR) $(LIB) $(ARC) $*.obj > NUL
+
+
+$(LIB): $(LEP_OBJECTS)
+        @echo.
+        @copy $(LIB) ..\
+
+clean: 
+        del $(LEP_OBJECTS) $(LIB)
+
+del: clean

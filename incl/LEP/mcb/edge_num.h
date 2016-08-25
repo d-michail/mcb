@@ -1,8 +1,9 @@
 
+#line 6220 "MIN_CYCLE_BASIS.lw"
 //---------------------------------------------------------------------
 // File automatically generated using notangle from DMIN_CYCLE_BASIS.lw
 //
-// mails and bugs: Dimitrios Michail <dimitrios.michail@gmail.com>
+// emails and bugs: Dimitrios Michail <dimitrios.michail@gmail.com>
 //---------------------------------------------------------------------
 //
 // This program can be freely used in an academic environment
@@ -34,6 +35,7 @@
 // Copyright (C) 2004-2005 - Dimitrios Michail
 
 
+#line 764 "MIN_CYCLE_BASIS.lw"
 /*! \file edge_num.h
  *  \brief Definition of edge numbering.
  */
@@ -56,6 +58,7 @@
 namespace mcb { 
 
 
+#line 823 "MIN_CYCLE_BASIS.lw"
 /*! \brief An edge numbering class. 
  *
  * This class assigns a unique numbering to the edges of a graph. The \f$m\f$
@@ -73,7 +76,7 @@ namespace mcb {
  * numbering invalidate the data structure.
  *
  * \date 2004-2005
- * \author Dimitris Michail
+ * \author Dimitrios Michail
  */
 class edge_num
 {
@@ -105,13 +108,14 @@ public:
     //@}
 
 
+#line 875 "MIN_CYCLE_BASIS.lw"
     //@{
     /*! Access the number of an edge.
      *  \param e The edge to access.
      *  \return The unique number of the edge.
      */
     inline int operator()(leda::edge e) const { 
-        return rindex[e];
+	return rindex[e];
     }
 
     /*! Access the edge with a particular number.
@@ -120,22 +124,23 @@ public:
      */
     inline leda::edge operator()(int i) const { 
 #if ! defined(LEDA_CHECKING_OFF)
-        if ( i < 0 || i > m )
-            leda::error_handler(999,"edge_num: illegal number requested");
+	if ( i < 0 || i > m )
+	    leda::error_handler(999,"edge_num: illegal number requested");
 #endif
-        return index[ i ];
+	return index[ i ];
     }
     //@}
 
 
 
+#line 905 "MIN_CYCLE_BASIS.lw"
     //@{
     /*! Check if an edge belongs to the spanning forest used to construct the numbering.
      *  \param e An edge.
      *  \return True if e belongs to the spanning forest, false otherwise.
      */
     bool tree( leda::edge e ) const { 
-        return ( rindex[e] >= m - n + k );
+	return ( rindex[e] >= m - n + k );
     }
 
     /*! Get the dimension of the cycle space of \f$G\f$. More precisely
@@ -144,24 +149,26 @@ public:
      *  \return The dimension of the cycle space of the graph.
      */
     int dim_cycle_space() const {
-        return m - n + k;
+	return m - n + k;
     }
 
     /*! Returns the number of (weakly) connected components of the graph. 
      *  \return The number of (weakly) connected components of the graph.
      */
     int num_weak_connected_comp() const {
-        return k;
+	return k;
     }
     //@}
 
 };
 
 
+#line 787 "MIN_CYCLE_BASIS.lw"
 } // end namespace mcb
 
 #endif
 
+#line 6217 "MIN_CYCLE_BASIS.lw"
 /* ex: set ts=8 sw=4 sts=4 noet: */
 
 

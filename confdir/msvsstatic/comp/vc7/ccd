@@ -1,0 +1,12 @@
+#----------------------------------------------------------------
+# Microsoft Visual C++
+#---------------------------------------------------------------
+
+CC = cl -c -nologo -Zi -EHsc -TP
+PLAIN_C = cl -c -nologo -Zi -EHsc -TC
+LD = cl -nologo -Zi
+LINKVER = 
+
+AR  = lib -nologo 
+AR0 = lib -nologo /out:
+

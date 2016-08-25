@@ -1,7 +1,8 @@
+#line 6220 "MIN_CYCLE_BASIS.lw"
 //---------------------------------------------------------------------
 // File automatically generated using notangle from DMIN_CYCLE_BASIS.lw
 //
-// mails and bugs: Dimitrios Michail <dimitrios.michail@gmail.com>
+// emails and bugs: Dimitrios Michail <dimitrios.michail@gmail.com>
 //---------------------------------------------------------------------
 //
 // This program can be freely used in an academic environment
@@ -33,37 +34,39 @@
 // Copyright (C) 2004-2005 - Dimitrios Michail
 
 
+#line 5544 "MIN_CYCLE_BASIS.lw"
 #include <iostream>
 
 // Read a very simple format for graphs and write it as a GML graph.
 int main() {
-        int n,m;
-        std::cin >> n;
-        std::cin >> m;
-        
-        std::cout << "graph [" << std::endl;
-        std::cout << "directed 0" << std::endl;
-        std::cout << std::endl;
-        
-        for( int i = 0; i < n; ++i ) { 
-                std::cout << "node [ id " << i << " ]" << std::endl;
-        }
+	int n,m;
+	std::cin >> n;
+	std::cin >> m;
+	
+	std::cout << "graph [" << std::endl;
+	std::cout << "directed 0" << std::endl;
+	std::cout << std::endl;
+	
+	for( int i = 0; i < n; ++i ) { 
+		std::cout << "node [ id " << i << " ]" << std::endl;
+	}
 
-        std::cout << std::endl;
-        
-        int s,t,w;
-        for( int i = 0; i < m; ++i ) { 
-                std::cin >> s >> t >> w;
-                std::cout << "edge [" << std::endl;
-                std::cout << "\tsource " << s << std::endl;
-                std::cout << "\ttarget " << t << std::endl;
-                std::cout << "\tlabel " << w << std::endl;
-                std::cout << "]" << std::endl;
-        }
-        std::cout << std::endl;
-        std::cout << "]" << std::endl;
+	std::cout << std::endl;
+	
+	int s,t,w;
+	for( int i = 0; i < m; ++i ) { 
+		std::cin >> s >> t >> w;
+		std::cout << "edge [" << std::endl;
+		std::cout << "\tsource " << s << std::endl;
+		std::cout << "\ttarget " << t << std::endl;
+		std::cout << "\tlabel " << w << std::endl;
+		std::cout << "]" << std::endl;
+	}
+	std::cout << std::endl;
+	std::cout << "]" << std::endl;
 }
 
+#line 6217 "MIN_CYCLE_BASIS.lw"
 /* ex: set ts=8 sw=4 sts=4 noet: */
 
 

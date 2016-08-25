@@ -1,7 +1,8 @@
+#line 6220 "MIN_CYCLE_BASIS.lw"
 //---------------------------------------------------------------------
 // File automatically generated using notangle from DMIN_CYCLE_BASIS.lw
 //
-// mails and bugs: Dimitrios Michail <dimitrios.michail@gmail.com>
+// emails and bugs: Dimitrios Michail <dimitrios.michail@gmail.com>
 //---------------------------------------------------------------------
 //
 // This program can be freely used in an academic environment
@@ -33,6 +34,7 @@
 // Copyright (C) 2004-2005 - Dimitrios Michail
 
 
+#line 2178 "MIN_CYCLE_BASIS.lw"
 #ifdef LEDA_GE_V5
 #include <LEDA/graph/graph.h>
 #include <LEDA/graph/node_set.h>
@@ -86,227 +88,247 @@ using leda::two_tuple;
 #endif
 
 
+#line 2862 "MIN_CYCLE_BASIS.lw"
 void MCB_output_basis( const graph& g,
-                       array< d_int_set >& C,
-                       const edge_num& enumb,
-                       array< list<edge> >& mcb )
+		       array< d_int_set >& C,
+		       const edge_num& enumb,
+		       array< list<edge> >& mcb )
 {
-        // create cycles of MCB
-        list<int> L;
-        int en;
-        mcb.resize( C.size() );
-        for( int i = 0; i < C.size(); ++i ) { 
-                L.clear();
-                C[i].get_element_list( L );
-                forall( en, L )
-                        mcb[i].append( enumb(en) );
-        }
+	// create cycles of MCB
+	list<int> L;
+	int en;
+	mcb.resize( C.size() );
+	for( int i = 0; i < C.size(); ++i ) { 
+		L.clear();
+		C[i].get_element_list( L );
+		forall( en, L )
+			mcb[i].append( enumb(en) );
+	}
 }
 
 // and reverse, from lists to dynamic sets
 void MCB_output_basis( const graph& g,
-                       const array< list<edge> >& mcb,
-                       const edge_num& enumb,
-                       array< d_int_set >& C )
+		       const array< list<edge> >& mcb,
+		       const edge_num& enumb,
+		       array< d_int_set >& C )
 {
-    edge e;
+    edge e = nil;
     C.resize ( mcb.size() );
     for( int i = 0; i < mcb.size(); ++i )  { 
-        forall( e, mcb[i] ) { 
-            C[i].insert( enumb(e) );
-        }
+	forall( e, mcb[i] ) { 
+	    C[i].insert( enumb(e) );
+	}
     }
 }
 
 // from spvecgf2 to edge_lists
 void MCB_output_basis( const leda::graph& g,
-                       const leda::array< mcb::spvecgf2 >& C,
-                       const mcb::edge_num& enumb,
-                       leda::array< leda::list< leda::edge > >& mcb )
+		       const leda::array< mcb::spvecgf2 >& C,
+		       const mcb::edge_num& enumb,
+		       leda::array< leda::list< leda::edge > >& mcb )
 {
     mcb.resize( C.size() );
-    int el;
+    int el = 0;
     for( int i = 0; i < C.size(); i++ ) { 
-        mcb[i] = leda::list< leda::edge >();
-        forall( el, C[i] ) { 
-            mcb[i].append( enumb( el ) );
-        }
+	mcb[i] = leda::list< leda::edge >();
+	forall( el, C[i] ) { 
+	    mcb[i].append( enumb( el ) );
+	}
     }
 }
 
 // from spvecgf2 to d_int_set
 void MCB_output_basis( const leda::graph& g,
-                       const leda::array< mcb::spvecgf2 >& C,
-                       const mcb::edge_num& enumb,
-                       leda::array<leda::d_int_set>& mcb )
+		       const leda::array< mcb::spvecgf2 >& C,
+		       const mcb::edge_num& enumb,
+		       leda::array<leda::d_int_set>& mcb )
 {
     mcb.resize( C.size() );
     for( int i = 0; i < C.size(); i++ )
-        mcb[i] = C[i].to_d_int_set();
+	mcb[i] = C[i].to_d_int_set();
 }
 
 
 
+#line 4439 "MIN_CYCLE_BASIS.lw"
 bool MCB_verify_basis( const graph& g, 
-                       array< d_int_set >& mcb,
-                       const edge_num& enumb,
-                       bool check_cycle_basis )
+		       array< d_int_set >& mcb,
+		       const edge_num& enumb,
+		       bool check_cycle_basis )
 {
-        edge e;
-        node v;
+	edge e;
+	node v;
 
-        if ( check_cycle_basis ) { 
+	if ( check_cycle_basis ) { 
 
-                // check number of vectors
-                int N = enumb.dim_cycle_space();
-                if ( mcb.size() != N ) return false;
-        
-                // check that vectors are cycles
-                // TODO: can be done faster
-                list<int> L;
-                for( int i = 0; i < N; i++ ) { 
-                        if ( mcb[i].size() == 0 ) return false;
-                        
-                        node_array<int> degree(g, 0);
-                        L.clear();
-                        mcb[i].get_element_list( L );
-                        int el;
-                        
-                        forall( el, L ) { 
-                                e = enumb(el);
-                                degree[ g.source(e) ]++;
-                                degree[ g.target(e) ]++;
-                        }
-                        
-                        forall_nodes( v, g ) 
-                                if ( degree[v] % 2 == 1 ) return false;
-                }
-        }
-        
-        if ( mcb.size() == 0 ) return true;
-        
-        // now check for linear independence
+		// check number of vectors
+		int N = enumb.dim_cycle_space();
+		if ( mcb.size() != N ) return false;
+	
+		// check that vectors are cycles
+		// TODO: can be done faster
+		list<int> L;
+		for( int i = 0; i < N; i++ ) { 
+			if ( mcb[i].size() == 0 ) return false;
+			
+			node_array<int> degree(g, 0);
+			L.clear();
+			mcb[i].get_element_list( L );
+			int el;
+			
+			forall( el, L ) { 
+				e = enumb(el);
+				degree[ g.source(e) ]++;
+				degree[ g.target(e) ]++;
+			}
+			
+			forall_nodes( v, g ) 
+				if ( degree[v] % 2 == 1 ) return false;
+		}
+	}
+	
+	if ( mcb.size() == 0 ) return true;
+	
+	// now check for linear independence
 
-        // copy cycles
-        array< d_int_set > a(mcb.size());
-        for( int i = 0; i < mcb.size(); ++i ) a[i] = mcb[i];
+	// copy cycles
+	array< d_int_set > a(mcb.size());
+	for( int i = 0; i < mcb.size(); ++i ) a[i] = mcb[i];
 
-        // do gauss elimination
-        for( int i = 0; i < a.size(); ++i) {
-                // find non-zero
-                if ( a[i].member( i ) == false ) {
-                        for( int j = i+1; j < a.size(); ++j ) { 
-                                if ( a[j].member(i) == true ) {
-                                        d_int_set Stemp = a[i];
-                                        a[i] = a[j]; 
-                                        a[j] = Stemp;
-                                }
-                        }
-                }
+	// do gauss elimination
+	for( int i = 0; i < a.size(); ++i) {
+		// find non-zero
+		if ( a[i].member( i ) == false ) {
+			for( int j = i+1; j < a.size(); ++j ) { 
+				if ( a[j].member(i) == true ) {
+					d_int_set Stemp = a[i];
+					a[i] = a[j]; 
+					a[j] = Stemp;
+				}
+			}
+		}
 
-                // no non-zero found
-                if ( a[i].member( i ) == false ) return false;
+		// no non-zero found
+		if ( a[i].member( i ) == false ) return false;
 
-                // 
-                for( int j = i + 1; j < a.size(); ++j ) { 
-                        if ( a[j].member( i ) == true ) 
-                                a[j] %= a[i];
-                }
-        }
+		// 
+		for( int j = i + 1; j < a.size(); ++j ) { 
+			if ( a[j].member( i ) == true ) 
+				a[j] %= a[i];
+		}
+	}
 
-        return true;
+	return true;
 }
 
 // verify basis in lists form
 bool MCB_verify_basis( const graph& g, 
-                       array< list<edge> >& mcb,
-                       bool check_cycle_basis )
+		       array< list<edge> >& mcb,
+		       bool check_cycle_basis )
 {
-        array< d_int_set > C;
-        edge_num enumb( g );
-        MCB_output_basis( g, mcb, enumb, C );
-        return MCB_verify_basis( g, C, enumb, check_cycle_basis );
+	array< d_int_set > C;
+	edge_num enumb( g );
+	MCB_output_basis( g, mcb, enumb, C );
+	return MCB_verify_basis( g, C, enumb, check_cycle_basis );
 }
 
 
+#line 2576 "MIN_CYCLE_BASIS.lw"
 // compute MCB with d_int_set output for 
 // unweighted undirected graphs
 int MIN_CYCLE_BASIS_DEPINA( const graph& g,
-                            array< d_int_set >& mcb,
-                            array< d_int_set >& proof,
-                            const edge_num& enumb
-                          ) { 
+			    array< d_int_set >& mcb,
+			    array< d_int_set >& proof,
+			    const edge_num& enumb
+			  ) { 
 
-    #if ! defined(LEDA_CHECKING_OFF)
-            if ( g.is_undirected() == false )
-                    error_handler(999,"MIN_CYCLE_BASIS: illegal graph\
-                                      (directed?)");
-            if ( Is_Undirected_Simple( g ) == false )
-                    error_handler(999,"MIN_CYCLE_BASIS: illegal graph\
-                      (parallel,anti-parallel edges or loops?)");
-    #endif
+    
+#line 2703 "MIN_CYCLE_BASIS.lw"
+#if ! defined(LEDA_CHECKING_OFF)
+	if ( g.is_undirected() == false )
+		error_handler(999,"MIN_CYCLE_BASIS: illegal graph\
+		                  (directed?)");
+	if ( Is_Undirected_Simple( g ) == false )
+		error_handler(999,"MIN_CYCLE_BASIS: illegal graph\
+		  (parallel,anti-parallel edges or loops?)");
+#endif
 
-    int N = enumb.dim_cycle_space();
-    mcb.resize( N ); // set size of destination array
-    proof.resize(N);
+#line 2585 "MIN_CYCLE_BASIS.lw"
+    
+#line 2729 "MIN_CYCLE_BASIS.lw"
+int N = enumb.dim_cycle_space();
+mcb.resize( N ); // set size of destination array
+proof.resize(N);
 
 
 
+#line 2587 "MIN_CYCLE_BASIS.lw"
 #ifdef LEP_STATS
     float Tcycle = 0.0, Torthog = 0.0, Ttemp;
 #endif
 
     array< d_int_set >& C = mcb;
     array< d_int_set >& S = proof;
-    // initialize signed graph
-    sgraph<int,leda::bin_heap> sg( g, enumb ) ; 
+    
+#line 2761 "MIN_CYCLE_BASIS.lw"
+// initialize signed graph
+sgraph<int,leda::bin_heap> sg( g, enumb ) ; 
 
 
+#line 2595 "MIN_CYCLE_BASIS.lw"
     // initialize cycles C and initial sets S's
     for( int i = 0 ; i < N; i++ ) { S[i].insert( i ); }
    
     int min = 0, ret = 0;
     // start computing cycles
     for( int k = 0; k < N; k++ ) { 
-        
-        #ifdef LEP_STATS
-        leda::used_time( Ttemp );
-        #endif
-        #ifndef MCB_LEP_UNDIR_NO_EXCHANGE_HEURISTIC
-        // choose the sparsest witness from the basis
-        int minS = k;
-        for( int r = k+1; r < N; r++ ) { 
-            if ( S[r].size() < S[minS].size() )
-                minS = r;
-        }
-        if ( minS != k ) {  // swap
-            mcb::swap( S[k], S[minS] );
-        }
-        #endif
+	
+#line 2782 "MIN_CYCLE_BASIS.lw"
+#ifdef LEP_STATS
+leda::used_time( Ttemp );
+#endif
+#line 2822 "MIN_CYCLE_BASIS.lw"
+#ifndef MCB_LEP_UNDIR_NO_EXCHANGE_HEURISTIC
+// choose the sparsest witness from the basis
+int minS = k;
+for( int r = k+1; r < N; r++ ) { 
+    if ( S[r].size() < S[minS].size() )
+	minS = r;
+}
+if ( minS != k ) {  // swap
+    mcb::swap( S[k], S[minS] );
+}
+#endif
 
-        #ifdef LEP_STATS
-        Torthog += leda::used_time( Ttemp );
-        #endif
-        ret = sg.get_shortest_odd_cycle( S[k], C[k] ); 
-        min+= ret;
+#line 2786 "MIN_CYCLE_BASIS.lw"
+#ifdef LEP_STATS
+Torthog += leda::used_time( Ttemp );
+#endif
+#line 2835 "MIN_CYCLE_BASIS.lw"
+ret = sg.get_shortest_odd_cycle( S[k], C[k] ); 
+min+= ret;
 
-        #ifdef LEP_STATS
-        Tcycle += leda::used_time( Ttemp );
-        #endif
-        
-        for( int l = k+1; l < N; l++ )   {
-            // cycles are smaller than sets, thus it is better
-            // to intersect C and S than S and C
-            if ( (C[k].intersect(S[l])).size() %2 == 1 )   {
-                S[ l ] %= S[k];
-            }
-        }
+#line 2790 "MIN_CYCLE_BASIS.lw"
+#ifdef LEP_STATS
+Tcycle += leda::used_time( Ttemp );
+#endif
 
-        #ifdef LEP_STATS
-        Torthog += leda::used_time( Ttemp );
-        #endif
+#line 2840 "MIN_CYCLE_BASIS.lw"
+for( int l = k+1; l < N; l++ )   {
+    // cycles are smaller than sets, thus it is better
+    // to intersect C and S than S and C
+    if ( (C[k].intersect(S[l])).size() %2 == 1 )   {
+	S[ l ] %= S[k];
+    }
+}
+
+#line 2794 "MIN_CYCLE_BASIS.lw"
+#ifdef LEP_STATS
+Torthog += leda::used_time( Ttemp );
+#endif
 
 
+#line 2602 "MIN_CYCLE_BASIS.lw"
     }
 
 #ifdef LEP_STATS
@@ -320,81 +342,98 @@ int MIN_CYCLE_BASIS_DEPINA( const graph& g,
 // compute MCB with spvecgf2 output for 
 // unweighted undirected graphs
 int MIN_CYCLE_BASIS_DEPINA( const graph& g,
-                            array< spvecgf2 >& mcb,
-                            array< spvecgf2 >& proof,
-                            const edge_num& enumb
-                          ) { 
+			    array< spvecgf2 >& mcb,
+			    array< spvecgf2 >& proof,
+			    const edge_num& enumb
+			  ) { 
 
-    #if ! defined(LEDA_CHECKING_OFF)
-            if ( g.is_undirected() == false )
-                    error_handler(999,"MIN_CYCLE_BASIS: illegal graph\
-                                      (directed?)");
-            if ( Is_Undirected_Simple( g ) == false )
-                    error_handler(999,"MIN_CYCLE_BASIS: illegal graph\
-                      (parallel,anti-parallel edges or loops?)");
-    #endif
+    
+#line 2703 "MIN_CYCLE_BASIS.lw"
+#if ! defined(LEDA_CHECKING_OFF)
+	if ( g.is_undirected() == false )
+		error_handler(999,"MIN_CYCLE_BASIS: illegal graph\
+		                  (directed?)");
+	if ( Is_Undirected_Simple( g ) == false )
+		error_handler(999,"MIN_CYCLE_BASIS: illegal graph\
+		  (parallel,anti-parallel edges or loops?)");
+#endif
 
-    int N = enumb.dim_cycle_space();
-    mcb.resize( N ); // set size of destination array
-    proof.resize(N);
+#line 2621 "MIN_CYCLE_BASIS.lw"
+    
+#line 2729 "MIN_CYCLE_BASIS.lw"
+int N = enumb.dim_cycle_space();
+mcb.resize( N ); // set size of destination array
+proof.resize(N);
 
 
 
+#line 2623 "MIN_CYCLE_BASIS.lw"
 #ifdef LEP_STATS
     float Tcycle = 0.0, Torthog = 0.0, Ttemp;
 #endif
 
     array< spvecgf2 >& C = mcb;
     array< spvecgf2 >& S = proof;
-    // initialize signed graph
-    sgraph<int,leda::bin_heap> sg( g, enumb ) ; 
+    
+#line 2761 "MIN_CYCLE_BASIS.lw"
+// initialize signed graph
+sgraph<int,leda::bin_heap> sg( g, enumb ) ; 
 
 
+#line 2631 "MIN_CYCLE_BASIS.lw"
     // initialize cycles C and initial sets S's
     for( int i = 0 ; i < N; i++ ) { S[i].insert( i ); }
    
     int min = 0, ret = 0;
     // start computing cycles
     for( int k = 0; k < N; k++ ) { 
-        
-        #ifdef LEP_STATS
-        leda::used_time( Ttemp );
-        #endif
-        #ifndef MCB_LEP_UNDIR_NO_EXCHANGE_HEURISTIC
-        // choose the sparsest witness from the basis
-        int minS = k;
-        for( int r = k+1; r < N; r++ ) { 
-            if ( S[r].size() < S[minS].size() )
-                minS = r;
-        }
-        if ( minS != k ) {  // swap
-            mcb::swap( S[k], S[minS] );
-        }
-        #endif
+	
+#line 2782 "MIN_CYCLE_BASIS.lw"
+#ifdef LEP_STATS
+leda::used_time( Ttemp );
+#endif
+#line 2822 "MIN_CYCLE_BASIS.lw"
+#ifndef MCB_LEP_UNDIR_NO_EXCHANGE_HEURISTIC
+// choose the sparsest witness from the basis
+int minS = k;
+for( int r = k+1; r < N; r++ ) { 
+    if ( S[r].size() < S[minS].size() )
+	minS = r;
+}
+if ( minS != k ) {  // swap
+    mcb::swap( S[k], S[minS] );
+}
+#endif
 
-        #ifdef LEP_STATS
-        Torthog += leda::used_time( Ttemp );
-        #endif
-        ret = sg.get_shortest_odd_cycle( S[k], C[k] ); 
-        min+= ret;
+#line 2786 "MIN_CYCLE_BASIS.lw"
+#ifdef LEP_STATS
+Torthog += leda::used_time( Ttemp );
+#endif
+#line 2835 "MIN_CYCLE_BASIS.lw"
+ret = sg.get_shortest_odd_cycle( S[k], C[k] ); 
+min+= ret;
 
-        #ifdef LEP_STATS
-        Tcycle += leda::used_time( Ttemp );
-        #endif
-        
-        for( int l = k+1; l < N; l++ )   {
-            // cycles are smaller than sets, thus it is better
-            // to intersect C and S than S and C
-            if ( (C[k].intersect(S[l])).size() %2 == 1 )   {
-                S[ l ] %= S[k];
-            }
-        }
+#line 2790 "MIN_CYCLE_BASIS.lw"
+#ifdef LEP_STATS
+Tcycle += leda::used_time( Ttemp );
+#endif
 
-        #ifdef LEP_STATS
-        Torthog += leda::used_time( Ttemp );
-        #endif
+#line 2840 "MIN_CYCLE_BASIS.lw"
+for( int l = k+1; l < N; l++ )   {
+    // cycles are smaller than sets, thus it is better
+    // to intersect C and S than S and C
+    if ( (C[k].intersect(S[l])).size() %2 == 1 )   {
+	S[ l ] %= S[k];
+    }
+}
+
+#line 2794 "MIN_CYCLE_BASIS.lw"
+#ifdef LEP_STATS
+Torthog += leda::used_time( Ttemp );
+#endif
 
 
+#line 2638 "MIN_CYCLE_BASIS.lw"
     }
 
 #ifdef LEP_STATS
@@ -409,49 +448,51 @@ int MIN_CYCLE_BASIS_DEPINA( const graph& g,
 // compute MCB and proof with d_int_set
 // for unweighted undirected graphs
 int MIN_CYCLE_BASIS_DEPINA( const graph& g,
-                            array< d_int_set >& mcb,
-                            const edge_num& enumb
-                          ) { 
-        array< d_int_set > proof;
-        return MIN_CYCLE_BASIS_DEPINA( g, mcb, proof, enumb );
+			    array< d_int_set >& mcb,
+			    const edge_num& enumb
+			  ) { 
+	array< d_int_set > proof;
+	return MIN_CYCLE_BASIS_DEPINA( g, mcb, proof, enumb );
 }
 
 // compute MCB and proof with spvecgf2
 // for unweighted undirected graphs
 int MIN_CYCLE_BASIS_DEPINA( const graph& g,
-                            array< spvecgf2 >& mcb,
-                            const edge_num& enumb
-                          ) { 
-        array< spvecgf2 > proof;
-        return MIN_CYCLE_BASIS_DEPINA( g, mcb, proof, enumb );
+			    array< spvecgf2 >& mcb,
+			    const edge_num& enumb
+			  ) { 
+	array< spvecgf2 > proof;
+	return MIN_CYCLE_BASIS_DEPINA( g, mcb, proof, enumb );
 }
 
 
 
+#line 2672 "MIN_CYCLE_BASIS.lw"
 // lists version with proof
 int MIN_CYCLE_BASIS_DEPINA( const graph& g,
-                            array< list<edge> >& mcb,
-                            array< list<edge> >& proof) { 
-        array< d_int_set > mcb_temp, proof_temp;
-        edge_num enumb( g );
-        int w = MIN_CYCLE_BASIS_DEPINA( g, mcb_temp, proof_temp, enumb );
-        MCB_output_basis( g, mcb_temp, enumb, mcb );
-        MCB_output_basis( g, proof_temp, enumb, proof );
-        return w;
+			    array< list<edge> >& mcb,
+			    array< list<edge> >& proof) { 
+	array< d_int_set > mcb_temp, proof_temp;
+	edge_num enumb( g );
+	int w = MIN_CYCLE_BASIS_DEPINA( g, mcb_temp, proof_temp, enumb );
+	MCB_output_basis( g, mcb_temp, enumb, mcb );
+	MCB_output_basis( g, proof_temp, enumb, proof );
+	return w;
 }
 
 // lists version
 int MIN_CYCLE_BASIS_DEPINA( const graph& g,
-                            array< list<edge> >& mcb ) {
-        array< d_int_set > mcb_temp;
-        edge_num enumb( g );
-        int w = MIN_CYCLE_BASIS_DEPINA( g, mcb_temp, enumb );
-        MCB_output_basis( g, mcb_temp, enumb, mcb );
-        return w;
+			    array< list<edge> >& mcb ) {
+	array< d_int_set > mcb_temp;
+	edge_num enumb( g );
+	int w = MIN_CYCLE_BASIS_DEPINA( g, mcb_temp, enumb );
+	MCB_output_basis( g, mcb_temp, enumb, mcb );
+	return w;
 }
 
 
 
+#line 3933 "MIN_CYCLE_BASIS.lw"
 // construct unique paths from v to u
 void MCB_construct_unweighted_paths( const graph& G,
         node_array< node_array<edge> >& pred )
@@ -475,21 +516,23 @@ void MCB_construct_unweighted_paths( const graph& G,
 
 // construct Horton's superset of MCB
 void MCB_construct_superset( const graph& G,
-                sortseq< two_tuple<int,int>, d_int_set >& super, 
-                const edge_num& enumb )
+		sortseq< two_tuple<int,int>, d_int_set >& super, 
+		const edge_num& enumb )
 {
     
-    // initialize
-    d_int_set C;
-    node v,w,u,vz,ezs,ezt; 
-    edge e,ez;
+#line 3833 "MIN_CYCLE_BASIS.lw"
+// initialize
+d_int_set C;
+node v,w,u,vz,ezs,ezt; 
+edge e,ez;
 
-    int c = 0;
-    node_array<int> degree(G,0);
-    node_set touched( G );
-    bool dege;
+int c = 0;
+node_array<int> degree(G,0);
+node_set touched( G );
+bool dege;
 
 
+#line 3961 "MIN_CYCLE_BASIS.lw"
     // construct paths
     node_array< node_array<edge> > pred( G );
     MCB_construct_unweighted_paths( G, pred );
@@ -500,32 +543,34 @@ void MCB_construct_superset( const graph& G,
         // loop - for all edges
         forall_edges( e, G ) { 
             
-            dege = false;
+#line 3853 "MIN_CYCLE_BASIS.lw"
+dege = false;
 
-            w = G.source(e);
-            u = G.target(e);
+w = G.source(e);
+u = G.target(e);
 
-            // valid?
-            if ( v == w || v == u || 
-                 pred[ v ][ w ] == nil || pred[ v ][ u ] == nil ||
-                 pred[ v ][ w ] == e || pred[ v ][ u ] == e || 
-                 pred[ w ][ v ] == e || pred[ u ][ v ] == e ) 
-                    continue;
+// valid?
+if ( v == w || v == u || 
+     pred[ v ][ w ] == nil || pred[ v ][ u ] == nil ||
+     pred[ v ][ w ] == e || pred[ v ][ u ] == e || 
+     pred[ w ][ v ] == e || pred[ u ][ v ] == e ) 
+	continue;
 
-            // try to construct cycle
-            C.clear();
+// try to construct cycle
+C.clear();
 
-            // insert e
-            C.insert( enumb(e) );
-            ezs = G.source( e );
-            ezt = G.target( e );
-            degree[ ezs ]++;
-            degree[ ezt ]++;
-            touched.insert( ezs );
-            touched.insert( ezt );
+// insert e
+C.insert( enumb(e) );
+ezs = G.source( e );
+ezt = G.target( e );
+degree[ ezs ]++;
+degree[ ezt ]++;
+touched.insert( ezs );
+touched.insert( ezt );
 
 
 
+#line 3972 "MIN_CYCLE_BASIS.lw"
             // create two paths
             int en;
             node y,x;
@@ -534,43 +579,49 @@ void MCB_construct_superset( const graph& G,
             if ( v->id() < w->id() ) { y = v; x = w; }
             else { y = w; x = v; }
             
-            while( pred[ y ][ x ] != nil && dege == false ) {
-                    ez = pred[ y ][ x ];
-                    en = enumb( ez );
-                    if ( ! C.member( en ) ) {
-                            C.insert( en );
-                            ezs = G.source( ez );
-                            ezt = G.target( ez );
-                            degree[ ezs ]++;
-                            degree[ ezt ]++;
-                            if ( degree[ ezs ] > 2 || degree[ ezt ] > 2 )
-                                    dege = true;
-                            touched.insert( ezs );
-                            touched.insert( ezt );
-                    }
-                    x = G.opposite( ez, x );
-            }
- 
+#line 3909 "MIN_CYCLE_BASIS.lw"
+while( pred[ y ][ x ] != nil && dege == false ) {
+	ez = pred[ y ][ x ];
+	en = enumb( ez );
+	if ( ! C.member( en ) ) {
+		C.insert( en );
+		ezs = G.source( ez );
+		ezt = G.target( ez );
+		degree[ ezs ]++;
+		degree[ ezt ]++;
+		if ( degree[ ezs ] > 2 || degree[ ezt ] > 2 )
+			dege = true;
+		touched.insert( ezs );
+		touched.insert( ezt );
+	}
+	x = G.opposite( ez, x );
+}
+
+#line 3979 "MIN_CYCLE_BASIS.lw"
+                                                
             if ( v->id() < u->id() ) { y = v; x = u; }
             else { y = u; x = v; }
             
-            while( pred[ y ][ x ] != nil && dege == false ) {
-                    ez = pred[ y ][ x ];
-                    en = enumb( ez );
-                    if ( ! C.member( en ) ) {
-                            C.insert( en );
-                            ezs = G.source( ez );
-                            ezt = G.target( ez );
-                            degree[ ezs ]++;
-                            degree[ ezt ]++;
-                            if ( degree[ ezs ] > 2 || degree[ ezt ] > 2 )
-                                    dege = true;
-                            touched.insert( ezs );
-                            touched.insert( ezt );
-                    }
-                    x = G.opposite( ez, x );
-            }
-   
+#line 3909 "MIN_CYCLE_BASIS.lw"
+while( pred[ y ][ x ] != nil && dege == false ) {
+	ez = pred[ y ][ x ];
+	en = enumb( ez );
+	if ( ! C.member( en ) ) {
+		C.insert( en );
+		ezs = G.source( ez );
+		ezt = G.target( ez );
+		degree[ ezs ]++;
+		degree[ ezt ]++;
+		if ( degree[ ezs ] > 2 || degree[ ezt ] > 2 )
+			dege = true;
+		touched.insert( ezs );
+		touched.insert( ezt );
+	}
+	x = G.opposite( ez, x );
+}
+
+#line 3982 "MIN_CYCLE_BASIS.lw"
+                                                  
 
             // init degree array, and check for degeneracy
             while( touched.empty() == false ) {
@@ -590,125 +641,137 @@ void MCB_construct_superset( const graph& G,
 }
 
 
+#line 4236 "MIN_CYCLE_BASIS.lw"
 int MIN_CYCLE_BASIS_HYBRID( const graph& g,
-                            array< d_int_set >& mcb,
-                            array< d_int_set >& proof,
-                            const edge_num& enumb
-                            ) 
+			    array< d_int_set >& mcb,
+			    array< d_int_set >& proof,
+			    const edge_num& enumb
+			    ) 
 { 
-        #if ! defined(LEDA_CHECKING_OFF)
-                if ( g.is_undirected() == false )
-                        error_handler(999,"MIN_CYCLE_BASIS: illegal graph\
-                                          (directed?)");
-                if ( Is_Undirected_Simple( g ) == false )
-                        error_handler(999,"MIN_CYCLE_BASIS: illegal graph\
-                          (parallel,anti-parallel edges or loops?)");
-        #endif
+	
+#line 2703 "MIN_CYCLE_BASIS.lw"
+#if ! defined(LEDA_CHECKING_OFF)
+	if ( g.is_undirected() == false )
+		error_handler(999,"MIN_CYCLE_BASIS: illegal graph\
+		                  (directed?)");
+	if ( Is_Undirected_Simple( g ) == false )
+		error_handler(999,"MIN_CYCLE_BASIS: illegal graph\
+		  (parallel,anti-parallel edges or loops?)");
+#endif
 
-        int N = enumb.dim_cycle_space();
-        mcb.resize( N ); // set size of destination array
-        proof.resize(N);
+#line 4243 "MIN_CYCLE_BASIS.lw"
+	
+#line 2729 "MIN_CYCLE_BASIS.lw"
+int N = enumb.dim_cycle_space();
+mcb.resize( N ); // set size of destination array
+proof.resize(N);
 
 
 
-        array< d_int_set >& C = mcb;
-        array< d_int_set >& S = proof;
+#line 4245 "MIN_CYCLE_BASIS.lw"
+	array< d_int_set >& C = mcb;
+	array< d_int_set >& S = proof;
 
-        // initialize cycles C and initial sets S's
-        for( int i = 0 ; i < N; i++ ) { S[i].insert( i ); }
+	// initialize cycles C and initial sets S's
+	for( int i = 0 ; i < N; i++ ) { S[i].insert( i ); }
    
-        // construct superset
-        sortseq< two_tuple<int,int> ,d_int_set> super( leda::compare );
-        MCB_construct_superset( g, super, enumb );
-        
+	// construct superset
+	sortseq< two_tuple<int,int> ,d_int_set> super( leda::compare );
+ 	MCB_construct_superset( g, super, enumb );
+	
 #ifdef LEP_STATS
-        static int lep_stats_queries = 0;
-        std::cout << "LEP_STATS: horton set size: " << super.size() << std::endl;
+	static int lep_stats_queries = 0;
+	std::cout << "LEP_STATS: horton set size: " << super.size() << std::endl;
 #endif
-        
-        int min = 0, ret = 0;
-        leda::seq_item s;
-        // start computing cycles
-        for( int k = 0; k < N; k++ ) { 
-                
-                #ifdef LEP_STATS
-                lep_stats_queries++;
-                #endif
-
-                // compute shortest odd cycle
-                s = super.min_item();
-                bool f = false;
-                while ( s != nil ) { 
-                    if ( ( (super[s]).intersect( S[k] ) ).size() % 2 == 1 ) { // is odd
-                        C[k] = super[s];
-                        ret = super.key( s ).first();
-                        super.del_item( s );
-                        f = true; // found
-                        break;
-                    }
-                    s = super.succ( s );
-
-                #ifdef LEP_STATS
-                    lep_stats_queries++;
-                #endif
-                }
-                if ( f == false )
-                    error_handler(999,"MIN_CYCLE_BASIS (HYBRID):\
-                            superset contains no MCB :(");
-                min += ret;
-
-                
-                for( int l = k+1; l < N; l++ )   {
-                    // cycles are smaller than sets, thus it is better
-                    // to intersect C and S than S and C
-                    if ( (C[k].intersect(S[l])).size() %2 == 1 )   {
-                        S[ l ] %= S[k];
-                    }
-                }
-
-        }
-
+	
+   	int min = 0, ret = 0;
+	leda::seq_item s;
+   	// start computing cycles
+   	for( int k = 0; k < N; k++ ) { 
+		
+#line 4094 "MIN_CYCLE_BASIS.lw"
 #ifdef LEP_STATS
-        std::cout << "LEP_STATS: horton set queries: " << lep_stats_queries << std::endl;
+lep_stats_queries++;
 #endif
 
-        return min;
+// compute shortest odd cycle
+s = super.min_item();
+bool f = false;
+while ( s != nil ) { 
+    if ( ( (super[s]).intersect( S[k] ) ).size() % 2 == 1 ) { // is odd
+	C[k] = super[s];
+	ret = super.key( s ).first();
+	super.del_item( s );
+	f = true; // found
+	break;
+    }
+    s = super.succ( s );
+
+#ifdef LEP_STATS
+    lep_stats_queries++;
+#endif
+}
+if ( f == false )
+    error_handler(999,"MIN_CYCLE_BASIS (HYBRID):\
+	    superset contains no MCB :(");
+min += ret;
+
+#line 4265 "MIN_CYCLE_BASIS.lw"
+		
+#line 2840 "MIN_CYCLE_BASIS.lw"
+for( int l = k+1; l < N; l++ )   {
+    // cycles are smaller than sets, thus it is better
+    // to intersect C and S than S and C
+    if ( (C[k].intersect(S[l])).size() %2 == 1 )   {
+	S[ l ] %= S[k];
+    }
+}
+
+#line 4266 "MIN_CYCLE_BASIS.lw"
+   	}
+
+#ifdef LEP_STATS
+	std::cout << "LEP_STATS: horton set queries: " << lep_stats_queries << std::endl;
+#endif
+
+   	return min;
 }
 
 int MIN_CYCLE_BASIS_HYBRID( const graph& g,
-                            array< d_int_set >& mcb,
-                            const edge_num& enumb
-                            )
+			    array< d_int_set >& mcb,
+			    const edge_num& enumb
+			    )
 {
-        array< d_int_set > proof_temp;
-        return MIN_CYCLE_BASIS_HYBRID( g, mcb, proof_temp, enumb );
+	array< d_int_set > proof_temp;
+	return MIN_CYCLE_BASIS_HYBRID( g, mcb, proof_temp, enumb );
 }
 
 int MIN_CYCLE_BASIS_HYBRID( const graph& g,
-                            array< list<edge> >& mcb,
-                            array< list<edge> >& proof
-                            )
+			    array< list<edge> >& mcb,
+			    array< list<edge> >& proof
+			    )
 {
-        array< d_int_set > mcb_temp, proof_temp;
-        edge_num enumb( g );
-        int min = MIN_CYCLE_BASIS_HYBRID( g, mcb_temp, proof_temp, enumb );
-        MCB_output_basis( g, mcb_temp, enumb, mcb );
-        MCB_output_basis( g, mcb_temp, enumb, proof );
-        return min;
+	array< d_int_set > mcb_temp, proof_temp;
+	edge_num enumb( g );
+	int min = MIN_CYCLE_BASIS_HYBRID( g, mcb_temp, proof_temp, enumb );
+	MCB_output_basis( g, mcb_temp, enumb, mcb );
+	MCB_output_basis( g, mcb_temp, enumb, proof );
+	return min;
 }
 
 int MIN_CYCLE_BASIS_HYBRID( const graph& g,
-                            array< list<edge> >& mcb
-                            )
+			    array< list<edge> >& mcb
+			    )
 {
-        array< d_int_set > mcb_temp, proof_temp;
-        edge_num enumb( g );
-        int min = MIN_CYCLE_BASIS_HYBRID( g, mcb_temp, proof_temp, enumb );
-        MCB_output_basis( g, mcb_temp, enumb, mcb );
-        return min;
+	array< d_int_set > mcb_temp, proof_temp;
+	edge_num enumb( g );
+	int min = MIN_CYCLE_BASIS_HYBRID( g, mcb_temp, proof_temp, enumb );
+	MCB_output_basis( g, mcb_temp, enumb, mcb );
+	return min;
 }
 
 
+#line 4312 "MIN_CYCLE_BASIS.lw"
 void swap( d_int_set& a, d_int_set& b ) { 
     d_int_set tmp = a;
     a = b;
@@ -717,8 +780,10 @@ void swap( d_int_set& a, d_int_set& b ) {
 
 
 
+#line 2238 "MIN_CYCLE_BASIS.lw"
 } // namespace mcb end
 
+#line 6217 "MIN_CYCLE_BASIS.lw"
 /* ex: set ts=8 sw=4 sts=4 noet: */
 
 

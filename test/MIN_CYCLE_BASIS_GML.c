@@ -1,7 +1,8 @@
+#line 6220 "MIN_CYCLE_BASIS.lw"
 //---------------------------------------------------------------------
 // File automatically generated using notangle from DMIN_CYCLE_BASIS.lw
 //
-// mails and bugs: Dimitrios Michail <dimitrios.michail@gmail.com>
+// emails and bugs: Dimitrios Michail <dimitrios.michail@gmail.com>
 //---------------------------------------------------------------------
 //
 // This program can be freely used in an academic environment
@@ -33,6 +34,7 @@
 // Copyright (C) 2004-2005 - Dimitrios Michail
 
 
+#line 4888 "MIN_CYCLE_BASIS.lw"
 #include <iostream>
 #include <LEP/mcb/min_cycle_basis.h>
 
@@ -53,31 +55,32 @@ using namespace leda;
 // Output the time taken
 int main() { 
 
-        // initialize Graph
-        graph G;
-        
-        // create parser and read from standard input
-        gml_graph parser( G );
-        if ( parser.parse( std::cin ) == false ) return -1;
-        
-        // execute
-        float T,T1;
-        
-        leda::used_time( T ); // start time
-        
-        mcb::edge_num enumb( G );
-        array< mcb::spvecgf2 > mcb;
-        array< mcb::spvecgf2 > proof;
+	// initialize Graph
+	graph G;
+	
+	// create parser and read from standard input
+	gml_graph parser( G );
+	if ( parser.parse( std::cin ) == false ) return -1;
+	
+	// execute
+	float T,T1;
+	
+	leda::used_time( T ); // start time
+	
+	mcb::edge_num enumb( G );
+	array< mcb::spvecgf2 > mcb;
+	array< mcb::spvecgf2 > proof;
 
-        mcb::MIN_CYCLE_BASIS_DEPINA( G, mcb, proof, enumb );
+	mcb::MIN_CYCLE_BASIS_DEPINA( G, mcb, proof, enumb );
 
-        T1 = leda::used_time( T ); // finish time
-        
-        std::cout << T1;
+	T1 = leda::used_time( T ); // finish time
+	
+	std::cout << T1;
 
-        return 0;
+	return 0;
 }
 
+#line 6217 "MIN_CYCLE_BASIS.lw"
 /* ex: set ts=8 sw=4 sts=4 noet: */
 
 

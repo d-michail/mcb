@@ -1,8 +1,9 @@
 
+#line 6220 "MIN_CYCLE_BASIS.lw"
 //---------------------------------------------------------------------
 // File automatically generated using notangle from DMIN_CYCLE_BASIS.lw
 //
-// mails and bugs: Dimitrios Michail <dimitrios.michail@gmail.com>
+// emails and bugs: Dimitrios Michail <dimitrios.michail@gmail.com>
 //---------------------------------------------------------------------
 //
 // This program can be freely used in an academic environment
@@ -34,6 +35,7 @@
 // Copyright (C) 2004-2005 - Dimitrios Michail
 
 
+#line 1120 "MIN_CYCLE_BASIS.lw"
 /*! \file spvecgf2.c
  *  \brief Implementation of sparse vector.
  */
@@ -43,6 +45,7 @@
 namespace mcb { 
 
 
+#line 1432 "MIN_CYCLE_BASIS.lw"
     //default constructor
     spvecgf2::spvecgf2(  ) { }
     
@@ -56,6 +59,7 @@ namespace mcb {
     }
 
 
+#line 1452 "MIN_CYCLE_BASIS.lw"
     // assign a vector to the current vector
     spvecgf2& spvecgf2::operator=( const spvecgf2& i )
     {
@@ -209,24 +213,24 @@ namespace mcb {
 
             if ( index > aindex )
             {
-                l.insert( a.l.contents( ait ), it, leda::before );
+		l.insert( a.l.contents( ait ), it, leda::before );
                 ait = a.succ( ait );
             } else if ( index < aindex )
             {
-                // don't add until index > aindex
+		// don't add until index > aindex
                 it = l.succ( it );
             } else if ( index == aindex ) {
-                // delete item from list
-                list_item itn = l.succ(it);
-                l.erase( it );
-                it = itn;
+		// delete item from list
+		list_item itn = l.succ(it);
+		l.erase( it );
+		it = itn;
                 ait = a.succ( ait );
             }
         }
 
         // append remaining stuff
         while ( ait != nil ) {
-            l.append( a.l.contents( ait ) );
+	    l.append( a.l.contents( ait ) );
             ait = a.succ( ait );
         }
     }
@@ -268,6 +272,7 @@ namespace mcb {
     }
 
 
+#line 1672 "MIN_CYCLE_BASIS.lw"
     // transform to d_int_set
     d_int_set spvecgf2::to_d_int_set() const {
         d_int_set S;
@@ -293,14 +298,15 @@ namespace mcb {
 
     // swap
     void spvecgf2::swap( spvecgf2& a ) { 
-        l.swap( a.l );
+	l.swap( a.l );
     }
 
     // helper function
     void swap( spvecgf2& a, spvecgf2& b ) { 
-        a.swap(b);
+	a.swap(b);
     }
  
+#line 1713 "MIN_CYCLE_BASIS.lw"
     
     // append an entry
     // no checking is done to ensure short order
@@ -317,41 +323,43 @@ appending on spvecgf2: out-of-bounds" );
 
     std::ostream& operator<<( std::ostream& o, const spvecgf2& v )
     {
-        if ( v.size() > 0 ) o << "(" << v.size() << ") ";
+	if ( v.size() > 0 ) o << "(" << v.size() << ") ";
         v.print( o );
         return o;
     }
 
     std::istream& operator>>( std::istream& o, spvecgf2& v ) { 
-        v.clear();
+	v.clear();
 
-        char c;
-        int size, el, max = 0;
-        bool max_defined = false;
+	char c;
+	int size, el, max = 0;
+	bool max_defined = false;
 
-        o >> c >> size >> c;
-        if ( size > 0 ) {
-            for( int i = 0; i < size; i++ ) { 
-                o >> el;
-                if ( max_defined == false ) { 
-                    max = el; max_defined = true;
-                }
-                else { 
-                    if ( el <= max ) { 
-                        leda::error_handler(999,"spvecgf2: entries not in increasing order!");
-                    }
-                    else 
-                        max = el; 
-                }
-                v.append( el );
-            }
-        }
-        return o;
+	o >> c >> size >> c;
+	if ( size > 0 ) {
+	    for( int i = 0; i < size; i++ ) { 
+		o >> el;
+		if ( max_defined == false ) { 
+		    max = el; max_defined = true;
+		}
+		else { 
+		    if ( el <= max ) { 
+			leda::error_handler(999,"spvecgf2: entries not in increasing order!");
+		    }
+		    else 
+			max = el; 
+		}
+		v.append( el );
+	    }
+	}
+	return o;
     }
 
 
+#line 1130 "MIN_CYCLE_BASIS.lw"
 } // end namespace mcb
 
+#line 6217 "MIN_CYCLE_BASIS.lw"
 /* ex: set ts=8 sw=4 sts=4 noet: */
 
 

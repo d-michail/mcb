@@ -1,7 +1,8 @@
+#line 6220 "MIN_CYCLE_BASIS.lw"
 //---------------------------------------------------------------------
 // File automatically generated using notangle from DMIN_CYCLE_BASIS.lw
 //
-// mails and bugs: Dimitrios Michail <dimitrios.michail@gmail.com>
+// emails and bugs: Dimitrios Michail <dimitrios.michail@gmail.com>
 //---------------------------------------------------------------------
 //
 // This program can be freely used in an academic environment
@@ -33,6 +34,7 @@
 // Copyright (C) 2004-2005 - Dimitrios Michail
 
 
+#line 395 "MIN_CYCLE_BASIS.lw"
 /*! \file mcb.h
  *  \brief General LEP interface.
  */
@@ -76,6 +78,7 @@
  *  This package has been tested on the following platforms:
  *  -# gcc 3.x under Linux, SunOS 5.9, Cygwin
  *  -# bcc32 5.5 under Windows
+ *  -# Visual Studio .NET 2003
  *
  *  but it may work on others too.
  *
@@ -105,21 +108,24 @@
  *
  *  \section news_sec News
  * 
+ *  - 30 March 2006: v0.6 released
+ *      - Support for Microsoft VC++ 7.1 compiler
  *  - 27 Oct 2005: v0.5 released
- *      - Speed improvements.
- *      - Build system improvements.
+ *	- Speed improvements.
+ *	- Build system improvements.
  *  - 30 June 2005: v0.4 released
- *      - The code now is by default compiled with -O2 optimization flag.
- *      - Minor fixes.
+ *	- The code now is by default compiled with -O2 optimization flag.
+ *	- Minor fixes.
  *  - 30 May 2005: v0.3 released
- *      - Added algorithm for the directed case, still in BETA phase.
- *      - Improved support for LEDA 5.0, including support on windows platform.
+ *	- Added algorithm for the directed case, still in BETA phase.
+ *	- Improved support for LEDA 5.0, including support on windows platform.
  *  - 21 Mar 2005: v0.2 released
- *      - minor changes in demo program.
+ *	- minor changes in demo program.
  *  - 24 Feb 2005: v0.1 released
  *
  *  \section down_sec Download
  *
+ *  - Source package (v0.6). [<a href="../mcb-0.6.tar.gz">tar.gz</a>]
  *  - Source package (v0.5). [<a href="../mcb-0.5.tar.gz">tar.gz</a>]
  *  - Source package (v0.4). [<a href="../mcb-0.4.tar.gz">tar.gz</a>]
  *  - Source package (v0.3). [<a href="../mcb-0.3.tar.gz">tar.gz</a>]
@@ -132,27 +138,27 @@
  *  #include <LEP/mcb/min_cycle_basis.h>
  *  int main() {
  *
- *      leda::graph G;
+ *	leda::graph G;
  *
- *      // construct simple, loopfree, undirected graph G 
+ *	// construct simple, loopfree, undirected graph G 
  *
- *      leda::edge_array<int> len(G, 1);
+ *	leda::edge_array<int> len(G, 1);
  *
- *      // fill up non-negative edge lengths 
+ *	// fill up non-negative edge lengths 
  *
- *      mcb::edge_num enumb( G );
- *      leda::array< mcb::spvecgf2 > mcb;
- *      int weight = mcb::MIN_CYCLE_BASIS_DEPINA( G, len, mcb, enumb ); 
+ *	mcb::edge_num enumb( G );
+ *	leda::array< mcb::spvecgf2 > mcb;
+ *	int weight = mcb::MIN_CYCLE_BASIS_DEPINA( G, len, mcb, enumb ); 
  *
- *      int i,j;
- *      leda::edge e;
- *      for( i = 0; i < enumb.dim_cycle_space(); i++ ) {
- *              forall( j, mcb[i] ) { // traverse edges of i-th cycle
- *                      e = enumb( j );
+ *	int i,j;
+ *	leda::edge e;
+ *	for( i = 0; i < enumb.dim_cycle_space(); i++ ) {
+ *		forall( j, mcb[i] ) { // traverse edges of i-th cycle
+ *			e = enumb( j );
  *
- *                      // do something with edge e 
- *              }
- *      }
+ *			// do something with edge e 
+ *		}
+ *	}
  *  } 
  *  \endcode
  *
@@ -215,10 +221,10 @@ W MCB( const leda::graph& g, const leda::edge_array<W>& len,
        leda::array< leda::list<leda::edge> >& mcb, double errorp=0.375 ) 
 {
     if ( g.is_undirected() ) { // undirected graph
-        return MIN_CYCLE_BASIS_DEPINA( g, len, mcb );
+	return MIN_CYCLE_BASIS_DEPINA( g, len, mcb );
     }
     else { // directed graph
-        return DIR_MIN_CYCLE_BASIS( g, len, mcb, errorp );
+	return DIR_MIN_CYCLE_BASIS( g, len, mcb, errorp );
     }
 }
 
@@ -246,11 +252,11 @@ W MCB( const leda::graph& g, const leda::edge_array<W>& len,
 int MCB( const graph& g, array< list<edge> >& mcb, double errorp = 0.375 ) 
 {
     if ( g.is_undirected() ) { // undirected graph
-        return MIN_CYCLE_BASIS_DEPINA( g, mcb );
+	return MIN_CYCLE_BASIS_DEPINA( g, mcb );
     }
     else { // directed graph
-        leda::edge_array<int> len( g, 1);
-        return DIR_MIN_CYCLE_BASIS( g, len, mcb, errorp );
+	leda::edge_array<int> len( g, 1);
+	return DIR_MIN_CYCLE_BASIS( g, len, mcb, errorp );
     }
 }
     
@@ -259,6 +265,7 @@ int MCB( const graph& g, array< list<edge> >& mcb, double errorp = 0.375 )
 
 #endif  // MCB_H
 
+#line 6217 "MIN_CYCLE_BASIS.lw"
 /* ex: set ts=8 sw=4 sts=4 noet: */
 
 

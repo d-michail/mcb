@@ -1,7 +1,8 @@
+#line 6220 "MIN_CYCLE_BASIS.lw"
 //---------------------------------------------------------------------
 // File automatically generated using notangle from DMIN_CYCLE_BASIS.lw
 //
-// mails and bugs: Dimitrios Michail <dimitrios.michail@gmail.com>
+// emails and bugs: Dimitrios Michail <dimitrios.michail@gmail.com>
 //---------------------------------------------------------------------
 //
 // This program can be freely used in an academic environment
@@ -33,6 +34,7 @@
 // Copyright (C) 2004-2005 - Dimitrios Michail
 
 
+#line 8397 "MIN_CYCLE_BASIS.lw"
 #include <iostream>
 #include <LEP/mcb/dir_min_cycle_basis.h>
 
@@ -72,41 +74,41 @@ void run_and_display(GraphWin& gw) {
     double errorp = 0.1;
 
     int w = mcb::DIR_MIN_CYCLE_BASIS<int>( G, \
-            cost, mcb, proof, enumb, errorp );
+	    cost, mcb, proof, enumb, errorp );
 
     if ( DMCB_verify_basis( G, enumb, mcb, proof ) == false ) 
-        leda::error_handler(999,"MIN_CYCLE_BASIS: result is not a cycle basis");
+	leda::error_handler(999,"MIN_CYCLE_BASIS: result is not a cycle basis");
 
     // assign labels to edges: num( weight )
     forall_edges(e,G) {
-        gw.set_color( e, black );
-        gw.set_label(e,string("%d (%d)", enumb(e), cost[e] ));
+	gw.set_color( e, black );
+	gw.set_label(e,string("%d (%d)", enumb(e), cost[e] ));
     }
 
     // set edges of spanning tree as red
     forall_edges( e , G )
-        if ( enumb.tree(e) )
-            gw.set_color( e, red );
+	if ( enumb.tree(e) )
+	    gw.set_color( e, red );
 
     if ( N > 0 ) {
-        // print cycles
-        std::cout << "*** DIRECTED MINIMUM CYCLE BASIS ***" << std::endl;
-        std::cout << "Total weight = " << w << std::endl;
-        for( int i = 0; i < N; i++ ) {
-            std::cout << "cycle " << i+1;
-            std::cout << " : "; 
-            
-            list_item it = mcb[i].first();
-            while( it != nil ) { 
-                std::cout << ( ( mcb[i].inf( it ) == -1 )? "(-)":"" );
-                std::cout << mcb[i].index( it ) - 1; 
+	// print cycles
+	std::cout << "*** DIRECTED MINIMUM CYCLE BASIS ***" << std::endl;
+	std::cout << "Total weight = " << w << std::endl;
+	for( int i = 0; i < N; i++ ) {
+	    std::cout << "cycle " << i+1;
+	    std::cout << " : "; 
+	    
+	    list_item it = mcb[i].first();
+	    while( it != nil ) { 
+		std::cout << ( ( mcb[i].inf( it ) == -1 )? "(-)":"" );
+		std::cout << mcb[i].index( it ) - 1; 
 
-                it = mcb[i].succ( it );
-                if ( it != nil ) std::cout << " ";
-            }
-            
-            std::cout  << std::endl;
-        }
+		it = mcb[i].succ( it );
+		if ( it != nil ) std::cout << " ";
+	    }
+	    
+	    std::cout  << std::endl;
+	}
     }
 
     gw.set_flush(flush);
@@ -128,10 +130,10 @@ void del_node_handler(GraphWin& gw) { run_and_display(gw); }
 void init_graph_handler( GraphWin &gw ) {
     edge e;
     forall_edges(e,G) {
-        if ( Gcost[e] == 0 ) { 
-            Gcost[e] = rand_int(1, 10);
-        }
-        gw.set_slider_value(e,Gcost[e]/100.0,1);
+	if ( Gcost[e] == 0 ) { 
+	    Gcost[e] = rand_int(1, 10);
+	}
+	gw.set_slider_value(e,Gcost[e]/100.0,1);
     }
     run_and_display(gw);
 }
@@ -183,6 +185,7 @@ int main()
     return 0;
 }
 
+#line 6217 "MIN_CYCLE_BASIS.lw"
 /* ex: set ts=8 sw=4 sts=4 noet: */
 
 

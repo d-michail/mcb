@@ -1,7 +1,8 @@
+#line 6220 "MIN_CYCLE_BASIS.lw"
 //---------------------------------------------------------------------
 // File automatically generated using notangle from DMIN_CYCLE_BASIS.lw
 //
-// mails and bugs: Dimitrios Michail <dimitrios.michail@gmail.com>
+// emails and bugs: Dimitrios Michail <dimitrios.michail@gmail.com>
 //---------------------------------------------------------------------
 //
 // This program can be freely used in an academic environment
@@ -33,6 +34,7 @@
 // Copyright (C) 2004-2005 - Dimitrios Michail
 
 
+#line 6081 "MIN_CYCLE_BASIS.lw"
 /*! \file dir_min_cycle_basis.h
  *  \brief Algorithms for directed MCB.
  *
@@ -52,24 +54,24 @@
  *  The solution of a minimum cycle basis problem can be in the following three forms.
  *  - A pair (mcb, proof) where both are arrays of mcb::spvecfp. A mcb::spvecfp is a 
  *        wrapper around Leda's list datatype. Each element in this list, is a 
- *        two_tuple<long,integer>, where the first argument is its index \f$(1 \dots m)\f$ and
- *        the second is in case of mcb a value of  \f${\pm}1\f$ where positive is an arbitrary 
- *        direction of traversing the cycle and in case of proof a value in \f$Z_p\f$ for 
- *        some prime number \f$p\f$. 
- *        Each index represents an edge.<br> 
+ *	  two_tuple<long,integer>, where the first argument is its index \f$(1 \dots m)\f$ and
+ *	  the second is in case of mcb a value of  \f${\pm}1\f$ where positive is an arbitrary 
+ *	  direction of traversing the cycle and in case of proof a value in \f$Z_p\f$ for 
+ *	  some prime number \f$p\f$. 
+ *	  Each index represents an edge.<br> 
  *        <b>NOTE: index \f$i\f$ represents edge \f$i-1\f$</b>.<br>
- *        The number of an edge can be found by the edge numbering, edge_num.
+ *	  The number of an edge can be found by the edge numbering, edge_num.
  *  - A solution mcb which is an array of list of edges, list<edge>.
  *        Each element of this array represents a cycle of the minimum cycle basis.
  *  - A solution mcb which is an array of arrays of mcb::etype (currently short ints), 
- *        array<mcb::etype>.
+ *	  array<mcb::etype>.
  *        Each element of this array represents a cycle of the minimum cycle basis.
- *        Each entry \f$i\f$ of the array is \f$0\f$ or \f${\pm}1\f$, based on whether the edge \f$e\f$ with 
- *        number \f$i\f$ ( enumb(e) = i ) belongs to the cycle and if yes in which direction
- *        compared with an arbitrary direction of traversing the cycle.
+ *	  Each entry \f$i\f$ of the array is \f$0\f$ or \f${\pm}1\f$, based on whether the edge \f$e\f$ with 
+ *	  number \f$i\f$ ( enumb(e) = i ) belongs to the cycle and if yes in which direction
+ *	  compared with an arbitrary direction of traversing the cycle.
  *
  *  The whole package is protected using a namespace called "mcb", and therefore using 
- *  anything requires <b>mcb::xxx</b> or the <b>using namespace mcb</b> directive.
+ *  anything requires <b>mcb::xx</b> or the <b>using namespace mcb</b> directive.
  * 
  *  \sa mcb::spvecfp
  */
@@ -125,33 +127,35 @@ using leda::four_tuple;
 #endif
 
 
+#line 6256 "MIN_CYCLE_BASIS.lw"
 // from sparse vector to list of edges
 void spvecfp_to_list_edges( const graph& g, const edge_num& enumb, 
-        const spvecfp& in, list<edge>& out ); 
+	const spvecfp& in, list<edge>& out ); 
 
 // from sparse vector to array of integers
 void spvecfp_to_array_ints( const graph& g, const edge_num& enumb,
-        const ptype& p, const spvecfp& in, array<etype>& out );
+	const ptype& p, const spvecfp& in, array<etype>& out );
 
 // verify that a sparse vector represents a cycle
 bool DMCB_verify_cycle( const graph& g, 
-        const edge_num& enumb,
-        const spvecfp& cycle );
+	const edge_num& enumb,
+	const spvecfp& cycle );
 
 // check that all cycles of an array are indeed cycles
 // precondition, cycles array is C style [0..size-1]
 bool DMCB_verify_cycles( const graph& g,
-        const edge_num& enumb,
-        const array< spvecfp >& cycles );
+	const edge_num& enumb,
+	const array< spvecfp >& cycles );
 
 // check that set of cycles are really a Basis
 bool DMCB_verify_basis( const graph& g,
-        const edge_num& enumb,
-        const array< spvecfp >& B,
-        const array< spvecfp >& X ); 
+	const edge_num& enumb,
+	const array< spvecfp >& B,
+	const array< spvecfp >& X ); 
 
 
 
+#line 6723 "MIN_CYCLE_BASIS.lw"
 // defines for SSitem
 #define mcb_revi() first()
 #define mcb_dist() second()
@@ -176,35 +180,36 @@ class dirsp {
     public:
 
 
+#line 6755 "MIN_CYCLE_BASIS.lw"
     // constructor
     dirsp( const graph& g, const edge_array<T>& length , 
-            const PT& pin, const edge_num& en ) : 
-        n(g.number_of_nodes()), 
-        m(g.number_of_edges()), 
-        p( pin ), 
-        G( g ),
-        len ( length ),
-        enumb( en ),
-        SS( mcb::compare ),
-        cycle ( m ),
-        nodeid( g ), 
-        marked( g, 0 ),
-        Xe( g )
-    {   
-        // give a numbering to the nodes
-        indextype i = 0; 
-        node v;
-        forall_nodes( v, g ) { 
-            nodeid[ v ] = i;
-            i++;
-        }
+	    const PT& pin, const edge_num& en ) : 
+	n(g.number_of_nodes()), 
+	m(g.number_of_edges()), 
+	p( pin ), 
+	G( g ),
+	len ( length ),
+	enumb( en ),
+	SS( mcb::compare ),
+	cycle ( m ),
+	nodeid( g ), 
+	marked( g, 0 ),
+	Xe( g )
+    {	
+	// give a numbering to the nodes
+	indextype i = 0; 
+	node v;
+	forall_nodes( v, g ) { 
+	    nodeid[ v ] = i;
+	    i++;
+	}
     }
 
     // reinitialize with different p
     // used for execution on same graph but different p
     // in order to reduce error probability
     void reinit( const PT& pin ) { 
-        p = pin;
+	p = pin;
     }
 
     // destructor
@@ -212,237 +217,249 @@ class dirsp {
     }
 
 
+#line 6807 "MIN_CYCLE_BASIS.lw"
     // compute shortest cycle
     spvecfp get_shortest_cycle( const spvecfp& X , T& weight ) { 
 
-        // create X, on edge index
-        fill_X( X );
+	// create X, on edge index
+	fill_X( X );
 
-        // run shortest paths
-        weight = run_shortest_paths();
+	// run shortest paths
+	weight = run_shortest_paths();
 
-        // construct sparse vector from cycle
-        spvecfp ret( m, p );
-        for( indextype i = 0; i < m; i++ ) { 
-            if ( cycle[ i ] != 0 ) { 
-                ret.append( i + 1 , cycle[i] ); 
-            }
-        }
+	// construct sparse vector from cycle
+	spvecfp ret( m, p );
+	for( indextype i = 0; i < m; i++ ) { 
+	    if ( cycle[ i ] != 0 ) { 
+		ret.append( i + 1 , cycle[i] );	
+	    }
+	}
 
-        return ret;
+	return ret;
     }
 
     private:
 
     // get X on edge index, by spvecfp
     void fill_X( const spvecfp& X ) { 
-        edge e;
-        forall_edges( e, G ) 
-            Xe[ e ] = 0;
+	edge e;
+	forall_edges( e, G ) 
+	    Xe[ e ] = 0;
 
-        list_item li = X.first();
-        while( li != nil ) { 
-            // note: spvecfp is indexed on 1..m
-            //       but enumb on 0..m-1
-            Xe[ enumb( X.index( li ) - 1 ) ] = X.inf( li ) ;
-            li = X.succ( li );
-        }
+	list_item li = X.first();
+	while( li != nil ) { 
+	    // note: spvecfp is indexed on 1..m
+	    //       but enumb on 0..m-1
+	    Xe[ enumb( X.index( li ) - 1 ) ] = X.inf( li ) ;
+	    li = X.succ( li );
+	}
     }
 
 
+#line 6851 "MIN_CYCLE_BASIS.lw"
     // record a cycle, by traversing pred array
     void record_cycle( const PT& t, array< etype >& cyc ) { 
-        cyc.init( 0 );
+	cyc.init( 0 );
 
-        PT cur = t;
-        seq_item sicur = SS.lookup( cur );
-        node u;
-        edge e;
-        while( SS[ sicur ].mcb_pred().mcb_edge() != nil ) { 
+	PT cur = t;
+	seq_item sicur = SS.lookup( cur );
+	node u;
+	edge e;
+	while( SS[ sicur ].mcb_pred().mcb_edge() != nil ) { 
 
-            u = SS[ sicur ].mcb_pred().mcb_other_node();
-            e = SS[ sicur ].mcb_pred().mcb_edge();
-            if ( u == G.target( e ) ) { // give + direction
-                cyc[ enumb( e ) ] = 1;
-            }
-            else { // give - direction
-                cyc[ enumb( e ) ] = -1;
-            }
+	    u = SS[ sicur ].mcb_pred().mcb_other_node();
+	    e = SS[ sicur ].mcb_pred().mcb_edge();
+	    if ( u == G.target( e ) ) { // give + direction
+		cyc[ enumb( e ) ] = 1;
+	    }
+	    else { // give - direction
+		cyc[ enumb( e ) ] = -1;
+	    }
 
-            cur = SS[ sicur ].mcb_pred().mcb_other_node_index();
-            sicur = SS.lookup( cur );
-        }
+	    cur = SS[ sicur ].mcb_pred().mcb_other_node_index();
+	    sicur = SS.lookup( cur );
+	}
     }
 
 
+#line 6883 "MIN_CYCLE_BASIS.lw"
     // get the index of a node in the reverse index of the PQ
     inline PT get_revi_index( const node& v, const PT& level ) { 
-        return level * n + nodeid[ v ];
+	return level * n + nodeid[ v ];
     }
 
 
+#line 6899 "MIN_CYCLE_BASIS.lw"
     // init used data structures
     void init_used_dijkstra() { 
-        // init marked
-        while( marked_touched.empty() == false ) 
-            marked[ marked_touched.pop() ] = 0;
+	// init marked
+	while( marked_touched.empty() == false ) 
+	    marked[ marked_touched.pop() ] = 0;
 
-        // init all nodes reached by SP
-        SS.clear();
+	// init all nodes reached by SP
+	SS.clear();
 
-        // clear priority queue
-        PQ.clear();
+	// clear priority queue
+	PQ.clear();
     }
 
 
+#line 6972 "MIN_CYCLE_BASIS.lw"
     // execute the shortest paths
     T run_shortest_paths( ) { 
 
-        T minall = T(0);
-        indextype minall_num_edges = 0;
-        bool is_minall_inf = true;
+	T minall = T(0);
+	indextype minall_num_edges = 0;
+	bool is_minall_inf = true;
 
 
-        node v; 
-        forall_nodes( v, G ) { // do n shortest paths
+#line 6991 "MIN_CYCLE_BASIS.lw"
+	node v; 
+	forall_nodes( v, G ) { // do n shortest paths
 
-            T min = T(0);
-            indextype min_num_edges = 0;
-            bool is_min_inf = true;
+	    T min = T(0);
+	    indextype min_num_edges = 0;
+	    bool is_min_inf = true;
 
-            // add source vertex to PQ
-            PT vi = get_revi_index( v, 0 );
-            SS.insert( vi , 
-                    SSitem( PQ.insert( T(0) , pnode( v, 0 ) ),
-                        T( 0 ),
-                        0,
-                        preditem( nil, 0 , nil )
-                        ) 
-                    );
-
-
-            // do shortest path
-            pq_item pqi;
-            node u, w; // nodes
-            PT ul, wl; // levels
-            PT uindex, windex; // index on arrays
-            seq_item siu, siw;
-            edge e;
-            while( PQ.empty() == false ) { 
-                // extract min
-                pqi = PQ.find_min(); 
-                u = PQ[ pqi ].first(); // get vertex
-                ul = PQ[ pqi ].second(); // get level
-                PQ.del_item( pqi );
-
-                // find index of u in level graph
-                uindex = get_revi_index( u, ul );
-                siu = SS.lookup( uindex );
-
-                // check if we are done
-                if ( u == v && ul != 0 ) { 
-                    min = SS[ siu ].mcb_dist();
-                    min_num_edges = SS[ siu ].mcb_num_edges();
-                    is_min_inf = false;
-                    break;
-                }
+	    // add source vertex to PQ
+	    PT vi = get_revi_index( v, 0 );
+	    SS.insert( vi , 
+		    SSitem( PQ.insert( T(0) , pnode( v, 0 ) ),
+			T( 0 ),
+			0,
+			preditem( nil, 0 , nil )
+			) 
+		    );
 
 
-                // check if vertex is too far
-                if ( marked[ u ] >= 2 ) continue;
+#line 7021 "MIN_CYCLE_BASIS.lw"
+	    // do shortest path
+	    pq_item pqi;
+	    node u, w; // nodes
+	    PT ul, wl; // levels
+	    PT uindex, windex; // index on arrays
+	    seq_item siu, siw;
+	    edge e;
+	    while( PQ.empty() == false ) { 
+		// extract min
+		pqi = PQ.find_min(); 
+		u = PQ[ pqi ].first(); // get vertex
+		ul = PQ[ pqi ].second(); // get level
+		PQ.del_item( pqi );
 
-                // increment marked
-                marked[ u ] = marked[ u ] + 1;
-                if ( marked[ u ] == 1 ) marked_touched.append( u );
+		// find index of u in level graph
+		uindex = get_revi_index( u, ul );
+		siu = SS.lookup( uindex );
+
+		// check if we are done
+		if ( u == v && ul != 0 ) { 
+		    min = SS[ siu ].mcb_dist();
+		    min_num_edges = SS[ siu ].mcb_num_edges();
+		    is_min_inf = false;
+		    break;
+		}
 
 
+#line 7059 "MIN_CYCLE_BASIS.lw"
+		// check if vertex is too far
+		if ( marked[ u ] >= 2 ) continue;
 
-                // find neighbors
-                forall_inout_edges( e, u ) { 
-
-                    w = G.opposite( e, u );
-
-                    // find level of w
-                    if ( w == G.target( e ) ) {  // e = u -> w
-                        wl = ( ul + Xe[ e ] ) % p;
-                    }
-                    else { // e = w -> u
-                        wl = ( ul - Xe[ e ] ) % p;
-                    }
-                    while ( wl < 0 ) wl += p; // [-i]_p = [p-i]_p
-
-
-                    // find index in level graph
-                    windex = get_revi_index( w, wl );
-                    siw = SS.lookup( windex );
-
-                    // now update if necessary
-                    T c = SS[ siu ].mcb_dist() + len [ e ];
-                    if ( siw == nil ) { 
-                        // don't insert if more than current minimum
-                        if ( is_minall_inf == false && c > minall )
-                            continue;
-                        // insert ( for now, with some info undetermined )
-                        siw = SS.insert( windex, 
-                                         SSitem( PQ.insert( c, pnode( w , wl ) ), 
-                                         c , 
-                                         0 , 
-                                         preditem( nil, 0, nil ) ) );   
-                    }
-                    else if ( c < SS[ siw ].mcb_dist() ) { 
-                        PQ.decrease_p( SS[ siw ].mcb_revi() , c );
-                    }
-                    else continue;
-
-                    // record changes
-                    SS[ siw ].mcb_dist() = c;
-                    SS[ siw ].mcb_num_edges() = SS[ siu ].mcb_num_edges() + 1;
-                    SS[ siw ].mcb_pred().mcb_edge() = e;
-                    SS[ siw ].mcb_pred().mcb_other_node_index() = uindex;
-                    SS[ siw ].mcb_pred().mcb_other_node() = u;
-                }
-
-            }
+		// increment marked
+		marked[ u ] = marked[ u ] + 1;
+		if ( marked[ u ] == 1 ) marked_touched.append( u );
 
 
 
-            // possible record path
-            if ( is_min_inf == false ) {
-                if ( ( is_minall_inf == true ) ||
-                        ( min < minall ) || 
-                        ( ( min == minall ) && ( min_num_edges < minall_num_edges ) ) 
-                   ) { 
-                    // record new path as better either if it has less weight
-                    // or if the weight is equal and it has less number of edges
+#line 7086 "MIN_CYCLE_BASIS.lw"
+		// find neighbors
+		forall_inout_edges( e, u ) { 
 
-                    // record path to a cycle
-                    record_cycle( get_revi_index( u, ul ), cycle );
-                    minall = min;
-                    minall_num_edges = min_num_edges;
-                    is_minall_inf = false;
-                }
-            }
+		    w = G.opposite( e, u );
 
-            // init touched data
-            init_used_dijkstra();
-        }
+		    // find level of w
+		    if ( w == G.target( e ) ) {  // e = u -> w
+			wl = ( ul + Xe[ e ] ) % p;
+		    }
+		    else { // e = w -> u
+			wl = ( ul - Xe[ e ] ) % p;
+		    }
+		    while ( wl < 0 ) wl += p; // [-i]_p = [p-i]_p
 
-        // now return path found
-        if ( is_minall_inf == true ) 
-            leda::error_handler(999,"MIN_CYCLE_BASIS: no cycle found :(");
 
-        return minall;
+#line 7110 "MIN_CYCLE_BASIS.lw"
+		    // find index in level graph
+		    windex = get_revi_index( w, wl );
+		    siw = SS.lookup( windex );
+
+		    // now update if necessary
+		    T c = SS[ siu ].mcb_dist() + len [ e ];
+		    if ( siw == nil ) { 
+			// don't insert if more than current minimum
+			if ( is_minall_inf == false && c > minall )
+			    continue;
+			// insert ( for now, with some info undetermined )
+			siw = SS.insert( windex, 
+					 SSitem( PQ.insert( c, pnode( w , wl ) ), 
+					 c , 
+					 0 , 
+					 preditem( nil, 0, nil ) ) );	
+		    }
+		    else if ( c < SS[ siw ].mcb_dist() ) { 
+			PQ.decrease_p( SS[ siw ].mcb_revi() , c );
+		    }
+		    else continue;
+
+		    // record changes
+		    SS[ siw ].mcb_dist() = c;
+		    SS[ siw ].mcb_num_edges() = SS[ siu ].mcb_num_edges() + 1;
+		    SS[ siw ].mcb_pred().mcb_edge() = e;
+		    SS[ siw ].mcb_pred().mcb_other_node_index() = uindex;
+		    SS[ siw ].mcb_pred().mcb_other_node() = u;
+		}
+
+	    }
+
+
+
+#line 7163 "MIN_CYCLE_BASIS.lw"
+	    // possible record path
+	    if ( is_min_inf == false ) {
+		if ( ( is_minall_inf == true ) ||
+			( min < minall ) || 
+			( ( min == minall ) && ( min_num_edges < minall_num_edges ) ) 
+		   ) { 
+		    // record new path as better either if it has less weight
+		    // or if the weight is equal and it has less number of edges
+
+		    // record path to a cycle
+		    record_cycle( get_revi_index( u, ul ), cycle );
+		    minall = min;
+		    minall_num_edges = min_num_edges;
+		    is_minall_inf = false;
+		}
+	    }
+
+	    // init touched data
+	    init_used_dijkstra();
+	}
+
+	// now return path found
+	if ( is_minall_inf == true ) 
+	    leda::error_handler(999,"MIN_CYCLE_BASIS: no cycle found :(");
+
+	return minall;
     }
 
 
 
+#line 7198 "MIN_CYCLE_BASIS.lw"
     // data structures
     int n,m;
     PT p;
     const graph& G;
-    const edge_array< T > &len; // edge lengths
-    const edge_num& enumb;      // edge numbering
-    p_queue<T,pnode> PQ;        // priority queue
+    const edge_array< T > &len;	// edge lengths
+    const edge_num& enumb;	// edge numbering
+    p_queue<T,pnode> PQ;       	// priority queue
 
     // sortseq keys on node id of a node in levelg
     // SSitem
@@ -463,10 +480,10 @@ class dirsp {
 
     array< etype > cycle;                // incident vector of cycles, indexed on 
                                          // numbering of edges (enumb(e))
-    node_array< PT > nodeid;             // nodes' ids   of g
+    node_array< PT > nodeid;		 // nodes' ids   of g
     node_array< unsigned short > marked; // marked nodes of g 
     node_list marked_touched;            // touched marked nodes 
-    edge_array< PT > Xe;                 // help set to construct the cycle
+    edge_array< PT > Xe;		 // help set to construct the cycle
 };
 
 // now undefine, all defined stuff for SSitem and preditem
@@ -478,6 +495,7 @@ class dirsp {
 #undef mcb_other_node_index
 #undef mcb_other_node
 
+#line 6294 "MIN_CYCLE_BASIS.lw"
 // W = weight type
 // ptype = type of prime p
 
@@ -524,21 +542,23 @@ W DIR_MIN_CYCLE_BASIS( const graph& g,
     )
 { 
 
+#line 6348 "MIN_CYCLE_BASIS.lw"
 #if ! defined(LEDA_CHECKING_OFF)
     if ( Is_Simple( g ) == false ) 
-        error_handler(999,"MIN_CYCLE_BASIS: illegal graph (non-simple?)");
+	error_handler(999,"MIN_CYCLE_BASIS: illegal graph (non-simple?)");
     if ( Is_Loopfree( g ) == false ) 
-        error_handler(999,"MIN_CYCLE_BASIS: illegal graph (has loops?)");
+	error_handler(999,"MIN_CYCLE_BASIS: illegal graph (has loops?)");
     if ( error <= 0 || error >= 1 ) 
-        error_handler(999,"MIN_CYCLE_BASIS: error probability is out of range");
+	error_handler(999,"MIN_CYCLE_BASIS: error probability is out of range");
 
     edge e1;
     forall_edges( e1 , g ) {
-        if ( len[e1] <= 0 )
-            error_handler(999,"MIN_CYCLE_BASIS: illegal edge (non-positive weight)");
+	if ( len[e1] <= 0 )
+	    error_handler(999,"MIN_CYCLE_BASIS: illegal edge (non-positive weight)");
     }
 #endif
 
+#line 6373 "MIN_CYCLE_BASIS.lw"
     int d = enumb.dim_cycle_space();
 
     // nothing to compute
@@ -551,6 +571,7 @@ W DIR_MIN_CYCLE_BASIS( const graph& g,
     //int n = g.number_of_nodes();
 
 
+#line 6409 "MIN_CYCLE_BASIS.lw"
     // decide how many times to execute the algorithm ( perror <= 3/8 = 0.375 )
     int times = (int) ceil(  log(error)/log(0.375) );
 
@@ -573,92 +594,95 @@ W DIR_MIN_CYCLE_BASIS( const graph& g,
     // loop necessary times, for error probability to be correct
     while( times-- > 0 ) { 
 
-        // pick random prime
-        ptype p;
-        {
-            int logd = log( integer( d + 1 ) );
-            int loglogd = log( integer( logd + 1 ) );
-            int randbits = 7 + 2 * logd + loglogd;
-            int failsafe = 50 * randbits;
-            int count = 0;
+	// pick random prime
+	ptype p;
+	{
+	    int logd = log( integer( d + 1 ) );
+	    int loglogd = log( integer( logd + 1 ) );
+	    int randbits = 7 + 2 * logd + loglogd;
+	    int failsafe = 50 * randbits;
+	    int count = 0;
 
-            while( true ) { 
-                // loop failsafe, increase random bits
-                if ( count++ > failsafe ) { 
-                    randbits++;
-                    failsafe += 50;
-                    count = 0;
-                }
+	    while( true ) { 
+		// loop failsafe, increase random bits
+		if ( count++ > failsafe ) { 
+		    randbits++;
+		    failsafe += 50;
+		    count = 0;
+		}
 
-                // get random number
-                p = ptype::random( randbits );
-                p += d*d;
-                //std::cout << "testing p = " << p << std::endl;
-            
-                // if is > 1 and prime break
-                if ( p > 1 && primes<ptype>::is_prime( p ) ) break;
-            }
-        }
+		// get random number
+		p = ptype::random( randbits );
+		p += d*d;
+		//std::cout << "testing p = " << p << std::endl;
+	    
+		// if is > 1 and prime break
+		if ( p > 1 && primes<ptype>::is_prime( p ) ) break;
+	    }
+	}
 
 #if  defined(LEP_DEBUG_OUTPUT)
-        std::cout << "executing with prime p = " << p << std::endl;
+	std::cout << "executing with prime p = " << p << std::endl;
 #endif
 
-        // initialize shortest path class for this particular prime
-        SP.reinit( p );
+	// initialize shortest path class for this particular prime
+	SP.reinit( p );
 
-        // initialize X_i's and $B_i$'s
-        // assume that $p$ fits in ptype
-        // and $d$ in indextype
-        indextype i,j;
-        for( i = 0; i < d; i++ ) { 
-            X[i] = spvecfp( m , p );
-            X[i] = i + 1;
-            B[i] = spvecfp( m , p );
-            B[i] = 0;
-        }
-
-
-        // now execute main loop
-        spvecfp tmp = spvecfp( m, p );
-        ptype tmpi;
-        W min = W(0);
-        for( i = 0; i < d; i++ ) { 
-
-            // compute B_i
-            W mini;
-            B[i] = SP.get_shortest_cycle( X[i], mini );
-            min += mini;
-
-            // precompute part
-            // NOTE: we do not precompute inverses, since we don't want
-            //       to have a dependency on the maximum size of an 
-            //       array that will store these values
-            //       p is O(d^2 logd) and thus O(logd) to compute inverse
-            //       at most d times, thus O(d logd) = O(m logm) in total
-            tmpi = X[i]*B[i];
-            while( tmpi < 0 ) tmpi += p; // make [-i]_p = [p-i]_p
-            while( tmpi >= p ) tmpi -= p; // make [i+p]_p = [i]_p
-            tmp = X[i] * fp<ptype>::get_mult_inverse( tmpi, p );
-
-            // update sets X_j, j > i
-            for( j = i+1; j < d; j++ ) 
-                X[j] -=  tmp * (B[i] * X[j]) ;
-        }
+#line 6479 "MIN_CYCLE_BASIS.lw"
+	// initialize X_i's and $B_i$'s
+	// assume that $p$ fits in ptype
+	// and $d$ in indextype
+	indextype i,j;
+	for( i = 0; i < d; i++ ) { 
+	    X[i] = spvecfp( m , p );
+	    X[i] = i + 1;
+	    B[i] = spvecfp( m , p );
+	    B[i] = 0;
+	}
 
 
-        // if found better, update
-        if ( ( min_so_far_inf == true ) || 
-                ( min_so_far_inf == false && min < min_so_far ) ) { 
+#line 6510 "MIN_CYCLE_BASIS.lw"
+	// now execute main loop
+	spvecfp tmp = spvecfp( m, p );
+	ptype tmpi;
+	W min = W(0);
+	for( i = 0; i < d; i++ ) { 
+
+	    // compute B_i
+	    W mini;
+	    B[i] = SP.get_shortest_cycle( X[i], mini );
+	    min += mini;
+
+	    // precompute part
+	    // NOTE: we do not precompute inverses, since we don't want
+	    //       to have a dependency on the maximum size of an 
+	    //       array that will store these values
+	    //       p is O(d^2 logd) and thus O(logd) to compute inverse
+	    //       at most d times, thus O(d logd) = O(m logm) in total
+	    tmpi = X[i]*B[i];
+	    while( tmpi < 0 ) tmpi += p; // make [-i]_p = [p-i]_p
+	    while( tmpi >= p ) tmpi -= p; // make [i+p]_p = [i]_p
+	    tmp = X[i] * fp<ptype>::get_mult_inverse( tmpi, p );
+
+	    // update sets X_j, j > i
+	    for( j = i+1; j < d; j++ ) 
+		X[j] -=  tmp * (B[i] * X[j]) ;
+	}
+
+
+#line 6545 "MIN_CYCLE_BASIS.lw"
+	// if found better, update
+	if ( ( min_so_far_inf == true ) || 
+		( min_so_far_inf == false && min < min_so_far ) ) { 
 #if  defined(LEP_DEBUG_OUTPUT)
-            if ( min_so_far_inf == false )
-                std::cout << "found better solution with weight " << min << std::endl;
+	    if ( min_so_far_inf == false )
+		std::cout << "found better solution with weight " << min << std::endl;
 #endif
-            mcb = B;
-            proof = X;
-            min_so_far_inf = false;
-            min_so_far = min;
-        }
+	    mcb = B;
+	    proof = X;
+	    min_so_far_inf = false;
+	    min_so_far = min;
+	}
 
     }
 
@@ -667,6 +691,7 @@ W DIR_MIN_CYCLE_BASIS( const graph& g,
 } // end of DIR_MIN_CYCLE_BASIS
 
 
+#line 6574 "MIN_CYCLE_BASIS.lw"
 /*! \brief Compute a minimum cycle basis of a weighted directed graph.
  * 
  *  The function computes a directed Minimum Cycle Basis \f$B\f$ of \f$g\f$, that 
@@ -710,7 +735,7 @@ W DIR_MIN_CYCLE_BASIS( const graph& g,
 
     // run the general version
     W min = DIR_MIN_CYCLE_BASIS<W>( g, len, mcb_tmp, \
-            proof_tmp, enumb, error );
+	    proof_tmp, enumb, error );
 
     // get p used
     ptype p = proof_tmp[0].pvalue(); 
@@ -718,12 +743,13 @@ W DIR_MIN_CYCLE_BASIS( const graph& g,
     // transform
     mcb.resize( d );
     for ( int i = 0; i < d; i++ )
-        spvecfp_to_array_ints( g, enumb, p, mcb_tmp[i], mcb[i] );       
+	spvecfp_to_array_ints( g, enumb, p, mcb_tmp[i], mcb[i] );	
 
     return min;
 }
 
 
+#line 6638 "MIN_CYCLE_BASIS.lw"
 /*! \brief Compute a minimum cycle basis of a weighted directed graph.
  * 
  *  The function computes a directed Minimum Cycle Basis \f$B\f$ of \f$g\f$, that 
@@ -762,17 +788,18 @@ W DIR_MIN_CYCLE_BASIS( const graph& g,
 
     // run the general version
     W min = DIR_MIN_CYCLE_BASIS<W>( g, len, mcb_tmp, \
-            proof_tmp, enumb, error );
+	    proof_tmp, enumb, error );
 
     // transform
     mcb.resize( d );
     for( int i = 0; i < d; i++ ) 
-        spvecfp_to_list_edges( g, enumb, mcb_tmp[i], mcb[i] );
+	spvecfp_to_list_edges( g, enumb, mcb_tmp[i], mcb[i] );
 
     return min;
 }
 
 
+#line 8037 "MIN_CYCLE_BASIS.lw"
 // from array of integers to sparse vectors
 void array_ints_to_spvecfp( const graph& g, const edge_num& enumb, const ptype &p,
     const array<etype>& in, spvecfp& out ) 
@@ -782,19 +809,21 @@ void array_ints_to_spvecfp( const graph& g, const edge_num& enumb, const ptype &
 
     indextype i;
     for( i = 0; i < m; i++ ) { 
-        if ( in[ i ] != 0 ) { 
-            out.append( i+1, ptype(in[i]) );
-        }
+	if ( in[ i ] != 0 ) { 
+	    out.append( i+1, ptype(in[i]) );
+	}
     }
 }
 
 
 
 
+#line 6180 "MIN_CYCLE_BASIS.lw"
 } // end of mcb namespace
 
 #endif // DIR_MIN_CYCLE_BASIS_H
 
+#line 6217 "MIN_CYCLE_BASIS.lw"
 /* ex: set ts=8 sw=4 sts=4 noet: */
 
 

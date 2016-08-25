@@ -1,8 +1,9 @@
 
+#line 6220 "MIN_CYCLE_BASIS.lw"
 //---------------------------------------------------------------------
 // File automatically generated using notangle from DMIN_CYCLE_BASIS.lw
 //
-// mails and bugs: Dimitrios Michail <dimitrios.michail@gmail.com>
+// emails and bugs: Dimitrios Michail <dimitrios.michail@gmail.com>
 //---------------------------------------------------------------------
 //
 // This program can be freely used in an academic environment
@@ -34,6 +35,7 @@
 // Copyright (C) 2004-2005 - Dimitrios Michail
 
 
+#line 797 "MIN_CYCLE_BASIS.lw"
 /*! \file edge_num.C
  *  \brief Implementation of the edge numbering.
  */
@@ -54,93 +56,98 @@ using leda::error_handler;
 
 
 
+#line 942 "MIN_CYCLE_BASIS.lw"
 edge_num::edge_num( const graph& G ): 
-                        m(G.number_of_edges()), 
-                        n(G.number_of_nodes()), 
-                        rindex(G) 
+			m(G.number_of_edges()), 
+			n(G.number_of_nodes()), 
+			rindex(G) 
 { 
-        index = new edge [ m ];
-        create_numbering( G );
+	index = new edge [ m ];
+	create_numbering( G );
 }
 
 edge_num::edge_num( const edge_num& enumb ) { 
-        m = enumb.m;
-        n = enumb.n;
-        k = enumb.k;
-        index = new edge [ m ];
-        for( int i = 0 ; i < m ; i++ ) 
-                index[ i ] = enumb.index[ i ];
-        rindex = enumb.rindex;
+	m = enumb.m;
+	n = enumb.n;
+	k = enumb.k;
+	index = new edge [ m ];
+	for( int i = 0 ; i < m ; i++ ) 
+		index[ i ] = enumb.index[ i ];
+	rindex = enumb.rindex;
 }
 
 edge_num::~edge_num( void ) {
-        if ( index != nil ) 
-                delete [] index;
+	if ( index != nil ) 
+		delete [] index;
 }
 
 
+#line 971 "MIN_CYCLE_BASIS.lw"
 void edge_num::create_numbering( const graph& G ) { 
-        edge_array<bool> tree( G );
-        k = construct_tree( G, tree );
-        int N = m - n + k;
+	edge_array<bool> tree( G );
+	k = construct_tree( G, tree );
+	int N = m - n + k;
 
-        edge e;
-        int y = 0 , l = N ;
-        forall_edges( e , G ) { 
-                if ( tree[ e ] == false ) { 
-                        index[y] = e; 
-                        rindex[ e ] = y; 
-                        y++; 
-                }
-                else { 
-                        index[l] = e; 
-                        rindex[ e ] = l; 
-                        l++; 
-                }
-        }
+	edge e;
+	int y = 0 , l = N ;
+	forall_edges( e , G ) { 
+		if ( tree[ e ] == false ) { 
+			index[y] = e; 
+			rindex[ e ] = y; 
+			y++; 
+		}
+		else { 
+			index[l] = e; 
+			rindex[ e ] = l; 
+			l++; 
+		}
+	}
 }
 
+#line 1000 "MIN_CYCLE_BASIS.lw"
 int edge_num::construct_tree( const graph& g, edge_array<bool>& tree ) { 
-        // initialize
-        node v,u,w;
-        if ( g.number_of_nodes() == 0 ) 
-                return 0;
-        b_queue<node> Q( g.number_of_nodes() );
-        node_set unreached( g );
-        tree.init( g, false );
-        forall_nodes(v,g) unreached.insert( v );
-        edge e;
-        int c = 0;
+	// initialize
+	node v,u,w;
+	if ( g.number_of_nodes() == 0 ) 
+		return 0;
+	b_queue<node> Q( g.number_of_nodes() );
+	node_set unreached( g );
+	tree.init( g, false );
+	forall_nodes(v,g) unreached.insert( v );
+	edge e;
+	int c = 0;
 
-        // run
-        while( unreached.empty() == false ) { 
+	// run
+	while( unreached.empty() == false ) { 
 
-                v = unreached.choose();
-                unreached.del( v );
-                Q.append( v );
+		v = unreached.choose();
+		unreached.del( v );
+		Q.append( v );
 
-                while( Q.empty() == false ) { 
-                        u = Q.pop();
+		while( Q.empty() == false ) { 
+			u = Q.pop();
 
-                        forall_inout_edges( e, u ) { 
-                                w = g.opposite( u,e );
-                                if( unreached.member(w) == false ) 
-                                        continue;
+			forall_inout_edges( e, u ) { 
+				w = g.opposite( u,e );
+				if( unreached.member(w) == false ) 
+					continue;
 
-                                unreached.del( w ); 
-                                tree[e] = true;
-                                Q.append( w );
-                        }
-                }
-                c++;
-                
-        }
-        return c;
+				unreached.del( w ); 
+				tree[e] = true;
+				Q.append( w );
+			}
+		}
+		c++;
+		
+	}
+	return c;
 }
 
 
+#line 817 "MIN_CYCLE_BASIS.lw"
 } // end namespace mcb
 
+#line 6217 "MIN_CYCLE_BASIS.lw"
 /* ex: set ts=8 sw=4 sts=4 noet: */
 
 

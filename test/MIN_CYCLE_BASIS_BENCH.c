@@ -1,7 +1,8 @@
+#line 6220 "MIN_CYCLE_BASIS.lw"
 //---------------------------------------------------------------------
 // File automatically generated using notangle from DMIN_CYCLE_BASIS.lw
 //
-// mails and bugs: Dimitrios Michail <dimitrios.michail@gmail.com>
+// emails and bugs: Dimitrios Michail <dimitrios.michail@gmail.com>
 //---------------------------------------------------------------------
 //
 // This program can be freely used in an academic environment
@@ -33,6 +34,7 @@
 // Copyright (C) 2004-2005 - Dimitrios Michail
 
 
+#line 4551 "MIN_CYCLE_BASIS.lw"
 #include <iostream>
 #include <LEP/mcb/min_cycle_basis.h>
 
@@ -53,6 +55,7 @@ using namespace leda;
 #endif
 
 
+#line 4672 "MIN_CYCLE_BASIS.lw"
 // execute and measure CPU time taken
 float execute( graph& G, edge_array<int>& len) { 
     float T;
@@ -120,89 +123,92 @@ float executeh( graph& G ) {
 }
 
 
+#line 4644 "MIN_CYCLE_BASIS.lw"
 // create random graph
 void create_graph( int n, 
-                   int m,
-                   graph& G, 
-                   edge_array<int>& len ) {
+		   int m,
+		   graph& G, 
+		   edge_array<int>& len ) {
 
-        random_simple_undirected_graph( G, n, m );
+	random_simple_undirected_graph( G, n, m );
 
-        // meet preconditions
-        Delete_Loops( G );
-        Make_Simple( G );
-        G.make_undirected();
+	// meet preconditions
+	Delete_Loops( G );
+	Make_Simple( G );
+	G.make_undirected();
 
-        // give non-negative edge lengths
-        len.init( G );
-        edge e;
-        forall_edges (e,G)
-                len[e] = rand_int( 0, 65536 );
+	// give non-negative edge lengths
+	len.init( G );
+	edge e;
+	forall_edges (e,G)
+		len[e] = rand_int( 0, 65536 );
 }
 
 
 
+#line 4573 "MIN_CYCLE_BASIS.lw"
 int main() { 
-        int n; 
-        double p;
+	int n; 
+	double p;
 
-        // simulate means than we solve weighted with an edge array
-        // where len[e] = 1 forall edges e of G
-        std::cout << "#n - p - depina - hybrid - depina unweighted";
-        std::cout << " - hybrid unweighted - depina simulate unweighted";
-        std::cout << " - hybrid simulate unweighted "; 
-        std::cout << " - depinaSP  -  depinaSP unweighted" << std::endl;
-        int times = 5; 
-        
-        while( std::cin ) { 
-                
-                std::cin >> n >> p;
-                if ( n <= 0 || p < 0 || p > 1  ) break;
-        
-                float t = 0.0, tu = 0.0, th = 0.0;
-                float thu = 0.0, tus = 0.0, thus = 0.0;
-                float tspu = 0.0, tsp = 0.0;
+	// simulate means than we solve weighted with an edge array
+	// where len[e] = 1 forall edges e of G
+	std::cout << "#n - p - depina - hybrid - depina unweighted";
+	std::cout << " - hybrid unweighted - depina simulate unweighted";
+	std::cout << " - hybrid simulate unweighted "; 
+	std::cout << " - depinaSP  -  depinaSP unweighted" << std::endl;
+	int times = 5; 
+	
+	while( std::cin ) { 
+		
+		std::cin >> n >> p;
+		if ( n <= 0 || p < 0 || p > 1  ) break;
+	
+		float t = 0.0, tu = 0.0, th = 0.0;
+		float thu = 0.0, tus = 0.0, thus = 0.0;
+		float tspu = 0.0, tsp = 0.0;
 
-                // average 
-                for( int i = 0; i < times; i++ ) 
-                { 
-                        // create random graph
-                        graph G;
-                        edge_array<int> len;
-                        create_graph( n, int( p * n * (n-1) / 2 ) , G, len );
-                        edge_array<int> lenu( G, 1 );
-                        t += execute( G, len );
-                        tu += execute( G );
-                        th += executeh( G, len );
-                        thu += executeh( G );
-                        tus += execute( G, lenu );
-                        thus += executeh( G, lenu );
-                        tspu += execute_sparse( G );
-                        tsp += execute_sparse( G, len );
-                        
-                }
-                t /= times;
-                tu /= times;
-                th /= times;
-                thu /= times;
-                tus /= times;
-                thus /= times;
-                tsp /= times;
-                tspu /= times;
-                
-                std::cout << n << "\t" << p;
-                std::cout << "\t\t" << t ; 
-                std::cout << "\t\t" << th;
-                std::cout << "\t\t" << tu;
-                std::cout << "\t\t" << thu;
-                std::cout << "\t\t" << tus;
-                std::cout << "\t\t" << thus; 
-                std::cout << "\t\t" << tsp; 
-                std::cout << "\t\t" << tspu << std::endl;
-        }
-        return 0;
+		// average 
+		for( int i = 0; i < times; i++ ) 
+		{ 
+			// create random graph
+			graph G;
+			edge_array<int> len;
+			create_graph( n, int( p * n * (n-1) / 2 ) , G, len );
+			edge_array<int> lenu( G, 1 );
+			t += execute( G, len );
+			tu += execute( G );
+			th += executeh( G, len );
+			thu += executeh( G );
+			tus += execute( G, lenu );
+			thus += executeh( G, lenu );
+			tspu += execute_sparse( G );
+			tsp += execute_sparse( G, len );
+			
+		}
+		t /= times;
+		tu /= times;
+		th /= times;
+		thu /= times;
+		tus /= times;
+		thus /= times;
+		tsp /= times;
+		tspu /= times;
+		
+		std::cout << n << "\t" << p;
+		std::cout << "\t\t" << t ; 
+		std::cout << "\t\t" << th;
+		std::cout << "\t\t" << tu;
+		std::cout << "\t\t" << thu;
+		std::cout << "\t\t" << tus;
+		std::cout << "\t\t" << thus; 
+		std::cout << "\t\t" << tsp; 
+		std::cout << "\t\t" << tspu << std::endl;
+	}
+	return 0;
 }
 
+#line 6217 "MIN_CYCLE_BASIS.lw"
 /* ex: set ts=8 sw=4 sts=4 noet: */
 
 

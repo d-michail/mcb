@@ -1316,6 +1316,7 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
 
 
+
 echo "$as_me:$LINENO: checking \"if echo interprets backslash-escaped characters\"" >&5
 echo $ECHO_N "checking \"if echo interprets backslash-escaped characters\"... $ECHO_C" >&6
 ECHOTEST=`echo "1\n2" | grep "\n"`
@@ -2831,7 +2832,7 @@ CXX="${CXX} ${CXX2_COMMAND}"
 
 LEP_NAME="mcb"
 LEP_PATH_NAME="mcb"
-LEP_VERSION="0.5"
+LEP_VERSION="0.6"
 
 ${ECHO} ">>LEP Requirements<<"
 

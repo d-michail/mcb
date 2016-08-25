@@ -27,6 +27,7 @@ incl/                     include directory
 src/                      source files
 test/ or prog/            test programs
 demo/                     demo programs
+confdir/		  build system
 
 
 1. CONFIGURATION
@@ -122,6 +123,8 @@ a) Header Files
    You can grab the user manual and the implementation documents from
    the www server where you obtained this package
 
+   http://www.mpi-sb.mpg.de/~michail/mcb.shtml
+
    The manual is also contained in the doc directory.	
 
 
@@ -180,7 +183,7 @@ d) To compile your program use something like
 
    bcc32 -P -I<LEP>/mcb/incl -I%LEDAROOT%/incl \
             -L<LEP>/mcb -L%LEDAROOT% \
-			yoursource.c libmcb.lib libg.lib libl.lib ...
+			libg.lib libl.lib libmcb.lib yoursource.c ...
 
 7. WINDOWS - BORLAND C++ BCC32 (DYNAMIC)
 ----------------------------------------
@@ -228,10 +231,163 @@ d) To compile your program use something like
 
    bcc32 -P -DLEDA_DLL -I<LEP>/mcb/incl -I%LEDAROOT%/incl \
          -L<LEP>/mcb -L%LEDAROOT% \
-	  yoursource.c libmcb.lib leda.lib
+	  leda.lib libmcb.lib yoursource.c
 
-8. Optimization Options - IMPORTANT
------------------------------------
+8. WINDOWS - MICROSOFT VISUAL STUDIO .NET (STATIC)
+--------------------------------------------------
+
+The LEP can be compiled for use with the LEDA and Microsoft Visual
+Studio .NET. LEDA must be compiled as static.
+
+a) install LEDA with static variables, set LEDAROOT=path to leda
+   The LEDAROOT directory should contains at least one of the following
+   library sets:
+
+   - libl_ml.lib, libg_ml.lib, libp_ml.lib, libw_ml.lib, libgeow_ml.lib, libd3_ml.lib
+   - libl_mld.lib, libg_mld.lib, libp_mld.lib, libw_mld.lib, libgeow_mld.lib, libd3_mld.lib
+   - libl_md.lib, libg_md.lib, libp_md.lib, libw_md.lib, libgeow_md.lib, libd3_md.lib
+   - libl_mdd.lib, libg_mdd.lib, libp_mdd.lib, libw_mdd.lib, libgeow_mdd.lib, libd3_mdd.lib
+   - libl_mt.lib, libg_mt.lib, libp_mt.lib, libw_mt.lib, libgeow_mt.lib, libd3_mt.lib
+   - libl_mtd.lib, libg_mtd.lib, libp_mtd.lib, libw_mtd.lib, libgeow_mtd.lib, libd3_mtd.lib
+   
+b) Setting the Environment Variables for Visual Studio .NET:
+
+    * The compiler cl.exe and the linker link.exe require that the environment variables
+      PATH, INCLUDE, and LIB have been set properly.
+
+      When Visual C++ was installed, setup created a batch file, VSVARS32.BAT, containing 
+      commands to modify PATH, LIB, and INCLUDE. Run VSVARS32.BAT at the command prompt before 
+      you compile your application program. VSVARS32.BAT is located in the \bin subdirectory 
+      of your compiler installation, 
+      e.g., c: \programs \microsoft visual studio .NET\Vc7 \bin.
+
+      To compile programs together with LEDA, the environment variables PATH, LIB, and 
+      INCLUDE must additionally contain the corresponding LEDA directories.
+
+c) Go to the <LEP>/mcb directory and execute make_msc_static.bat. This script accepts
+   two arguments. The first argument is one of the following:
+
+   ml, mld, md, mdd, mt, mtd, default.
+
+   This option corresponds to the appropriate choice that was made when LEDA
+   was build. The option default means to use the compiler's default choice.
+
+   The second option has again the same values. It is used in order to force the 
+   build scripts to assume that leda's libraries are named like libg_xx.lib.
+
+   Examples: 
+   ---------
+
+   make_msc_static ml		: Assume LEDA was compiled with ml option and libraries are 
+   				  named like libl_ml.lib, etc.
+   make_msc_static mt default	: Assume LEDA was compiled with mt option and libraries are
+   				  named like libl.lib, etc.
+   make_msc_static mdd xx	: Assume LEDA was compiled with mdd option and libraries are
+   				  named like libl_xx.lib, etc.
+
+   To compile something in the demo directory, change there and use nmake.
+
+   To clean the sources run 
+   
+   nmake allclean
+
+   or simply
+
+   nmake clean
+
+d) To compile your program use something like
+
+   cl <option> -nologo -EHsc -TP -I<LEP>/mcb/incl -I%LEDAROOT%/incl \
+      libg_xx.lib libl_xx.lib ... libmcb.lib yoursource.c
+
+   Possible values for <option> are "-ML", "-MLd", "-MD", "-MDd", "-MT" and "-MTd".
+   You have to use the LEDA libraries that correspond to the chosen <option>, e.g., with
+   option "-MD" you must use libl_md, libg_md, etc. Using another set of libraries with 
+   "-MD" could lead to serious linker errors.
+
+   The option -TP is necessary if the C++ source code files have extension .c. If your 
+   files have extension .cpp  this option is not necessary.
+
+9. WINDOWS - MICROSOFT VISUAL .NET 2003 (DYNAMIC)
+-------------------------------------------------
+
+The LEP can be compiled for use with the LEDA and Microsoft Visual Studio .NET. 
+LEDA must be compiled as dynamic.
+
+a) install LEDA, set LEDAROOT=path to leda
+   The LEDAROOT directory should contains at least one of the following
+   library sets:
+
+   - leda_ml.dll, leda_ml.lib, libGeoW_ml.lib
+   - leda_mld.dll, leda_mld.lib, libGeoW_mld.lib
+   - leda_md.dll, leda_md.lib, libGeoW_md.lib
+   - leda_mdd.dll, leda_mdd.lib, libGeoW_mdd.lib
+   - leda_mt.dll, leda_mt.lib, libGeoW_mt.lib
+   - leda_mtd.dll, leda_mtd.lib, libGeoW_mtd.lib
+   
+b) Setting the Environment Variables for Visual Studio .NET:
+
+    * The compiler cl.exe and the linker link.exe require that the environment variables
+      PATH, INCLUDE, and LIB have been set properly.
+
+      When Visual C++ was installed, setup created a batch file, VSVARS32.BAT, containing 
+      commands to modify PATH, LIB, and INCLUDE. Run VSVARS32.BAT at the command prompt before 
+      you compile your application program. VSVARS32.BAT is located in the \bin subdirectory 
+      of your compiler installation, 
+      e.g., c: \programs \microsoft visual studio .NET\Vc7 \bin.
+
+      To compile programs together with LEDA, the environment variables PATH, LIB, and 
+      INCLUDE must additionally contain the corresponding LEDA directories.
+
+c) Go to the <LEP>/mcb directory and execute make_msc_dll.bat. This script accepts
+   two arguments. The first argument is one of the following:
+
+   ml, mld, md, mdd, mt, mtd, default.
+
+   This option corresponds to the appropriate choice that was made when LEDA
+   was build. The option default means to use the compiler's default choice.
+
+   The second option has again the same values. It is used in order to force the 
+   build scripts to assume that leda's libraries are named like leda_xx.lib.
+
+   Examples: 
+   ---------
+
+   make_msc_dll ml		: Assume LEDA was compiled with ml option and libraries are 
+   				  named like leda_ml.lib, leda_ml.dll, etc.
+   make_msc_dll mt default	: Assume LEDA was compiled with mt option and libraries are
+   				  named like leda.lib, leda.dll, etc.
+   make_msc_dll mdd xx		: Assume LEDA was compiled with mdd option and libraries are
+   				  named like leda_xx.lib, leda_xx.dll, etc.
+
+   To compile something in the demo directory, change there and use nmake.
+
+   To clean the sources run 
+   
+   nmake allclean
+
+   or simply
+
+   nmake clean
+
+d) To compile your program use something like
+
+   cl <option> -nologo -DLEDA_DLL -EHsc -TP -I<LEP>/mcb/incl -I%LEDAROOT%/incl \
+      leda_xx.lib libmcb.lib yoursource.c
+
+   Possible values for <option> are "-ML", "-MLd", "-MD", "-MDd", "-MT" and "-MTd".
+   You have to use the LEDA libraries that correspond to the chosen <option>, e.g., with
+   option "-MD" you must use leda_md.lib, etc. Using another set of libraries with 
+   "-MD" could lead to serious linker errors.
+
+   The option -TP is necessary if the C++ source code files have extension .c. If your 
+   files have extension .cpp  this option is not necessary.
+
+Note that in order for the system to find the leda_xx.dll file of LEDA, the leda_xx.dll 
+must reside in a directory which is in the PATH environmental library.
+
+10. Optimization Options - IMPORTANT
+------------------------------------
 
 If you are using GCC version 3.4 or newer do not use the code 
 with the following optimization flags
