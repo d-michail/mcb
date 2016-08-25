@@ -74,6 +74,7 @@ namespace mcb
     using leda::edge;
     using leda::edge_array;
     using leda::d_int_set;
+    using leda::error_handler;
 #endif
 
 

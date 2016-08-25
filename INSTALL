@@ -122,8 +122,6 @@ a) Header Files
    You can grab the user manual and the implementation documents from
    the www server where you obtained this package
 
-   http://www.mpi-sb.mpg.de/~michail/mcb.shtml
-
    The manual is also contained in the doc directory.	
 
 
@@ -235,8 +233,16 @@ d) To compile your program use something like
 8. Optimization Options - IMPORTANT
 -----------------------------------
 
-Do not use this code with optimization flags -O2 or -O3.
-At the author's PC, the resulting code contains a memory leak.
+Do not use this code with the following optimization flags
+
+-fschedule-insns
+-fschedule-insns2
+
+at the author's PC, the resulting code contains a memory leak.
+
+Note that the flags -O2 and -O3 use these optimization flags
+and therefore the flags -fno-schedule-insns and -fno-schedule-insns2
+must also be used.
 
 The configure script offers a flag 
 

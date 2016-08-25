@@ -189,7 +189,7 @@ namespace mcb
 	  dirsp( const graph & g, const edge_array < T > &length,
 		 const PT & pin,
 		 const edge_num & en ):n( g.number_of_nodes(  ) ),
-	    m( g.number_of_edges(  ) ), p( pin ), G( g ), SS(  ),
+	    m( g.number_of_edges(  ) ), p( pin ), G( g ), SS( mcb::compare ),
 	    len( length ), enumb( en ), cycle( m ), nodeid( g ), marked( g,
 									 0 ),
 	    Xe( g )

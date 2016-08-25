@@ -33,36 +33,38 @@
 // Copyright (C) 2004-2005 - Dimitrios Michail
 
 
-#ifndef ARITHM_H
-#define ARITHM_H
+#include <iostream>
 
-#ifdef LEDA_GE_V5
-#include <LEDA/numbers/integer.h>
-#else
-#include <LEDA/integer.h>
-#endif
-
-namespace mcb
+// Read a very simple format for graphs and write it as a GML graph.
+int main(  )
 {
+    int n, m;
 
-    // define the types used in our implementation
-    typedef long indextype;
-    typedef short etype;
-    typedef leda::integer ptype;
+    std::cin >> n;
+    std::cin >> m;
 
-    // give compare for ptype
-    inline int compare( const ptype & x, const ptype & y )
-    {
-	if ( x < y )
-	    return -1;
-	else if ( x > y )
-	    return 1;
-	else
-	    return 0;
+    std::cout << "graph [" << std::endl;
+    std::cout << "directed 0" << std::endl;
+    std::cout << std::endl;
+
+    for ( int i = 0; i < n; ++i ) {
+	std::cout << "node [ id " << i << " ]" << std::endl;
     }
 
-}				// end of namespace mcb
+    std::cout << std::endl;
 
-#endif				// ARITHM_H
+    int s, t, w;
+
+    for ( int i = 0; i < m; ++i ) {
+	std::cin >> s >> t >> w;
+	std::cout << "edge [" << std::endl;
+	std::cout << "\tsource " << s << std::endl;
+	std::cout << "\ttarget " << t << std::endl;
+	std::cout << "\tlabel " << w << std::endl;
+	std::cout << "]" << std::endl;
+    }
+    std::cout << std::endl;
+    std::cout << "]" << std::endl;
+}
 
 /* ex: set ts=8 sw=4 sts=4 noet: */

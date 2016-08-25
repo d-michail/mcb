@@ -2,8 +2,8 @@
 ## Makefile for Borland 5.x
 ##
 
-CC = bcc32 -c -P -O
-PLAIN_C = bcc32 -c -P- -O
+CC = bcc32 -c -P -O2
+PLAIN_C = bcc32 -c -P- -O2
 LD = bcc32
 WFLAG = -tW
 AR = tlib /P1024 /C

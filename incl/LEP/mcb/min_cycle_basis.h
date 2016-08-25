@@ -672,8 +672,8 @@ namespace mcb
 
 
 	// construct superset
-	sortseq < three_tuple < W, int, int >, d_int_set > super( compare );
-
+	sortseq < three_tuple < W, int, int >,
+	    d_int_set > super( leda::compare );
 	MCB_construct_superset < W > ( g, len, super, enumb );
 
 #ifdef LEP_STATS

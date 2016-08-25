@@ -34,8 +34,7 @@
 
 
 #include <iostream>
-#include <stdio.h>
-#include <LEP/mcb/dir_min_cycle_basis.h>
+#include <LEP/mcb/min_cycle_basis.h>
 
 #ifdef LEDA_GE_V5
 #include <LEDA/graph/graph_misc.h>
@@ -55,19 +54,11 @@ using namespace leda;
 edge_map < int >lenmap;
 
 // read edge weight
-// in the following form: label "weight" or label "uniquenumber (weight)"
 bool get_edge_weight( const gml_object * gobj, graph * G, edge e )
 {
-    char *str = gobj->get_string(  );
-    int w, tw;
+    int w = gobj->get_int(  );
 
-    if ( sscanf( str, "%d (%d)", &tw, &w ) == 2 ) {
-	lenmap[e] = w;
-    } else if ( sscanf( str, "%d", &w ) == 1 ) {
-	lenmap[e] = w;
-    } else
-	return false;
-
+    lenmap[e] = w;
     return true;
 }
 
@@ -85,7 +76,7 @@ int main(  )
     // create parser and read from standard input
     gml_graph parser( G );
 
-    parser.add_edge_rule( get_edge_weight, gml_string, "label" );
+    parser.add_edge_rule( get_edge_weight, gml_int, "label" );
     if ( parser.parse( std::cin ) == false )
 	return -1;
 
@@ -97,26 +88,20 @@ int main(  )
 	len[e] = lenmap[e];
 
     // execute
-    float T;
+    float T, T1;
 
     leda::used_time( T );	// start time
 
     mcb::edge_num enumb( G );
-    array < mcb::spvecfp > mcb;
-    array < mcb::spvecfp > proof;
+    array < d_int_set > mcb;
+    array < d_int_set > proof;
 
-    double errorp = 0.5;
-    int w = mcb::DIR_MIN_CYCLE_BASIS < int >( G,
-					      len, mcb, proof, enumb,
-					      errorp );
+    int w = mcb::MIN_CYCLE_BASIS_DEPINA( G, len, mcb, proof, enumb );
 
-    T = used_time( T );		// finish time
+    T1 = used_time( T );	// finish time
 
-    if ( DMCB_verify_basis( G, enumb, mcb, proof ) == false )
-	leda::error_handler( 999,
-			     "MIN_CYCLE_BASIS: result is not a cycle basis" );
-
-    std::cout << "weight: " << w << " time: " << T << std::endl;
+    std::cout << "weight = " << w << std::endl;
+    std::cout << "time   = " << T1 << std::endl;
 
     return 0;
 }
