@@ -52,13 +52,13 @@
  *  - An \f$O(m^3+mn^2 \log{n})\f$ algorithm which appeared in the PhD thesis of J.C. de Pina.
  *    A description of this algorithm and an even faster one can be 
  *    found 
- *    <a href="http://www.mpii.mpg.de/~michail/papers/MinCycleBasis.ps.gz">here</a>.
+ *    <a href="http://dx.doi.org/10.1007/s00453-007-9064-z">here</a>.
  *  - An \f$O(m^2n^2)\f$ hybrid algorithm, which is a mixture of the above 
  *    algorithm and an older algorithm due to Horton. For more details see 
- *    <a href="http://www.mpii.mpg.de/~michail/papers/implMCB.ps.gz">here</a>.
+ *    <a href="http://dx.doi.org/10.1145/1187436.1216582">here</a>.
  *  - An \f$O(m^3)\f$ hybrid algorithm, which is a more clever implementation of 
  *    the last mentioned algorithm. For more details see this
- *    <a href="http://www.mpii.mpg.de/~michail/papers/mcblog.pdf">paper</a>.
+ *    <a href="http://dx.doi.org/10.1145/1644015.1644023">paper</a>.
  *  - An \f$O( m n^{1+1/k} + \min(m^3+mn^2 \log n, n^{3+3/k}))\f$ constant factor 
  *    \f$(2k-1)\f$-approximate algorithm. For more details see 
  *    <a href="http://www.springerlink.com/content/740w28k651vx26l8">this link</a>.
@@ -143,14 +143,14 @@
  *
  *  \section down_sec Download
  *
- *  - Source package (v0.8). [<a href="../mcb-0.8.tar.gz">tar.gz</a>]
- *  - Source package (v0.7). [<a href="../mcb-0.7.tar.gz">tar.gz</a>]
- *  - Source package (v0.6). [<a href="../mcb-0.6.tar.gz">tar.gz</a>]
- *  - Source package (v0.5). [<a href="../mcb-0.5.tar.gz">tar.gz</a>]
- *  - Source package (v0.4). [<a href="../mcb-0.4.tar.gz">tar.gz</a>]
- *  - Source package (v0.3). [<a href="../mcb-0.3.tar.gz">tar.gz</a>]
- *  - Source package (v0.2). [<a href="../mcb-0.2.tar.gz">tar.gz</a>]
- *  - Source package (v0.1). [<a href="../mcb-0.1.tar.gz">tar.gz</a>]
+ *  - Source package (v0.8). [<a href="https://github.com/d-michail/mcb/archive/mcb-0.8.tar.gz">tar.gz</a>]
+ *  - Source package (v0.7). [<a href="https://github.com/d-michail/mcb/archive/mcb-0.7.tar.gz">tar.gz</a>]
+ *  - Source package (v0.6). [<a href="https://github.com/d-michail/mcb/archive/mcb-0.6.tar.gz">tar.gz</a>]
+ *  - Source package (v0.5). [<a href="https://github.com/d-michail/mcb/archive/mcb-0.5.tar.gz">tar.gz</a>]
+ *  - Source package (v0.4). [<a href="https://github.com/d-michail/mcb/archive/mcb-0.4.tar.gz">tar.gz</a>]
+ *  - Source package (v0.3). [<a href="https://github.com/d-michail/mcb/archive/mcb-0.3.tar.gz">tar.gz</a>]
+ *  - Source package (v0.2). [<a href="https://github.com/d-michail/mcb/archive/mcb-0.2.tar.gz">tar.gz</a>]
+ *  - Source package (v0.1). [<a href="https://github.com/d-michail/mcb/archive/mcb-0.1.tar.gz">tar.gz</a>]
  *
  *  \section ex_sec Code Examples
  *  \subsection ex_undir Undirected MCB
