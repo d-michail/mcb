@@ -1,6 +1,9 @@
 Minimum Cycle Basis (MCB) Library
 ---------------------------------
 
+This page is the source repository for the package located at
+<a href="https://d-michail.github.io/mcb/">d-michail.github.io/mcb</a>.
+
 This package implements algorithms to compute exact and approximate 
 Minimum Cycle Bases of weighted graphs.
 
