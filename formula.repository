@@ -1,0 +1,46 @@
+\form#0:$O(m^3+mn^2 \log{n})$
+\form#1:$O(m^2n^2)$
+\form#2:$O(m^3)$
+\form#3:$O( m n^{1+1/k} + \min(m^3+mn^2 \log n, n^{3+3/k}))$
+\form#4:$(2k-1)$
+\form#5:$O(m^2 n \log{n})$
+\form#6:$m$
+\form#7:$0$
+\form#8:$m-1$
+\form#9:$T$
+\form#10:$m -n + \kappa -1$
+\form#11:$\kappa$
+\form#12:$G$
+\form#13:$m-n+\kappa$
+\form#14:$O(m)$
+\form#15:$m - n + \kappa$
+\form#16:$e_i$
+\form#17:$F_p$
+\form#18:$len-1$
+\form#19:$len$
+\form#20:$G(V,E)$
+\form#21:$w: E \mapsto \mathcal{R}_{\ge 0}$
+\form#22:$B$
+\form#23:$g$
+\form#24:$i$
+\form#25:$O( m^3 )$
+\form#26:$O( m^2 n^2 )$
+\form#27:$n$
+\form#28:$w: E \mapsto \mathcal{R}_{> 0}$
+\form#29:$Q^m$
+\form#30:$Q$
+\form#31:$(0 \dots m-1)$
+\form#32:${\pm}1$
+\form#33:$Z_p$
+\form#34:$p$
+\form#35:$e$
+\form#36:$1 \dots m$
+\form#37:$\pm 1$
+\form#38:$O( m n^{1+1/k} + \min( m^3 + mn^2 \log n, n^{3+3/k}) )$
+\form#39:$k$
+\form#40:$\ge 1$
+\form#41:$O( mn^{1+1/k} + \min(m^3 + mn^2 \log n,n^{3+3/k}) )$
+\form#42:$\mathcal{F}_p$
+\form#43:$N$
+\form#44:$N \times N$
+\form#45:$N>0$

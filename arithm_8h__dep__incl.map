@@ -1,0 +1,9 @@
+<map id="arithm.h" name="arithm.h">
+<area shape="rect" id="node2" href="$spvecgf2_8h.html" title="Definitions of sparse vector. " alt="" coords="5,80,92,107"/>
+<area shape="rect" id="node6" href="$spvecfp_8h.html" title="Sparse vector in . " alt="" coords="172,80,251,107"/>
+<area shape="rect" id="node7" href="$dmcb_8h.html" title="Algorithms for directed MCB. " alt="" coords="104,155,169,181"/>
+<area shape="rect" id="node3" href="$umcb_8h.html" title="Algorithms for undirected MCB. " alt="" coords="15,155,80,181"/>
+<area shape="rect" id="node4" href="$mcb_8h.html" title="General LEP interface. " alt="" coords="63,304,122,331"/>
+<area shape="rect" id="node5" href="$mcb__approx_8h.html" title="Algorithms for approximate MCB in undirected and directed graphs. " alt="" coords="41,229,145,256"/>
+<area shape="rect" id="node8" href="$determinant_8h.html" title="Compute the determinant of a cycle basis. " alt="" coords="194,155,295,181"/>
+</map>
