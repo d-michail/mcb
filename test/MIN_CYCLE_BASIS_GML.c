@@ -51,34 +51,33 @@ using namespace leda;
 // read an unweighted graph in GML format and 
 // find a minimum cycle basis. 
 // Output the time taken
-int main(  )
-{
+int main() { 
 
-    // initialize Graph
-    graph G;
+        // initialize Graph
+        graph G;
+        
+        // create parser and read from standard input
+        gml_graph parser( G );
+        if ( parser.parse( std::cin ) == false ) return -1;
+        
+        // execute
+        float T,T1;
+        
+        leda::used_time( T ); // start time
+        
+        mcb::edge_num enumb( G );
+        array< mcb::spvecgf2 > mcb;
+        array< mcb::spvecgf2 > proof;
 
-    // create parser and read from standard input
-    gml_graph parser( G );
+        mcb::MIN_CYCLE_BASIS_DEPINA( G, mcb, proof, enumb );
 
-    if ( parser.parse( std::cin ) == false )
-	return -1;
+        T1 = leda::used_time( T ); // finish time
+        
+        std::cout << T1;
 
-    // execute
-    float T, T1;
-
-    leda::used_time( T );	// start time
-
-    mcb::edge_num enumb( G );
-    array < d_int_set > mcb;
-    array < d_int_set > proof;
-
-    int w = mcb::MIN_CYCLE_BASIS_DEPINA( G, mcb, proof, enumb );
-
-    T1 = leda::used_time( T );	// finish time
-
-    std::cout << T1;
-
-    return 0;
+        return 0;
 }
 
 /* ex: set ts=8 sw=4 sts=4 noet: */
+
+

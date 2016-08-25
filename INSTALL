@@ -44,7 +44,7 @@ demo/                     demo programs
    c)  For deviations from the default retype configure with
        additional information:
        
-       Example: CXX=g++ LEDAROOT=/Somepath/LEDA/ LINKING_MODE=static configure
+       Example: CXX=g++ LEDAROOT=/Somepath/LEDA/ configure
 
        The configure script, accepts a number of additional parameters
 
@@ -233,16 +233,19 @@ d) To compile your program use something like
 8. Optimization Options - IMPORTANT
 -----------------------------------
 
-Do not use this code with the following optimization flags
+If you are using GCC version 3.4 or newer do not use the code 
+with the following optimization flags
 
 -fschedule-insns
 -fschedule-insns2
 
 at the author's PC, the resulting code contains a memory leak.
+This is due to incompatibility between GCC and LEDA's memory manager.
 
 Note that the flags -O2 and -O3 use these optimization flags
 and therefore the flags -fno-schedule-insns and -fno-schedule-insns2
-must also be used.
+must also be used. The configure script automatically enabled these
+if required.
 
 The configure script offers a flag 
 
@@ -254,5 +257,3 @@ that LEDA uses to disable any preconditions' or invariants'
 checking.
 
 Note that no check is performed in such a case. 
-
-

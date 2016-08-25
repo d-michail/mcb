@@ -9,14 +9,14 @@ LD  = bcc32
 !include Make.lst
 
 .obj.exe:
-        $(LD) -L.. -L$(LEDAROOT) $*.obj $(LEDALIBS) lib$(LEPNAME).lib $(WINLIBS)
+        $(LD) -L.. -L$(LEDAROOT) lib$(LEPNAME).lib $(WINLIBS) $(LEDALIBS) $*.obj
 
 .c.obj:
         $(CC) $(LEDAFLAGS) -I..\incl -I$(LEDAROOT)\incl $*.c
 
 .c.exe:
         $(CC) $(LEDAFLAGS) -I..\incl -I$(LEDAROOT\incl $*.c
-        $(LD) -L.. -L$(LEDAROOT) $*.obj $(LEDALIBS) lib$(LEPNAME).lib $(WINLIBS)
+        $(LD) -L.. -L$(LEDAROOT) lib$(LEPNAME).lib $(WINLIBS) $(LEDALIBS) $*.obj
 
 all: $(PROGS)
 

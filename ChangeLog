@@ -1,0 +1,2169 @@
+2005-10-19 22:20  michail
+
+	* doc/MIN_CYCLE_BASIS.lw: better in and out for spvecgf2
+
+2005-10-19 18:25  michail
+
+	* doc/MIN_CYCLE_BASIS.lw: use spvecgf2 instead of d_int_set
+
+2005-10-19 12:09  michail
+
+	* doc/MIN_CYCLE_BASIS.lw: demo now uses spvecgf2
+
+2005-10-13 20:01  michail
+
+	* confdir/configure.in, doc/MIN_CYCLE_BASIS.lw: exchange witnesses
+	  to get the sparsest one
+
+2005-10-13 09:35  michail
+
+	* doc/MIN_CYCLE_BASIS.lw: added new add function to spvecgf2
+
+2005-10-04 23:45  michail
+
+	* confdir/Makefile.root: make conf now works better
+
+2005-10-04 20:32  michail
+
+	* confdir/configure.in: better output
+
+2005-10-04 14:00  michail
+
+	* README, doc/MIN_CYCLE_BASIS.lw: changed email to mpi-inf
+
+2005-10-04 12:37  michail
+
+	* confdir/configure.in: better build stuff
+
+2005-10-02 23:04  michail
+
+	* confdir/configure.in: few fixes on build system
+
+2005-10-02 15:34  michail
+
+	* confdir/bcc32static/make.lst.src: added new source file
+
+2005-10-02 14:06  michail
+
+	* confdir/: configure.in, flagtable, userflagtable: many fixes to
+	  support g++ even if the version number is given like CXX=g++-3.3
+
+2005-10-02 12:00  michail
+
+	* confdir/: Makefile.root, Makefile.src: disabled making tags by
+	  default
+
+2005-10-02 02:03  michail
+
+	* confdir/configure.in, confdir/flagtable, doc/MIN_CYCLE_BASIS.lw:
+	  better support for LEDA and GCC compatibility check
+
+2005-10-01 21:33  michail
+
+	* confdir/: Makefile.root, Makefile.src, configure.in,
+	  make.config.in: added support for ctags and etags
+
+2005-10-01 01:49  michail
+
+	* confdir/: Makefile.root, Makefile.src, configure.in,
+	  make.config.in: better support, but still remains to be disabled
+
+2005-10-01 00:56  michail
+
+	* confdir/: Makefile.root, Makefile.src, make.config.in: better
+	  tags support - automatic
+
+2005-10-01 00:37  michail
+
+	* confdir/: Makefile.root, Makefile.src, make.config.in: added
+	  support for generator of ctags
+
+2005-09-29 13:59  michail
+
+	* confdir/configure.in: better support for -fpermissive flag for
+	  LEDA 5.0
+
+2005-09-28 09:13  michail
+
+	* doc/MIN_CYCLE_BASIS.lw: minor change to the interface of spvecgf2
+	  (additions)
+
+2005-09-24 14:52  michail
+
+	* confdir/configure.in, doc/MIN_CYCLE_BASIS.lw: fixed problems
+	  occuring with old LEDA and g++ 3.4 or newer
+
+2005-09-23 00:00  michail
+
+	* doc/MIN_CYCLE_BASIS.lw: changed email address of author
+
+2005-09-22 18:31  michail
+
+	* experiments/exp-for-mcb-manifolds/models/eight/eight.m.gz: matlab
+	  style
+
+2005-09-22 09:56  michail
+
+	* doc/MIN_CYCLE_BASIS.lw: improved doc
+
+2005-09-22 09:47  michail
+
+	* doc/MIN_CYCLE_BASIS.lw: small fixes, extra functionality
+
+2005-09-21 17:34  michail
+
+	* TODO, doc/html/Makefile: added html generation stuff for new
+	  sparse vector implementation
+
+2005-09-21 17:08  michail
+
+	* confdir/make.lst.src, doc/MIN_CYCLE_BASIS.lw: wrote sparse vector
+	  version
+
+2005-09-21 16:29  michail
+
+	* doc/: MIN_CYCLE_BASIS.lw, Makefile: started to write a sparse
+	  vector cycle representation
+
+2005-09-20 21:52  michail
+
+	* experiments/exp-for-mcb-manifolds/models/eight/eight.wrl: changed
+	  color
+
+2005-09-19 20:27  michail
+
+	* experiments/exp-for-mcb-manifolds/extractv.pl: program to extract
+	  points
+
+2005-09-19 16:50  michail
+
+	*
+	  experiments/exp-for-mcb-manifolds/models/trim_star/trim_star-5982-p1.0.wrl.gz:
+	  new model
+
+2005-09-19 15:50  michail
+
+	* experiments/exp-for-mcb-manifolds/models/:
+	  better_gear/g_14742f_k7_MB10_nonoise.wrl.gz,
+	  bumpy_torus/bumpy_torus.wrl.gz,
+	  trim_star/ts_11964f_k7_MB15_remesh.wrl.gz: some new models
+
+2005-09-17 17:55  michail
+
+	* experiments/exp-for-mcb-manifolds/models/torus/torus.wrl: changed
+	  color
+
+2005-07-10 13:31  michail
+
+	* ChangeLog, confdir/configure.in, confdir/make.lst.test,
+	  doc/MIN_CYCLE_BASIS.lw, doc/Makefile,
+	  experiments/wrl-to-knng/d3toknng.c: histogram program added
+
+2005-07-09 19:13  michail
+
+	* experiments/wrl-to-knng/: Makefile, README, d3toknng.c, input,
+	  libANN.a, make.config, make.general, make.lst, ANN/ANN.h,
+	  ANN/ANNperf.h, ANN/ANNx.h: first version
+
+2005-06-29 12:00  michail
+
+	* distro.sh, confdir/make.lst.test.reduced,
+	  confdir/bcc32dll/make.lst.test, confdir/bcc32dll/make.src,
+	  confdir/bcc32static/make.lst.test, confdir/bcc32static/make.pro,
+	  confdir/bcc32static/make.src: added -O2 on windows for bcc32,
+	  added more test programs to be in the distro.
+
+2005-06-29 08:45  michail
+
+	* doc/MIN_CYCLE_BASIS.lw: minor changes on timing
+
+2005-06-28 17:24  michail
+
+	* doc/MIN_CYCLE_BASIS.lw: fixed problem with compare in windows
+
+2005-06-28 12:27  michail
+
+	* distro.sh, confdir/bcc32static/make.lst.test: added some more
+	  tests in the distribution
+
+2005-06-17 20:19  michail
+
+	* INSTALL: updated warning
+
+2005-06-17 12:32  michail
+
+	* confdir/flagtable: fixed the flags for using -O2
+
+2005-06-13 13:45  michail
+
+	* confdir/flagtable, confdir/userflagtable, doc/MIN_CYCLE_BASIS.lw:
+	  minor fixes for compilation with gcc-3.4 and support for 3.4 as
+	  CXX=3.4
+
+2005-06-10 00:44  michail
+
+	* doc/MIN_CYCLE_BASIS.lw: minor changes for compilation with
+	  g++-3.4
+
+2005-06-01 14:21  michail
+
+	* doc/test-programs/craig_graph_to_simple.c: LEDA 5.0 support
+
+2005-06-01 14:16  michail
+
+	* doc/test-programs/craig.c: updated to work with LEDA 5.0
+
+2005-05-30 11:59  michail
+
+	* make_bcc_dll.bat, make_bcc_static.bat: support for LEDA 5.0 in
+	  windows
+
+2005-05-28 12:46  michail
+
+	* confdir/: bcc32dll/make.src, bcc32static/make.pro,
+	  bcc32static/make.src: changed -O2 to -O in windows
+
+2005-05-23 14:06  michail
+
+	* README: i->e
+
+2005-05-23 13:51  michail
+
+	* doc/test-programs/other-inputs/k72dir.gml: fixed to have label
+	  "weight"
+
+2005-05-18 15:05  michail
+
+	* doc/test-programs/other-inputs/: k72.gml, k72dir.gml: example
+
+2005-04-25 23:38  michail
+
+	* confdir/configure.in: small fixes and additions
+
+2005-04-25 15:18  michail
+
+	* confdir/configure.in: added support for linking statically with a
+	  --enable-static-lib flag
+
+2005-04-23 16:29  michail
+
+	* doc/Makefile: fixed indent stuff
+
+2005-04-23 12:08  michail
+
+	* INSTALL, confdir/configure.in, doc/MIN_CYCLE_BASIS.lw: now the
+	  LEP compiles with LEDA-5.0 on unix platforms without including
+	  the old incl/ structure
+
+2005-04-23 11:07  michail
+
+	* confdir/configure.in: fixed bug where -g -O2 where added by
+	  configure
+
+2005-04-21 09:54  michail
+
+	* doc/: MIN_CYCLE_BASIS.lw, html/Makefile: made some functions in
+	  edge_num to be inline, fixed some typos in docs, made
+	  precondition for directed case to be positive edge weights
+
+2005-04-20 19:33  michail
+
+	* INSTALL: fixed typos
+
+2005-04-20 15:46  michail
+
+	* confdir/configure.in: configure now outputs the value of the
+	  extra flags
+
+2005-04-20 13:48  michail
+
+	* doc/MIN_CYCLE_BASIS.lw: fixed minor bug
+
+2005-04-20 13:20  michail
+
+	* confdir/configure.in, doc/MIN_CYCLE_BASIS.lw,
+	  doc/test-programs/SIGNED_GRAPH_NEW.h: added support for disabling
+	  shortest path heuristics in undirected case and added support for
+	  printing the stats about the time to find the cycles and the time
+	  to update the orthogonal base.
+
+2005-04-20 12:34  michail
+
+	* experiments/horton-set-size/: compare_all_queries.plot,
+	  fig/horton_set_queries_dense.eps, input/random/0.3/random-10.gw,
+	  input/random/0.3/random-20.gw, input/random/0.3/random-30.gw,
+	  input/random/0.3/random-40.gw, input/random/0.3/random-50.gw,
+	  input/random/0.3/random-60.gw, input/random/0.3/random-70.gw,
+	  input/random/0.3gml/random-10-1-1.gml,
+	  input/random/0.3gml/random-10-1-2.gml,
+	  input/random/0.3gml/random-10-1-3.gml,
+	  input/random/0.3gml/random-10-1-4.gml,
+	  input/random/0.3gml/random-10-2-1.gml,
+	  input/random/0.3gml/random-10-2-2.gml,
+	  input/random/0.3gml/random-10-2-3.gml,
+	  input/random/0.3gml/random-10-2-4.gml,
+	  input/random/0.3gml/random-10-3-1.gml,
+	  input/random/0.3gml/random-10-3-2.gml,
+	  input/random/0.3gml/random-10-3-3.gml,
+	  input/random/0.3gml/random-10-3-4.gml,
+	  input/random/0.3gml/random-10-4-1.gml,
+	  input/random/0.3gml/random-10-4-2.gml,
+	  input/random/0.3gml/random-10-4-3.gml,
+	  input/random/0.3gml/random-10-4-4.gml,
+	  input/random/0.3gml/random-10-5-1.gml,
+	  input/random/0.3gml/random-10-5-2.gml,
+	  input/random/0.3gml/random-10-5-3.gml,
+	  input/random/0.3gml/random-10-5-4.gml,
+	  input/random/0.3gml/random-20-1-1.gml,
+	  input/random/0.3gml/random-20-1-2.gml,
+	  input/random/0.3gml/random-20-1-3.gml,
+	  input/random/0.3gml/random-20-1-4.gml,
+	  input/random/0.3gml/random-20-2-1.gml,
+	  input/random/0.3gml/random-20-2-2.gml,
+	  input/random/0.3gml/random-20-2-3.gml,
+	  input/random/0.3gml/random-20-2-4.gml,
+	  input/random/0.3gml/random-20-3-1.gml,
+	  input/random/0.3gml/random-20-3-2.gml,
+	  input/random/0.3gml/random-20-3-3.gml,
+	  input/random/0.3gml/random-20-3-4.gml,
+	  input/random/0.3gml/random-20-4-1.gml,
+	  input/random/0.3gml/random-20-4-2.gml,
+	  input/random/0.3gml/random-20-4-3.gml,
+	  input/random/0.3gml/random-20-4-4.gml,
+	  input/random/0.3gml/random-20-5-1.gml,
+	  input/random/0.3gml/random-20-5-2.gml,
+	  input/random/0.3gml/random-20-5-3.gml,
+	  input/random/0.3gml/random-20-5-4.gml,
+	  input/random/0.3gml/random-30-1-1.gml,
+	  input/random/0.3gml/random-30-1-2.gml,
+	  input/random/0.3gml/random-30-1-3.gml,
+	  input/random/0.3gml/random-30-1-4.gml,
+	  input/random/0.3gml/random-30-2-1.gml,
+	  input/random/0.3gml/random-30-2-2.gml,
+	  input/random/0.3gml/random-30-2-3.gml,
+	  input/random/0.3gml/random-30-2-4.gml,
+	  input/random/0.3gml/random-30-3-1.gml,
+	  input/random/0.3gml/random-30-3-2.gml,
+	  input/random/0.3gml/random-30-3-3.gml,
+	  input/random/0.3gml/random-30-3-4.gml,
+	  input/random/0.3gml/random-30-4-1.gml,
+	  input/random/0.3gml/random-30-4-2.gml,
+	  input/random/0.3gml/random-30-4-3.gml,
+	  input/random/0.3gml/random-30-4-4.gml,
+	  input/random/0.3gml/random-30-5-1.gml,
+	  input/random/0.3gml/random-30-5-2.gml,
+	  input/random/0.3gml/random-30-5-3.gml,
+	  input/random/0.3gml/random-30-5-4.gml,
+	  input/random/0.3gml/random-40-1-1.gml,
+	  input/random/0.3gml/random-40-1-2.gml,
+	  input/random/0.3gml/random-40-1-3.gml,
+	  input/random/0.3gml/random-40-1-4.gml,
+	  input/random/0.3gml/random-40-2-1.gml,
+	  input/random/0.3gml/random-40-2-2.gml,
+	  input/random/0.3gml/random-40-2-3.gml,
+	  input/random/0.3gml/random-40-2-4.gml,
+	  input/random/0.3gml/random-40-3-1.gml,
+	  input/random/0.3gml/random-40-3-2.gml,
+	  input/random/0.3gml/random-40-3-3.gml,
+	  input/random/0.3gml/random-40-3-4.gml,
+	  input/random/0.3gml/random-40-4-1.gml,
+	  input/random/0.3gml/random-40-4-2.gml,
+	  input/random/0.3gml/random-40-4-3.gml,
+	  input/random/0.3gml/random-40-4-4.gml,
+	  input/random/0.3gml/random-40-5-1.gml,
+	  input/random/0.3gml/random-40-5-2.gml,
+	  input/random/0.3gml/random-40-5-3.gml,
+	  input/random/0.3gml/random-40-5-4.gml,
+	  input/random/0.3gml/random-50-1-1.gml,
+	  input/random/0.3gml/random-50-1-2.gml,
+	  input/random/0.3gml/random-50-1-3.gml,
+	  input/random/0.3gml/random-50-1-4.gml,
+	  input/random/0.3gml/random-50-2-1.gml,
+	  input/random/0.3gml/random-50-2-2.gml,
+	  input/random/0.3gml/random-50-2-3.gml,
+	  input/random/0.3gml/random-50-2-4.gml,
+	  input/random/0.3gml/random-50-3-1.gml,
+	  input/random/0.3gml/random-50-3-2.gml,
+	  input/random/0.3gml/random-50-3-3.gml,
+	  input/random/0.3gml/random-50-3-4.gml,
+	  input/random/0.3gml/random-50-4-1.gml,
+	  input/random/0.3gml/random-50-4-2.gml,
+	  input/random/0.3gml/random-50-4-3.gml,
+	  input/random/0.3gml/random-50-4-4.gml,
+	  input/random/0.3gml/random-50-5-1.gml,
+	  input/random/0.3gml/random-50-5-2.gml,
+	  input/random/0.3gml/random-50-5-3.gml,
+	  input/random/0.3gml/random-50-5-4.gml,
+	  input/random/0.3gml/random-60-1-1.gml,
+	  input/random/0.3gml/random-60-1-2.gml,
+	  input/random/0.3gml/random-60-1-3.gml,
+	  input/random/0.3gml/random-60-1-4.gml,
+	  input/random/0.3gml/random-60-2-1.gml,
+	  input/random/0.3gml/random-60-2-2.gml,
+	  input/random/0.3gml/random-60-2-3.gml,
+	  input/random/0.3gml/random-60-2-4.gml,
+	  input/random/0.3gml/random-60-3-1.gml,
+	  input/random/0.3gml/random-60-3-2.gml,
+	  input/random/0.3gml/random-60-3-3.gml,
+	  input/random/0.3gml/random-60-3-4.gml,
+	  input/random/0.3gml/random-60-4-1.gml,
+	  input/random/0.3gml/random-60-4-2.gml,
+	  input/random/0.3gml/random-60-4-3.gml,
+	  input/random/0.3gml/random-60-4-4.gml,
+	  input/random/0.3gml/random-60-5-1.gml,
+	  input/random/0.3gml/random-60-5-2.gml,
+	  input/random/0.3gml/random-60-5-3.gml,
+	  input/random/0.3gml/random-60-5-4.gml,
+	  input/random/0.3gml/random-70-1-1.gml,
+	  input/random/0.3gml/random-70-1-2.gml,
+	  input/random/0.3gml/random-70-1-3.gml,
+	  input/random/0.3gml/random-70-1-4.gml,
+	  input/random/0.3gml/random-70-2-1.gml,
+	  input/random/0.3gml/random-70-2-2.gml,
+	  input/random/0.3gml/random-70-2-3.gml,
+	  input/random/0.3gml/random-70-2-4.gml,
+	  input/random/0.3gml/random-70-3-1.gml,
+	  input/random/0.3gml/random-70-3-2.gml,
+	  input/random/0.3gml/random-70-3-3.gml,
+	  input/random/0.3gml/random-70-3-4.gml,
+	  input/random/0.3gml/random-70-4-1.gml,
+	  input/random/0.3gml/random-70-4-2.gml,
+	  input/random/0.3gml/random-70-4-3.gml,
+	  input/random/0.3gml/random-70-4-4.gml,
+	  input/random/0.3gml/random-70-5-1.gml,
+	  input/random/0.3gml/random-70-5-2.gml,
+	  input/random/0.3gml/random-70-5-3.gml,
+	  input/random/0.3gml/random-70-5-4.gml,
+	  input/random/0.5/random-10.gw, input/random/0.5/random-20.gw,
+	  input/random/0.5/random-30.gw, input/random/0.5/random-40.gw,
+	  input/random/0.5/random-50.gw, input/random/0.5/random-60.gw,
+	  input/random/0.5/random-70.gw,
+	  input/random/0.5gml/random-10-1-1.gml,
+	  input/random/0.5gml/random-10-1-2.gml,
+	  input/random/0.5gml/random-10-1-3.gml,
+	  input/random/0.5gml/random-10-1-4.gml,
+	  input/random/0.5gml/random-10-2-1.gml,
+	  input/random/0.5gml/random-10-2-2.gml,
+	  input/random/0.5gml/random-10-2-3.gml,
+	  input/random/0.5gml/random-10-2-4.gml,
+	  input/random/0.5gml/random-10-3-1.gml,
+	  input/random/0.5gml/random-10-3-2.gml,
+	  input/random/0.5gml/random-10-3-3.gml,
+	  input/random/0.5gml/random-10-3-4.gml,
+	  input/random/0.5gml/random-10-4-1.gml,
+	  input/random/0.5gml/random-10-4-2.gml,
+	  input/random/0.5gml/random-10-4-3.gml,
+	  input/random/0.5gml/random-10-4-4.gml,
+	  input/random/0.5gml/random-10-5-1.gml,
+	  input/random/0.5gml/random-10-5-2.gml,
+	  input/random/0.5gml/random-10-5-3.gml,
+	  input/random/0.5gml/random-10-5-4.gml,
+	  input/random/0.5gml/random-20-1-1.gml,
+	  input/random/0.5gml/random-20-1-2.gml,
+	  input/random/0.5gml/random-20-1-3.gml,
+	  input/random/0.5gml/random-20-1-4.gml,
+	  input/random/0.5gml/random-20-2-1.gml,
+	  input/random/0.5gml/random-20-2-2.gml,
+	  input/random/0.5gml/random-20-2-3.gml,
+	  input/random/0.5gml/random-20-2-4.gml,
+	  input/random/0.5gml/random-20-3-1.gml,
+	  input/random/0.5gml/random-20-3-2.gml,
+	  input/random/0.5gml/random-20-3-3.gml,
+	  input/random/0.5gml/random-20-3-4.gml,
+	  input/random/0.5gml/random-20-4-1.gml,
+	  input/random/0.5gml/random-20-4-2.gml,
+	  input/random/0.5gml/random-20-4-3.gml,
+	  input/random/0.5gml/random-20-4-4.gml,
+	  input/random/0.5gml/random-20-5-1.gml,
+	  input/random/0.5gml/random-20-5-2.gml,
+	  input/random/0.5gml/random-20-5-3.gml,
+	  input/random/0.5gml/random-20-5-4.gml,
+	  input/random/0.5gml/random-30-1-1.gml,
+	  input/random/0.5gml/random-30-1-2.gml,
+	  input/random/0.5gml/random-30-1-3.gml,
+	  input/random/0.5gml/random-30-1-4.gml,
+	  input/random/0.5gml/random-30-2-1.gml,
+	  input/random/0.5gml/random-30-2-2.gml,
+	  input/random/0.5gml/random-30-2-3.gml,
+	  input/random/0.5gml/random-30-2-4.gml,
+	  input/random/0.5gml/random-30-3-1.gml,
+	  input/random/0.5gml/random-30-3-2.gml,
+	  input/random/0.5gml/random-30-3-3.gml,
+	  input/random/0.5gml/random-30-3-4.gml,
+	  input/random/0.5gml/random-30-4-1.gml,
+	  input/random/0.5gml/random-30-4-2.gml,
+	  input/random/0.5gml/random-30-4-3.gml,
+	  input/random/0.5gml/random-30-4-4.gml,
+	  input/random/0.5gml/random-30-5-1.gml,
+	  input/random/0.5gml/random-30-5-2.gml,
+	  input/random/0.5gml/random-30-5-3.gml,
+	  input/random/0.5gml/random-30-5-4.gml,
+	  input/random/0.5gml/random-40-1-1.gml,
+	  input/random/0.5gml/random-40-1-2.gml,
+	  input/random/0.5gml/random-40-1-3.gml,
+	  input/random/0.5gml/random-40-1-4.gml,
+	  input/random/0.5gml/random-40-2-1.gml,
+	  input/random/0.5gml/random-40-2-2.gml,
+	  input/random/0.5gml/random-40-2-3.gml,
+	  input/random/0.5gml/random-40-2-4.gml,
+	  input/random/0.5gml/random-40-3-1.gml,
+	  input/random/0.5gml/random-40-3-2.gml,
+	  input/random/0.5gml/random-40-3-3.gml,
+	  input/random/0.5gml/random-40-3-4.gml,
+	  input/random/0.5gml/random-40-4-1.gml,
+	  input/random/0.5gml/random-40-4-2.gml,
+	  input/random/0.5gml/random-40-4-3.gml,
+	  input/random/0.5gml/random-40-4-4.gml,
+	  input/random/0.5gml/random-40-5-1.gml,
+	  input/random/0.5gml/random-40-5-2.gml,
+	  input/random/0.5gml/random-40-5-3.gml,
+	  input/random/0.5gml/random-40-5-4.gml,
+	  input/random/0.5gml/random-50-1-1.gml,
+	  input/random/0.5gml/random-50-1-2.gml,
+	  input/random/0.5gml/random-50-1-3.gml,
+	  input/random/0.5gml/random-50-1-4.gml,
+	  input/random/0.5gml/random-50-2-1.gml,
+	  input/random/0.5gml/random-50-2-2.gml,
+	  input/random/0.5gml/random-50-2-3.gml,
+	  input/random/0.5gml/random-50-2-4.gml,
+	  input/random/0.5gml/random-50-3-1.gml,
+	  input/random/0.5gml/random-50-3-2.gml,
+	  input/random/0.5gml/random-50-3-3.gml,
+	  input/random/0.5gml/random-50-3-4.gml,
+	  input/random/0.5gml/random-50-4-1.gml,
+	  input/random/0.5gml/random-50-4-2.gml,
+	  input/random/0.5gml/random-50-4-3.gml,
+	  input/random/0.5gml/random-50-4-4.gml,
+	  input/random/0.5gml/random-50-5-1.gml,
+	  input/random/0.5gml/random-50-5-2.gml,
+	  input/random/0.5gml/random-50-5-3.gml,
+	  input/random/0.5gml/random-50-5-4.gml,
+	  input/random/0.5gml/random-60-1-1.gml,
+	  input/random/0.5gml/random-60-1-2.gml,
+	  input/random/0.5gml/random-60-1-3.gml,
+	  input/random/0.5gml/random-60-1-4.gml,
+	  input/random/0.5gml/random-60-2-1.gml,
+	  input/random/0.5gml/random-60-2-2.gml,
+	  input/random/0.5gml/random-60-2-3.gml,
+	  input/random/0.5gml/random-60-2-4.gml,
+	  input/random/0.5gml/random-60-3-1.gml,
+	  input/random/0.5gml/random-60-3-2.gml,
+	  input/random/0.5gml/random-60-3-3.gml,
+	  input/random/0.5gml/random-60-3-4.gml,
+	  input/random/0.5gml/random-60-4-1.gml,
+	  input/random/0.5gml/random-60-4-2.gml,
+	  input/random/0.5gml/random-60-4-3.gml,
+	  input/random/0.5gml/random-60-4-4.gml,
+	  input/random/0.5gml/random-60-5-1.gml,
+	  input/random/0.5gml/random-60-5-2.gml,
+	  input/random/0.5gml/random-60-5-3.gml,
+	  input/random/0.5gml/random-60-5-4.gml,
+	  input/random/0.5gml/random-70-1-1.gml,
+	  input/random/0.5gml/random-70-1-2.gml,
+	  input/random/0.5gml/random-70-1-3.gml,
+	  input/random/0.5gml/random-70-1-4.gml,
+	  input/random/0.5gml/random-70-2-1.gml,
+	  input/random/0.5gml/random-70-2-2.gml,
+	  input/random/0.5gml/random-70-2-3.gml,
+	  input/random/0.5gml/random-70-2-4.gml,
+	  input/random/0.5gml/random-70-3-1.gml,
+	  input/random/0.5gml/random-70-3-2.gml,
+	  input/random/0.5gml/random-70-3-3.gml,
+	  input/random/0.5gml/random-70-3-4.gml,
+	  input/random/0.5gml/random-70-4-1.gml,
+	  input/random/0.5gml/random-70-4-2.gml,
+	  input/random/0.5gml/random-70-4-3.gml,
+	  input/random/0.5gml/random-70-4-4.gml,
+	  input/random/0.5gml/random-70-5-1.gml,
+	  input/random/0.5gml/random-70-5-2.gml,
+	  input/random/0.5gml/random-70-5-3.gml,
+	  input/random/0.5gml/random-70-5-4.gml,
+	  input/random/0.9/random-10.gw, input/random/0.9/random-20.gw,
+	  input/random/0.9/random-30.gw, input/random/0.9/random-40.gw,
+	  input/random/0.9/random-50.gw, input/random/0.9/random-60.gw,
+	  input/random/0.9/random-70.gw,
+	  input/random/0.9gml/random-10-1-1.gml,
+	  input/random/0.9gml/random-10-1-2.gml,
+	  input/random/0.9gml/random-10-1-3.gml,
+	  input/random/0.9gml/random-10-1-4.gml,
+	  input/random/0.9gml/random-10-2-1.gml,
+	  input/random/0.9gml/random-10-2-2.gml,
+	  input/random/0.9gml/random-10-2-3.gml,
+	  input/random/0.9gml/random-10-2-4.gml,
+	  input/random/0.9gml/random-10-3-1.gml,
+	  input/random/0.9gml/random-10-3-2.gml,
+	  input/random/0.9gml/random-10-3-3.gml,
+	  input/random/0.9gml/random-10-3-4.gml,
+	  input/random/0.9gml/random-10-4-1.gml,
+	  input/random/0.9gml/random-10-4-2.gml,
+	  input/random/0.9gml/random-10-4-3.gml,
+	  input/random/0.9gml/random-10-4-4.gml,
+	  input/random/0.9gml/random-10-5-1.gml,
+	  input/random/0.9gml/random-10-5-2.gml,
+	  input/random/0.9gml/random-10-5-3.gml,
+	  input/random/0.9gml/random-10-5-4.gml,
+	  input/random/0.9gml/random-20-1-1.gml,
+	  input/random/0.9gml/random-20-1-2.gml,
+	  input/random/0.9gml/random-20-1-3.gml,
+	  input/random/0.9gml/random-20-1-4.gml,
+	  input/random/0.9gml/random-20-2-1.gml,
+	  input/random/0.9gml/random-20-2-2.gml,
+	  input/random/0.9gml/random-20-2-3.gml,
+	  input/random/0.9gml/random-20-2-4.gml,
+	  input/random/0.9gml/random-20-3-1.gml,
+	  input/random/0.9gml/random-20-3-2.gml,
+	  input/random/0.9gml/random-20-3-3.gml,
+	  input/random/0.9gml/random-20-3-4.gml,
+	  input/random/0.9gml/random-20-4-1.gml,
+	  input/random/0.9gml/random-20-4-2.gml,
+	  input/random/0.9gml/random-20-4-3.gml,
+	  input/random/0.9gml/random-20-4-4.gml,
+	  input/random/0.9gml/random-20-5-1.gml,
+	  input/random/0.9gml/random-20-5-2.gml,
+	  input/random/0.9gml/random-20-5-3.gml,
+	  input/random/0.9gml/random-20-5-4.gml,
+	  input/random/0.9gml/random-30-1-1.gml,
+	  input/random/0.9gml/random-30-1-2.gml,
+	  input/random/0.9gml/random-30-1-3.gml,
+	  input/random/0.9gml/random-30-1-4.gml,
+	  input/random/0.9gml/random-30-2-1.gml,
+	  input/random/0.9gml/random-30-2-2.gml,
+	  input/random/0.9gml/random-30-2-3.gml,
+	  input/random/0.9gml/random-30-2-4.gml,
+	  input/random/0.9gml/random-30-3-1.gml,
+	  input/random/0.9gml/random-30-3-2.gml,
+	  input/random/0.9gml/random-30-3-3.gml,
+	  input/random/0.9gml/random-30-3-4.gml,
+	  input/random/0.9gml/random-30-4-1.gml,
+	  input/random/0.9gml/random-30-4-2.gml,
+	  input/random/0.9gml/random-30-4-3.gml,
+	  input/random/0.9gml/random-30-4-4.gml,
+	  input/random/0.9gml/random-30-5-1.gml,
+	  input/random/0.9gml/random-30-5-2.gml,
+	  input/random/0.9gml/random-30-5-3.gml,
+	  input/random/0.9gml/random-30-5-4.gml,
+	  input/random/0.9gml/random-40-1-1.gml,
+	  input/random/0.9gml/random-40-1-2.gml,
+	  input/random/0.9gml/random-40-1-3.gml,
+	  input/random/0.9gml/random-40-1-4.gml,
+	  input/random/0.9gml/random-40-2-1.gml,
+	  input/random/0.9gml/random-40-2-2.gml,
+	  input/random/0.9gml/random-40-2-3.gml,
+	  input/random/0.9gml/random-40-2-4.gml,
+	  input/random/0.9gml/random-40-3-1.gml,
+	  input/random/0.9gml/random-40-3-2.gml,
+	  input/random/0.9gml/random-40-3-3.gml,
+	  input/random/0.9gml/random-40-3-4.gml,
+	  input/random/0.9gml/random-40-4-1.gml,
+	  input/random/0.9gml/random-40-4-2.gml,
+	  input/random/0.9gml/random-40-4-3.gml,
+	  input/random/0.9gml/random-40-4-4.gml,
+	  input/random/0.9gml/random-40-5-1.gml,
+	  input/random/0.9gml/random-40-5-2.gml,
+	  input/random/0.9gml/random-40-5-3.gml,
+	  input/random/0.9gml/random-40-5-4.gml,
+	  input/random/0.9gml/random-50-1-1.gml,
+	  input/random/0.9gml/random-50-1-2.gml,
+	  input/random/0.9gml/random-50-1-3.gml,
+	  input/random/0.9gml/random-50-1-4.gml,
+	  input/random/0.9gml/random-50-2-1.gml,
+	  input/random/0.9gml/random-50-2-2.gml,
+	  input/random/0.9gml/random-50-2-3.gml,
+	  input/random/0.9gml/random-50-2-4.gml,
+	  input/random/0.9gml/random-50-3-1.gml,
+	  input/random/0.9gml/random-50-3-2.gml,
+	  input/random/0.9gml/random-50-3-3.gml,
+	  input/random/0.9gml/random-50-3-4.gml,
+	  input/random/0.9gml/random-50-4-1.gml,
+	  input/random/0.9gml/random-50-4-2.gml,
+	  input/random/0.9gml/random-50-4-3.gml,
+	  input/random/0.9gml/random-50-4-4.gml,
+	  input/random/0.9gml/random-50-5-1.gml,
+	  input/random/0.9gml/random-50-5-2.gml,
+	  input/random/0.9gml/random-50-5-3.gml,
+	  input/random/0.9gml/random-50-5-4.gml,
+	  input/random/0.9gml/random-60-1-1.gml,
+	  input/random/0.9gml/random-60-1-2.gml,
+	  input/random/0.9gml/random-60-1-3.gml,
+	  input/random/0.9gml/random-60-1-4.gml,
+	  input/random/0.9gml/random-60-2-1.gml,
+	  input/random/0.9gml/random-60-2-2.gml,
+	  input/random/0.9gml/random-60-2-3.gml,
+	  input/random/0.9gml/random-60-2-4.gml,
+	  input/random/0.9gml/random-60-3-1.gml,
+	  input/random/0.9gml/random-60-3-2.gml,
+	  input/random/0.9gml/random-60-3-3.gml,
+	  input/random/0.9gml/random-60-3-4.gml,
+	  input/random/0.9gml/random-60-4-1.gml,
+	  input/random/0.9gml/random-60-4-2.gml,
+	  input/random/0.9gml/random-60-4-3.gml,
+	  input/random/0.9gml/random-60-4-4.gml,
+	  input/random/0.9gml/random-60-5-1.gml,
+	  input/random/0.9gml/random-60-5-2.gml,
+	  input/random/0.9gml/random-60-5-3.gml,
+	  input/random/0.9gml/random-60-5-4.gml,
+	  input/random/0.9gml/random-70-1-1.gml,
+	  input/random/0.9gml/random-70-1-2.gml,
+	  input/random/0.9gml/random-70-1-3.gml,
+	  input/random/0.9gml/random-70-1-4.gml,
+	  input/random/0.9gml/random-70-2-1.gml,
+	  input/random/0.9gml/random-70-2-2.gml,
+	  input/random/0.9gml/random-70-2-3.gml,
+	  input/random/0.9gml/random-70-2-4.gml,
+	  input/random/0.9gml/random-70-3-1.gml,
+	  input/random/0.9gml/random-70-3-2.gml,
+	  input/random/0.9gml/random-70-3-3.gml,
+	  input/random/0.9gml/random-70-3-4.gml,
+	  input/random/0.9gml/random-70-4-1.gml,
+	  input/random/0.9gml/random-70-4-2.gml,
+	  input/random/0.9gml/random-70-4-3.gml,
+	  input/random/0.9gml/random-70-4-4.gml,
+	  input/random/0.9gml/random-70-5-1.gml,
+	  input/random/0.9gml/random-70-5-2.gml,
+	  input/random/0.9gml/random-70-5-3.gml,
+	  input/random/0.9gml/random-70-5-4.gml, output/queries.txt,
+	  output/sizes.txt: inputs and results
+
+2005-04-19 17:37  michail
+
+	* doc/: MIN_CYCLE_BASIS.lw, Makefile: added indentation on the
+	  makefile, to output the code the way I like it
+
+2005-04-19 16:08  michail
+
+	* INSTALL, confdir/configure.in, doc/MIN_CYCLE_BASIS.lw,
+	  experiments/compare-with-hybrid/compare.journal.plot,
+	  experiments/horton-set-size/avg.C,
+	  experiments/horton-set-size/avg2.C,
+	  experiments/horton-set-size/compare_all.sh,
+	  experiments/horton-set-size/compare_all_queries.plot,
+	  experiments/horton-set-size/compare_all_queries.sh,
+	  experiments/horton-set-size/fig/horton_set_queries_dense.eps,
+	  experiments/horton-set-size/input/random/create.sh,
+	  experiments/horton-set-size/input/random/old0.9input.tar.bz2,
+	  experiments/horton-set-size/output/oldoutput/queries.txt,
+	  experiments/horton-set-size/output/oldoutput/sizes.txt,
+	  experiments/time_percent/fit.log,
+	  experiments/time_percent/plot.journal.gnu: fixed stuff for making
+	  more tests
+
+2005-04-19 15:06  michail
+
+	* experiments/horton-set-size/fig/horton_set_queries_dense.eps:
+	  version of paper
+
+2005-04-19 08:49  michail
+
+	* doc/MIN_CYCLE_BASIS.lw: fixed some typos in shortest path
+	  documentation for the directed case
+
+2005-04-19 08:34  michail
+
+	* doc/MIN_CYCLE_BASIS.lw: changed the vim comment to appear on the
+	  end of each file
+
+2005-04-18 21:51  michail
+
+	* doc/MIN_CYCLE_BASIS.lw: fixed small bug introduced by automating
+	  COMPARE_DIR_UNDIR.c generation
+
+2005-04-18 21:36  michail
+
+	* doc/: MIN_CYCLE_BASIS.lw, Makefile: added COMPARE_DIR_UNDIR.c to
+	  be autogenerated
+
+2005-04-18 21:32  michail
+
+	* test/COMPARE_DIR_UNDIR.c: removed since auto-generated
+
+2005-04-18 19:33  michail
+
+	* doc/MIN_CYCLE_BASIS.lw: in the spvecfp class, when adding a zero
+	  element, normalize with prime p by adding p or reducing by p
+	  until we reach 0..p-1
+
+2005-04-18 18:54  michail
+
+	* doc/: MIN_CYCLE_BASIS.lw, Makefile,
+	  test-programs/other-inputs/k6-dir.gml,
+	  test-programs/other-inputs/k6.txt: (a) fixed bug on primality
+	  testing, (b) add -L to notangle again (c) added k6 example
+
+2005-04-18 17:58  michail
+
+	* doc/test-programs/: craig_graph_to_gml.c,
+	  craig_graph_to_simple.c: tools to transform from Craig Gotsman's
+	  input to the simple input or gml
+
+2005-04-18 14:57  michail
+
+	* experiments/time_percent/: fit.log, plot.gnu, plot.talk.gnu:
+	  wrote some stuff for the code
+
+2005-04-15 12:06  michail
+
+	* doc/MIN_CYCLE_BASIS.lw: if graph has loop or parallel edges ->
+	  update the graphwin
+
+2005-04-15 11:44  michail
+
+	* confdir/configure.in: added docs for new options
+
+2005-04-15 09:45  michail
+
+	* INSTALL, confdir/configure.in: added new flag in configure
+	  --enable-debug-output and fixed the --disable-checking. Both
+	  flags now print the result when the check is done. Added this
+	  info in the INSTALL file as well.
+
+2005-04-15 09:30  michail
+
+	* doc/MIN_CYCLE_BASIS.lw: fixed bug with demo programs, where an
+	  edge got a 0 length added some debugging support of
+	  LEP_DEBUG_OUTPUT is defined
+
+2005-04-15 09:06  michail
+
+	* confdir/configure.in: added a --enable-debug-output option
+
+2005-04-14 13:57  michail
+
+	* doc/MIN_CYCLE_BASIS.lw: minor change on hyperref usepackage
+
+2005-04-14 07:09  michail
+
+	* doc/test-programs/craig.c: removed some header files
+
+2005-04-13 22:19  michail
+
+	* doc/test-programs/craig.c: updated program for craig to output
+	  only the edges of each cycle
+
+2005-04-12 17:34  michail
+
+	* doc/test-programs/craig.c: fixed arguments
+
+2005-04-12 12:55  michail
+
+	* doc/test-programs/craig.c: without the output
+
+2005-04-12 12:43  michail
+
+	* doc/MIN_CYCLE_BASIS.lw: wrapped one more documentation line
+
+2005-04-12 12:36  michail
+
+	* INSTALL, confdir/configure.in: added option to disable any
+	  checking
+
+2005-04-12 10:14  michail
+
+	* doc/: MIN_CYCLE_BASIS.lw, test-programs/craig.c: added stdio.h
+	  for windows compilation when sscanf is called
+
+2005-04-12 09:34  michail
+
+	* doc/test-programs/craig.c: minor fixes
+
+2005-04-12 09:27  michail
+
+	* doc/test-programs/craig.c: minor improvements
+
+2005-04-12 09:19  michail
+
+	* doc/test-programs/eMat576fTorus.txt: real life instance from
+	  craig
+
+2005-04-11 11:16  michail
+
+	* doc/MIN_CYCLE_BASIS.lw: minor changed for less overfull boxes
+
+2005-04-11 08:59  michail
+
+	* demo/DIR_MIN_CYCLE_BASIS.hlp: help file for directed minimum
+	  cycle basis demo
+
+2005-04-09 22:37  michail
+
+	* doc/MIN_CYCLE_BASIS.lw: fixed typo
+
+2005-04-09 14:57  michail
+
+	* doc/MIN_CYCLE_BASIS.lw: (a) wrote more documentation, (b) on the
+	  shortest path routine, moved the uindex and siu outside of
+	  the adjacency edges loop
+
+2005-04-08 21:31  michail
+
+	* distro.sh: removed directed code stuff
+
+2005-04-08 18:23  michail
+
+	* doc/: MIN_CYCLE_BASIS.lw, Makefile: mixed the dir and undir case
+
+2005-04-08 18:18  michail
+
+	* incl/LEP/mcb/mcb.h: removed, since generated from .lw
+
+2005-04-08 17:13  michail
+
+	* doc/: DMIN_CYCLE_BASIS.lw, MIN_CYCLE_BASIS.lw, Makefile: merged
+	  the two documentation files
+
+2005-04-08 13:17  michail
+
+	* distro.sh: changed to copy the reduced version of the
+	  make.lst.test file
+
+2005-04-08 13:15  michail
+
+	* confdir/: make.lst.test.reduced, bcc32static/make.lst.demo,
+	  bcc32static/make.lst.test: adding reduced version for release
+	  purposes
+
+2005-04-08 13:03  michail
+
+	* confdir/Makefile.root: added changelog generation entry
+
+2005-04-08 13:03  michail
+
+	* ChangeLog: update
+
+2005-04-08 11:01  michail
+
+	* doc/DMIN_CYCLE_BASIS.lw: readded, for LEPS merging
+
+2005-04-07 21:09  michail
+
+	* incl/LEP/mcb/mcb.h: added function for unweighted case
+
+2005-04-07 15:13  michail
+
+	* README, TODO: changed the README file to reflect that directed
+	  graphs are also supported.
+
+2005-04-07 14:09  michail
+
+	* test/COMPARE_DIR_UNDIR.c: one more std::cout
+
+2005-04-07 13:55  michail
+
+	* test/COMPARE_DIR_UNDIR.c: added program to compare running times
+	  on directed and undirected case.
+
+2005-04-07 13:52  michail
+
+	* distro.sh, confdir/make.lst.demo, confdir/make.lst.src,
+	  confdir/make.lst.test, confdir/bcc32dll/make.lst.demo,
+	  confdir/bcc32dll/make.lst.test,
+	  confdir/bcc32static/make.lst.demo,
+	  confdir/bcc32static/make.lst.src,
+	  confdir/bcc32static/make.lst.test, doc/Makefile,
+	  incl/LEP/mcb/mcb.h: changed to incomporate the directed LEP
+
+2005-03-21 14:37  michail
+
+	* doc/Makefile: readded
+
+2005-03-21 14:36  michail
+
+	* README: updated readme with new license
+
+2005-03-15 17:51  michail
+
+	* experiments/compare-with-hybrid/: compare.talk.plot,
+	  compare.weighted.talk.plot, fig/hybrid_compare_talk.eps,
+	  fig/hybrid_weighted_compare_talk.eps: version for talk WEA'05
+
+2005-03-14 18:53  michail
+
+	* doc/Makefile: made makefile more general
+
+2005-03-14 16:35  michail
+
+	* doc/MIN_CYCLE_BASIS.lw: new lisence
+
+2005-03-14 16:30  michail
+
+	* doc/MIN_CYCLE_BASIS.lw: changed license
+
+2005-03-10 09:58  michail
+
+	* doc/MIN_CYCLE_BASIS.lw: fixed bug, when changing layout on
+	  graphwin then the weights changed
+
+2005-03-09 16:36  michail
+
+	* experiments/: Tspace-cycle-superset/plot.gnu,
+	  Tspace-cycle-superset/fig/Tspace-cycle-super.eps,
+	  compare-with-hybrid/compare.plot,
+	  compare-with-hybrid/compare.weighted.plot,
+	  compare-with-hybrid/fig/hybrid_compare.eps,
+	  compare-with-hybrid/fig/hybrid_weighted_compare.eps,
+	  time_percent/fit.log, time_percent/plot.gnu,
+	  time_percent/fig/percent_run.eps, with-without-heur/fit.log,
+	  with-without-heur/plot.gnu,
+	  with-without-heur/fig/heuristic_run.eps: added grid
+
+2005-02-28 16:45  michail
+
+	* demo/DIR_MIN_CYCLE_BASIS.hlp, confdir/make.lst.demo,
+	  confdir/make.lst.src, confdir/make.lst.test,
+	  doc/DMIN_CYCLE_BASIS.lw, incl/LEP/mcb/prime_list.h,
+	  src/prime_list.c: Removed directed min cycle basis
+
+2005-02-28 13:53  michail
+
+	* doc/DMIN_CYCLE_BASIS.lw: fixed tab stuff in vim
+
+2005-02-28 09:49  michail
+
+	* doc/DMIN_CYCLE_BASIS.lw: added default value of 3/8 to error
+	  probability.
+
+2005-02-27 23:06  michail
+
+	* doc/DMIN_CYCLE_BASIS.lw: demo also checks that result is a basis
+
+2005-02-27 20:52  michail
+
+	* doc/DMIN_CYCLE_BASIS.lw: fixed shortest path space from $O(m^2 n
+	  \log n)$ to $O(m)$
+
+2005-02-27 20:52  michail
+
+	* confdir/Makefile.root: readded
+
+2005-02-27 19:02  michail
+
+	* doc/DMIN_CYCLE_BASIS.lw: tranformation functions and other fixes
+
+2005-02-27 14:55  michail
+
+	* doc/DMIN_CYCLE_BASIS.lw: fixed another bug, where the results was
+	  a negative number mod p
+
+2005-02-27 13:57  michail
+
+	* confdir/configure.in: Updated to compile also on newer versions
+	  of cygwin
+
+2005-02-27 11:35  michail
+
+	* confdir/make.lst.demo, demo/DIR_MIN_CYCLE_BASIS.hlp,
+	  demo/MIN_CYCLE_BASIS.hlp, doc/DMIN_CYCLE_BASIS.lw, doc/Makefile:
+	  fixed bug in update step of directed cycle basis, added demo for
+	  directed cycle basis, wrote help for demo of directed cycle
+	  basis, update help for demo of undirected cycle basis
+
+2005-02-27 00:57  michail
+
+	* doc/DMIN_CYCLE_BASIS.lw: wrote some more documentation
+
+2005-02-27 00:29  michail
+
+	* doc/DMIN_CYCLE_BASIS.lw: fixed bugs, finished shortest path
+	  computations, first version that actually runs
+
+2005-02-26 14:58  michail
+
+	* doc/DMIN_CYCLE_BASIS.lw: added a counter of the number of edges
+	  in a shortest path of the level graph
+
+2005-02-26 13:56  michail
+
+	* doc/: DMIN_CYCLE_BASIS.lw, MIN_CYCLE_BASIS.lw: wrote main part of
+	  shortest path for directed case, fixed a minor inefficiency on
+	  undirected shortest path where the touched list contained each
+	  vertex more than once.
+
+2005-02-26 00:06  michail
+
+	* confdir/make.lst.src, doc/DMIN_CYCLE_BASIS.lw, doc/Makefile:
+	  wrote basic structure of shortest paths, move fp.h to fp.c and
+	  fp.h
+
+2005-02-25 18:02  michail
+
+	* confdir/make.lst.src, doc/DMIN_CYCLE_BASIS.lw: Added the
+	  prime_list from LiDIA, plus more stuff.
+
+2005-02-25 17:27  michail
+
+	* incl/LEP/mcb/prime_list.h: prime list from LiDIA
+
+2005-02-25 17:26  michail
+
+	* src/prime_list.c: prime list by LiDIA
+
+2005-02-25 08:11  michail
+
+	* doc/DMIN_CYCLE_BASIS.lw: sparse vector: added -=, +=, copy
+	  constructor sparse vector: fixed print function sparse vector:
+	  did several tests
+
+2005-02-24 21:57  michail
+
+	* doc/DMIN_CYCLE_BASIS.lw: Added a print function on the sparse
+	  vector.
+
+2005-02-24 18:30  michail
+
+	* doc/DMIN_CYCLE_BASIS.lw: readed to resolve commit problems
+
+2005-02-24 18:00  michail
+
+	* INSTALL: Added instruction for windows borland build.
+
+2005-02-24 17:36  michail
+
+	* confdir/make.lst.test, doc/DMIN_CYCLE_BASIS.lw,
+	  doc/MIN_CYCLE_BASIS.lw, doc/Makefile: wrote sparse arrays and
+	  main structure of directed cycle basis algorithm
+
+2005-02-24 09:55  michail
+
+	* doc/: DMIN_CYCLE_BASIS.lw, MIN_CYCLE_BASIS.lw: wrote preliminary
+	  stuff, check preconditions, etc.
+
+2005-02-23 23:59  michail
+
+	* doc/DMIN_CYCLE_BASIS.lw: added resize of inverse array
+
+2005-02-23 23:57  michail
+
+	* doc/DMIN_CYCLE_BASIS.lw: Initial file of directed minimum cycle
+	  basis code.
+
+	  a) Implemented euclidean gcd b) Implemented filling an array with
+	  the multiplicative inverses	 of 1,\dots,p-1 where $p$ is a
+	  prime.
+
+2005-02-23 22:32  michail
+
+	* make_bcc_dll.bat, make_bcc_static.bat: bat files call make after
+	  copying
+
+2005-02-23 17:05  michail
+
+	* distro.sh: include bcc files
+
+2005-02-23 17:02  michail
+
+	* make_bcc_dll.bat, make_bcc_static.bat,
+	  confdir/bcc32dll/make.lst.demo, confdir/bcc32dll/make.lst.test,
+	  confdir/bcc32dll/make.src, confdir/bcc32static/make.all,
+	  confdir/bcc32static/make.lst.demo,
+	  confdir/bcc32static/make.lst.src,
+	  confdir/bcc32static/make.lst.test, confdir/bcc32static/make.pro,
+	  confdir/bcc32static/make.src: Added make system for borland C++
+	  bcc32 compiler.
+
+2005-02-22 14:44  michail
+
+	* confdir/configure.in: Fixed the problem with the deprecated
+	  warning.
+
+2005-02-22 14:06  michail
+
+	* confdir/: Makefile.test, configure.in, flagtable: Several updates
+	  to make things work on solaris again.
+
+	  g++ version is acquired from g++ -v and not g++ --version
+
+2005-02-21 14:47  michail
+
+	* confdir/flagtable: Added -lsocket option for solaris stuff.
+
+2005-02-21 14:22  michail
+
+	* INSTALL: Instructions for typing make in autoconf/ dir.
+
+2005-02-21 13:51  michail
+
+	* doc/: MIN_CYCLE_BASIS.lw, Makefile: Changed the text on each
+	  source file.
+
+2005-02-16 18:30  michail
+
+	* confdir/Makefile.root: changed cp to $(CP)
+
+2005-02-16 11:08  michail
+
+	* confdir/: Makefile.demo, configure.in, make.config.in: Changed
+	  files to make sure the correct library is included together with
+	  -lW on cygwin.
+
+2005-02-10 16:36  michail
+
+	* INSTALL: New instructions for compiling with LEDA 5.0
+
+2005-02-10 16:35  michail
+
+	* confdir/: Makefile.demo, Makefile.src, Makefile.test,
+	  configure.in: Changed configure scripts to be able to compile
+	  with LEDA 5.0
+
+2005-01-19 12:03  michail
+
+	* confdir/make.lst.test, doc/MIN_CYCLE_BASIS.lw, doc/Makefile: -
+	  New experiments for MCB and test programs.  - Small document for
+	  comparing the edges used for finding	 a rank-maximal matching by
+	  SODA and my new algorithm.
+
+2005-01-17 17:25  michail
+
+	* confdir/make.lst.test, doc/MIN_CYCLE_BASIS.lw, doc/Makefile,
+	  experiments/horton-set-size/compare_all.sh,
+	  experiments/horton-set-size/input/random/create.sh: Changes in
+	  order to experiment and understand the reason that in unweighted
+	  graphs, hybrid algorithm is faster.
+
+2004-12-01 13:47  michail
+
+	* doc/MIN_CYCLE_BASIS.lw: Fixed tabing on main program of demo.
+
+2004-12-01 13:34  michail
+
+	* doc/MIN_CYCLE_BASIS.lw: Changed test program to show some more
+	  randomness.
+
+2004-11-15 13:55  michail
+
+	* doc/MIN_CYCLE_BASIS.lw: Fixed some comments.
+
+2004-11-10 18:16  michail
+
+	* doc/MIN_CYCLE_BASIS.lw: Some minor changes.
+
+2004-11-10 14:50  michail
+
+	* ChangeLog, doc/MIN_CYCLE_BASIS.lw: Changed hybrid algorithm to
+	  precompute the shortest paths and for a pair of nodes (v,u) to
+	  select always the path which goes from a lower id vertex to a
+	  higher id vertex.
+
+2004-10-25 16:08  michail
+
+	* confdir/configure.in, doc/MIN_CYCLE_BASIS.lw: a) Fixed
+	  configure.in to contain the correct package name.
+
+	  b) Added namespace support, in order to avoid polluting the
+	  global namespace.
+
+2004-10-25 16:08  michail
+
+	* ChangeLog: Updated changelog about adding namespace support.
+
+2004-10-13 15:12  michail
+
+	* experiments/compare-with-hybrid/: compare.plot, execute_huber.sh,
+	  output.huber.unweighted.2004-10-13, fig/hybrid_compare.eps,
+	  output/comparison.results,
+	  output/output.huber.unweighted.2004-10-13,
+	  output/hypercubes/comparison.numbers,
+	  output/random/sparse.comparison,
+	  output/random/0.3/comparison.numbers,
+	  output/random/0.5/comparison.numbers,
+	  output/random/0.9/comparison.numbers: Updated information to
+	  include comparison with all algorithms (cybal and huber) for
+	  unweighted graphs.
+
+2004-10-07 13:23  michail
+
+	* experiments/compare-with-hybrid/: execute_huber.sh,
+	  fig/hybrid_weighted_compare.eps,
+	  output_weighted/random/sparse.comparison,
+	  output_weighted/random/0.3/comparison.numbers,
+	  output_weighted/random/0.5/comparison.numbers,
+	  output_weighted/random/0.9/comparison.numbers: Did comparisons
+	  for unweighted case, comparing DYP-HYB-FEAS-HORTON(CYBAL)
+
+2004-10-06 15:43  michail
+
+	* experiments/compare-with-hybrid/compare_all.sh: Compare all
+	  unweighted.
+
+2004-09-30 17:21  michail
+
+	* experiments/compare-with-hybrid/: compare.weighted.plot,
+	  output.all.weighted.2004-09-28, fig/hybrid_weighted_compare.eps,
+	  output_weighted/comparison.results,
+	  output_weighted/hypercubes/comparison.numbers,
+	  output_weighted/random/sparse.comparison,
+	  output_weighted/random/0.3/comparison.numbers,
+	  output_weighted/random/0.5/comparison.numbers,
+	  output_weighted/random/0.9/comparison.numbers: New comparison
+	  with 4 algorithms.
+
+2004-09-24 14:47  michail
+
+	* experiments/compare-with-hybrid/compare_weighted_all.sh: First
+	  version of all-programs comparator.
+
+2004-09-21 13:22  michail
+
+	* doc/MIN_CYCLE_BASIS.lw: I started changing the header file, so
+	  that no using directives are used anymore, instead I use
+	  leda::xxx
+
+	  Only the functions definitions use this for now, not the actual
+	  functions declarations.
+
+2004-09-21 10:21  michail
+
+	* confdir/: Makefile.test, configure.in: Changes by Sven Thiel.
+
+2004-09-21 10:19  michail
+
+	* confdir/flagtable: Added line for cygwin platform.
+
+2004-09-21 10:17  michail
+
+	* confdir/userflagtable: Added line by Sven Thiel for compiling on
+	  the cygwin platform.
+
+2004-09-14 11:53  michail
+
+	* distro-bin.sh: Now this script copies the libmcb.so file as well.
+
+2004-09-04 11:48  michail
+
+	* doc/MIN_CYCLE_BASIS.lw: Demo now prints also the length of the
+	  minimum cycle basis computed.
+
+2004-09-02 14:50  michail
+
+	* experiments/: README, Tspace-cycle-superset/avg,
+	  Tspace-cycle-superset/dense03.output,
+	  Tspace-cycle-superset/dense05.output,
+	  Tspace-cycle-superset/plot.gnu, Tspace-cycle-superset/run.sh,
+	  Tspace-cycle-superset/sparse.output,
+	  Tspace-cycle-superset/fig/Tspace-cycle-super.eps,
+	  compare-with-hybrid/README, compare-with-hybrid/avg,
+	  compare-with-hybrid/avg.C, compare-with-hybrid/compare.plot,
+	  compare-with-hybrid/compare.sh,
+	  compare-with-hybrid/compare.weighted.plot,
+	  compare-with-hybrid/compare_weighted.sh,
+	  compare-with-hybrid/execute_huber.sh,
+	  compare-with-hybrid/output.huber.unweighted.2004-08-29,
+	  compare-with-hybrid/output.number.compare.unweighted.2004-08-28,
+	  compare-with-hybrid/output.number.compare.weighted.2004-08-28,
+	  compare-with-hybrid/input/random/create.sh,
+	  compare-with-hybrid/input/random/0.1/random-10-1.gw,
+	  compare-with-hybrid/input/random/0.1/random-10-2.gw,
+	  compare-with-hybrid/input/random/0.1/random-10-3.gw,
+	  compare-with-hybrid/input/random/0.1/random-10-4.gw,
+	  compare-with-hybrid/input/random/0.1/random-10-5.gw,
+	  compare-with-hybrid/input/random/0.1/random-100-1.gw,
+	  compare-with-hybrid/input/random/0.1/random-100-2.gw,
+	  compare-with-hybrid/input/random/0.1/random-100-3.gw,
+	  compare-with-hybrid/input/random/0.1/random-100-4.gw,
+	  compare-with-hybrid/input/random/0.1/random-100-5.gw,
+	  compare-with-hybrid/input/random/0.1/random-125-1.gw,
+	  compare-with-hybrid/input/random/0.1/random-125-2.gw,
+	  compare-with-hybrid/input/random/0.1/random-125-3.gw,
+	  compare-with-hybrid/input/random/0.1/random-125-4.gw,
+	  compare-with-hybrid/input/random/0.1/random-125-5.gw,
+	  compare-with-hybrid/input/random/0.1/random-150-1.gw,
+	  compare-with-hybrid/input/random/0.1/random-150-2.gw,
+	  compare-with-hybrid/input/random/0.1/random-150-3.gw,
+	  compare-with-hybrid/input/random/0.1/random-150-4.gw,
+	  compare-with-hybrid/input/random/0.1/random-150-5.gw,
+	  compare-with-hybrid/input/random/0.1/random-175-1.gw,
+	  compare-with-hybrid/input/random/0.1/random-175-2.gw,
+	  compare-with-hybrid/input/random/0.1/random-175-3.gw,
+	  compare-with-hybrid/input/random/0.1/random-175-4.gw,
+	  compare-with-hybrid/input/random/0.1/random-175-5.gw,
+	  compare-with-hybrid/input/random/0.1/random-20-1.gw,
+	  compare-with-hybrid/input/random/0.1/random-20-2.gw,
+	  compare-with-hybrid/input/random/0.1/random-20-3.gw,
+	  compare-with-hybrid/input/random/0.1/random-20-4.gw,
+	  compare-with-hybrid/input/random/0.1/random-20-5.gw,
+	  compare-with-hybrid/input/random/0.1/random-200-1.gw,
+	  compare-with-hybrid/input/random/0.1/random-200-2.gw,
+	  compare-with-hybrid/input/random/0.1/random-200-3.gw,
+	  compare-with-hybrid/input/random/0.1/random-200-4.gw,
+	  compare-with-hybrid/input/random/0.1/random-200-5.gw,
+	  compare-with-hybrid/input/random/0.1/random-233-1.gw,
+	  compare-with-hybrid/input/random/0.1/random-233-2.gw,
+	  compare-with-hybrid/input/random/0.1/random-233-3.gw,
+	  compare-with-hybrid/input/random/0.1/random-233-4.gw,
+	  compare-with-hybrid/input/random/0.1/random-233-5.gw,
+	  compare-with-hybrid/input/random/0.1/random-266-1.gw,
+	  compare-with-hybrid/input/random/0.1/random-266-2.gw,
+	  compare-with-hybrid/input/random/0.1/random-266-3.gw,
+	  compare-with-hybrid/input/random/0.1/random-266-4.gw,
+	  compare-with-hybrid/input/random/0.1/random-266-5.gw,
+	  compare-with-hybrid/input/random/0.1/random-30-1.gw,
+	  compare-with-hybrid/input/random/0.1/random-30-2.gw,
+	  compare-with-hybrid/input/random/0.1/random-30-3.gw,
+	  compare-with-hybrid/input/random/0.1/random-30-4.gw,
+	  compare-with-hybrid/input/random/0.1/random-30-5.gw,
+	  compare-with-hybrid/input/random/0.1/random-300-1.gw,
+	  compare-with-hybrid/input/random/0.1/random-300-2.gw,
+	  compare-with-hybrid/input/random/0.1/random-300-3.gw,
+	  compare-with-hybrid/input/random/0.1/random-300-4.gw,
+	  compare-with-hybrid/input/random/0.1/random-300-5.gw,
+	  compare-with-hybrid/input/random/0.1/random-350-1.gw,
+	  compare-with-hybrid/input/random/0.1/random-350-2.gw,
+	  compare-with-hybrid/input/random/0.1/random-350-3.gw,
+	  compare-with-hybrid/input/random/0.1/random-350-4.gw,
+	  compare-with-hybrid/input/random/0.1/random-350-5.gw,
+	  compare-with-hybrid/input/random/0.1/random-40-1.gw,
+	  compare-with-hybrid/input/random/0.1/random-40-2.gw,
+	  compare-with-hybrid/input/random/0.1/random-40-3.gw,
+	  compare-with-hybrid/input/random/0.1/random-40-4.gw,
+	  compare-with-hybrid/input/random/0.1/random-40-5.gw,
+	  compare-with-hybrid/input/random/0.1/random-400-1.gw,
+	  compare-with-hybrid/input/random/0.1/random-400-2.gw,
+	  compare-with-hybrid/input/random/0.1/random-400-3.gw,
+	  compare-with-hybrid/input/random/0.1/random-400-4.gw,
+	  compare-with-hybrid/input/random/0.1/random-400-5.gw,
+	  compare-with-hybrid/input/random/0.1/random-50-1.gw,
+	  compare-with-hybrid/input/random/0.1/random-50-2.gw,
+	  compare-with-hybrid/input/random/0.1/random-50-3.gw,
+	  compare-with-hybrid/input/random/0.1/random-50-4.gw,
+	  compare-with-hybrid/input/random/0.1/random-50-5.gw,
+	  compare-with-hybrid/input/random/0.1/random-500-1.gw,
+	  compare-with-hybrid/input/random/0.1/random-500-2.gw,
+	  compare-with-hybrid/input/random/0.1/random-500-3.gw,
+	  compare-with-hybrid/input/random/0.1/random-500-4.gw,
+	  compare-with-hybrid/input/random/0.1/random-500-5.gw,
+	  compare-with-hybrid/input/random/0.1/random-60-1.gw,
+	  compare-with-hybrid/input/random/0.1/random-60-2.gw,
+	  compare-with-hybrid/input/random/0.1/random-60-3.gw,
+	  compare-with-hybrid/input/random/0.1/random-60-4.gw,
+	  compare-with-hybrid/input/random/0.1/random-60-5.gw,
+	  compare-with-hybrid/input/random/0.1/random-70-1.gw,
+	  compare-with-hybrid/input/random/0.1/random-70-2.gw,
+	  compare-with-hybrid/input/random/0.1/random-70-3.gw,
+	  compare-with-hybrid/input/random/0.1/random-70-4.gw,
+	  compare-with-hybrid/input/random/0.1/random-70-5.gw,
+	  compare-with-hybrid/input/random/0.1/random-80-1.gw,
+	  compare-with-hybrid/input/random/0.1/random-80-2.gw,
+	  compare-with-hybrid/input/random/0.1/random-80-3.gw,
+	  compare-with-hybrid/input/random/0.1/random-80-4.gw,
+	  compare-with-hybrid/input/random/0.1/random-80-5.gw,
+	  compare-with-hybrid/input/random/0.1/random-90-1.gw,
+	  compare-with-hybrid/input/random/0.1/random-90-2.gw,
+	  compare-with-hybrid/input/random/0.1/random-90-3.gw,
+	  compare-with-hybrid/input/random/0.1/random-90-4.gw,
+	  compare-with-hybrid/input/random/0.1/random-90-5.gw,
+	  compare-with-hybrid/input/random/0.3/random-10-1.gw,
+	  compare-with-hybrid/input/random/0.3/random-10-2.gw,
+	  compare-with-hybrid/input/random/0.3/random-10-3.gw,
+	  compare-with-hybrid/input/random/0.3/random-10-4.gw,
+	  compare-with-hybrid/input/random/0.3/random-10-5.gw,
+	  compare-with-hybrid/input/random/0.3/random-100-1.gw,
+	  compare-with-hybrid/input/random/0.3/random-100-2.gw,
+	  compare-with-hybrid/input/random/0.3/random-100-3.gw,
+	  compare-with-hybrid/input/random/0.3/random-100-4.gw,
+	  compare-with-hybrid/input/random/0.3/random-100-5.gw,
+	  compare-with-hybrid/input/random/0.3/random-125-1.gw,
+	  compare-with-hybrid/input/random/0.3/random-125-2.gw,
+	  compare-with-hybrid/input/random/0.3/random-125-3.gw,
+	  compare-with-hybrid/input/random/0.3/random-125-4.gw,
+	  compare-with-hybrid/input/random/0.3/random-125-5.gw,
+	  compare-with-hybrid/input/random/0.3/random-150-1.gw,
+	  compare-with-hybrid/input/random/0.3/random-150-2.gw,
+	  compare-with-hybrid/input/random/0.3/random-150-3.gw,
+	  compare-with-hybrid/input/random/0.3/random-150-4.gw,
+	  compare-with-hybrid/input/random/0.3/random-150-5.gw,
+	  compare-with-hybrid/input/random/0.3/random-175-1.gw,
+	  compare-with-hybrid/input/random/0.3/random-175-2.gw,
+	  compare-with-hybrid/input/random/0.3/random-175-3.gw,
+	  compare-with-hybrid/input/random/0.3/random-175-4.gw,
+	  compare-with-hybrid/input/random/0.3/random-175-5.gw,
+	  compare-with-hybrid/input/random/0.3/random-20-1.gw,
+	  compare-with-hybrid/input/random/0.3/random-20-2.gw,
+	  compare-with-hybrid/input/random/0.3/random-20-3.gw,
+	  compare-with-hybrid/input/random/0.3/random-20-4.gw,
+	  compare-with-hybrid/input/random/0.3/random-20-5.gw,
+	  compare-with-hybrid/input/random/0.3/random-30-1.gw,
+	  compare-with-hybrid/input/random/0.3/random-30-2.gw,
+	  compare-with-hybrid/input/random/0.3/random-30-3.gw,
+	  compare-with-hybrid/input/random/0.3/random-30-4.gw,
+	  compare-with-hybrid/input/random/0.3/random-30-5.gw,
+	  compare-with-hybrid/input/random/0.3/random-40-1.gw,
+	  compare-with-hybrid/input/random/0.3/random-40-2.gw,
+	  compare-with-hybrid/input/random/0.3/random-40-3.gw,
+	  compare-with-hybrid/input/random/0.3/random-40-4.gw,
+	  compare-with-hybrid/input/random/0.3/random-40-5.gw,
+	  compare-with-hybrid/input/random/0.3/random-50-1.gw,
+	  compare-with-hybrid/input/random/0.3/random-50-2.gw,
+	  compare-with-hybrid/input/random/0.3/random-50-3.gw,
+	  compare-with-hybrid/input/random/0.3/random-50-4.gw,
+	  compare-with-hybrid/input/random/0.3/random-50-5.gw,
+	  compare-with-hybrid/input/random/0.3/random-60-1.gw,
+	  compare-with-hybrid/input/random/0.3/random-60-2.gw,
+	  compare-with-hybrid/input/random/0.3/random-60-3.gw,
+	  compare-with-hybrid/input/random/0.3/random-60-4.gw,
+	  compare-with-hybrid/input/random/0.3/random-60-5.gw,
+	  compare-with-hybrid/input/random/0.3/random-70-1.gw,
+	  compare-with-hybrid/input/random/0.3/random-70-2.gw,
+	  compare-with-hybrid/input/random/0.3/random-70-3.gw,
+	  compare-with-hybrid/input/random/0.3/random-70-4.gw,
+	  compare-with-hybrid/input/random/0.3/random-70-5.gw,
+	  compare-with-hybrid/input/random/0.3/random-80-1.gw,
+	  compare-with-hybrid/input/random/0.3/random-80-2.gw,
+	  compare-with-hybrid/input/random/0.3/random-80-3.gw,
+	  compare-with-hybrid/input/random/0.3/random-80-4.gw,
+	  compare-with-hybrid/input/random/0.3/random-80-5.gw,
+	  compare-with-hybrid/input/random/0.3/random-90-1.gw,
+	  compare-with-hybrid/input/random/0.3/random-90-2.gw,
+	  compare-with-hybrid/input/random/0.3/random-90-3.gw,
+	  compare-with-hybrid/input/random/0.3/random-90-4.gw,
+	  compare-with-hybrid/input/random/0.3/random-90-5.gw,
+	  compare-with-hybrid/input/random/0.5/random-10-1.gw,
+	  compare-with-hybrid/input/random/0.5/random-10-2.gw,
+	  compare-with-hybrid/input/random/0.5/random-10-3.gw,
+	  compare-with-hybrid/input/random/0.5/random-10-4.gw,
+	  compare-with-hybrid/input/random/0.5/random-10-5.gw,
+	  compare-with-hybrid/input/random/0.5/random-20-1.gw,
+	  compare-with-hybrid/input/random/0.5/random-20-2.gw,
+	  compare-with-hybrid/input/random/0.5/random-20-3.gw,
+	  compare-with-hybrid/input/random/0.5/random-20-4.gw,
+	  compare-with-hybrid/input/random/0.5/random-20-5.gw,
+	  compare-with-hybrid/input/random/0.5/random-30-1.gw,
+	  compare-with-hybrid/input/random/0.5/random-30-2.gw,
+	  compare-with-hybrid/input/random/0.5/random-30-3.gw,
+	  compare-with-hybrid/input/random/0.5/random-30-4.gw,
+	  compare-with-hybrid/input/random/0.5/random-30-5.gw,
+	  compare-with-hybrid/input/random/0.5/random-40-1.gw,
+	  compare-with-hybrid/input/random/0.5/random-40-2.gw,
+	  compare-with-hybrid/input/random/0.5/random-40-3.gw,
+	  compare-with-hybrid/input/random/0.5/random-40-4.gw,
+	  compare-with-hybrid/input/random/0.5/random-40-5.gw,
+	  compare-with-hybrid/input/random/0.5/random-50-1.gw,
+	  compare-with-hybrid/input/random/0.5/random-50-2.gw,
+	  compare-with-hybrid/input/random/0.5/random-50-3.gw,
+	  compare-with-hybrid/input/random/0.5/random-50-4.gw,
+	  compare-with-hybrid/input/random/0.5/random-50-5.gw,
+	  compare-with-hybrid/input/random/0.5/random-60-1.gw,
+	  compare-with-hybrid/input/random/0.5/random-60-2.gw,
+	  compare-with-hybrid/input/random/0.5/random-60-3.gw,
+	  compare-with-hybrid/input/random/0.5/random-60-4.gw,
+	  compare-with-hybrid/input/random/0.5/random-60-5.gw,
+	  compare-with-hybrid/input/random/0.5/random-70-1.gw,
+	  compare-with-hybrid/input/random/0.5/random-70-2.gw,
+	  compare-with-hybrid/input/random/0.5/random-70-3.gw,
+	  compare-with-hybrid/input/random/0.5/random-70-4.gw,
+	  compare-with-hybrid/input/random/0.5/random-70-5.gw,
+	  compare-with-hybrid/input/random/0.5/random-80-1.gw,
+	  compare-with-hybrid/input/random/0.5/random-80-2.gw,
+	  compare-with-hybrid/input/random/0.5/random-80-3.gw,
+	  compare-with-hybrid/input/random/0.5/random-80-4.gw,
+	  compare-with-hybrid/input/random/0.5/random-80-5.gw,
+	  sets_updated/README, sets_updated/dense03.input,
+	  sets_updated/dense03.output, sets_updated/dense03_sets.tex,
+	  sets_updated/dense05.input, sets_updated/dense05.output,
+	  sets_updated/dense05_sets.tex, sets_updated/run.sh,
+	  sets_updated/sparse.input, sets_updated/sparse.output,
+	  sets_updated/sparse_sets.tex, setsii/README,
+	  setsii/dense03.input, setsii/dense03.output,
+	  setsii/dense05.input, setsii/dense05.output, setsii/plot.gnu,
+	  setsii/run.sh, setsii/sparse.input, setsii/sparse.output,
+	  time_percent/README, time_percent/dense03.input,
+	  time_percent/dense03.output, time_percent/dense05.input,
+	  time_percent/dense05.output, time_percent/fit.log,
+	  time_percent/plot.gnu, time_percent/run.sh,
+	  time_percent/sparse.input, time_percent/sparse.output,
+	  time_percent/before-changing-to-switch-set/sparse.output,
+	  time_percent/fig/percent_run.eps, times/README,
+	  times/dense03.input, times/dense05.input, times/plot.gnu,
+	  times/run.sh, times/sparse.input,
+	  times/before-changing-to-switch-set/input-0.02,
+	  times/before-changing-to-switch-set/input-0.05,
+	  times/before-changing-to-switch-set/input-0.10,
+	  times/before-changing-to-switch-set/input-0.15,
+	  times/before-changing-to-switch-set/input-0.25,
+	  times/before-changing-to-switch-set/input-0.50,
+	  times/before-changing-to-switch-set/input-0.75,
+	  times/before-changing-to-switch-set/input-1.00,
+	  times/before-changing-to-switch-set/output-0.02,
+	  times/before-changing-to-switch-set/output-0.05,
+	  times/before-changing-to-switch-set/output-0.10,
+	  times/before-changing-to-switch-set/output-0.15,
+	  times/before-changing-to-switch-set/output-0.25,
+	  times/before-changing-to-switch-set/output-0.50,
+	  times/before-changing-to-switch-set/output-0.75,
+	  times/before-changing-to-switch-set/output-1.00,
+	  times/before-changing-to-switch-set/plot.gnu,
+	  times/before-changing-to-switch-set/run.sh,
+	  times/before-changing-to-switch-set/sparse.input,
+	  times/before-changing-to-switch-set/sparse.output,
+	  times/before-changing-to-switch-set/fig/gnp_run.eps,
+	  times/before-changing-to-switch-set/fig/gnp_run.tex,
+	  times/before-changing-to-switch-set/fig/gnp_run1.eps,
+	  times/before-changing-to-switch-set/fig/gnp_run1.tex,
+	  times/before-changing-to-switch-set/fig/gnp_run2.eps,
+	  times/before-changing-to-switch-set/fig/gnp_run2.tex,
+	  times/before-changing-to-switch-set/fig/gnp_run3.eps,
+	  times/before-changing-to-switch-set/fig/gnp_run3.tex,
+	  times/before-changing-to-switch-set/fig/gnp_run4.eps,
+	  times/before-changing-to-switch-set/fig/gnp_run4.tex,
+	  times/before-changing-to-switch-set/fig/sparse_run.eps,
+	  times/before-changing-to-switch-set/fig/sparse_run.tex,
+	  with-without-heur/README, with-without-heur/dense03.input,
+	  with-without-heur/dense03.output,
+	  with-without-heur/dense05.input,
+	  with-without-heur/dense05.output, with-without-heur/fit.log,
+	  with-without-heur/plot.gnu, with-without-heur/rest.input,
+	  with-without-heur/sparse.input, with-without-heur/sparse.output,
+	  with-without-heur/fig/heuristic_run.eps,
+	  compare-with-hybrid/fig/hybrid_compare.eps,
+	  compare-with-hybrid/fig/hybrid_weighted_compare.eps,
+	  compare-with-hybrid/input/hypercubes/Q_10.mhgf,
+	  compare-with-hybrid/input/hypercubes/Q_2.mhgf,
+	  compare-with-hybrid/input/hypercubes/Q_3.mhgf,
+	  compare-with-hybrid/input/hypercubes/Q_4.mhgf,
+	  compare-with-hybrid/input/hypercubes/Q_5.mhgf,
+	  compare-with-hybrid/input/hypercubes/Q_6.mhgf,
+	  compare-with-hybrid/input/hypercubes/Q_7.mhgf,
+	  compare-with-hybrid/input/hypercubes/Q_8.mhgf,
+	  compare-with-hybrid/input/hypercubes/Q_9.mhgf,
+	  compare-with-hybrid/input/random/0.5/random-100-1.gw,
+	  compare-with-hybrid/input/random/0.5/random-100-2.gw,
+	  compare-with-hybrid/input/random/0.5/random-100-3.gw,
+	  compare-with-hybrid/input/random/0.5/random-100-4.gw,
+	  compare-with-hybrid/input/random/0.5/random-100-5.gw,
+	  compare-with-hybrid/input/random/0.5/random-125-1.gw,
+	  compare-with-hybrid/input/random/0.5/random-125-2.gw,
+	  compare-with-hybrid/input/random/0.5/random-125-3.gw,
+	  compare-with-hybrid/input/random/0.5/random-125-4.gw,
+	  compare-with-hybrid/input/random/0.5/random-125-5.gw,
+	  compare-with-hybrid/input/random/0.5/random-90-1.gw,
+	  compare-with-hybrid/input/random/0.5/random-90-2.gw,
+	  compare-with-hybrid/input/random/0.5/random-90-3.gw,
+	  compare-with-hybrid/input/random/0.5/random-90-4.gw,
+	  compare-with-hybrid/input/random/0.5/random-90-5.gw,
+	  compare-with-hybrid/input/random/0.9/random-10-1.gw,
+	  compare-with-hybrid/input/random/0.9/random-10-2.gw,
+	  compare-with-hybrid/input/random/0.9/random-10-3.gw,
+	  compare-with-hybrid/input/random/0.9/random-10-4.gw,
+	  compare-with-hybrid/input/random/0.9/random-10-5.gw,
+	  compare-with-hybrid/input/random/0.9/random-100-1.gw,
+	  compare-with-hybrid/input/random/0.9/random-100-2.gw,
+	  compare-with-hybrid/input/random/0.9/random-100-3.gw,
+	  compare-with-hybrid/input/random/0.9/random-100-4.gw,
+	  compare-with-hybrid/input/random/0.9/random-100-5.gw,
+	  compare-with-hybrid/input/random/0.9/random-20-1.gw,
+	  compare-with-hybrid/input/random/0.9/random-20-2.gw,
+	  compare-with-hybrid/input/random/0.9/random-20-3.gw,
+	  compare-with-hybrid/input/random/0.9/random-20-4.gw,
+	  compare-with-hybrid/input/random/0.9/random-20-5.gw,
+	  compare-with-hybrid/input/random/0.9/random-30-1.gw,
+	  compare-with-hybrid/input/random/0.9/random-30-2.gw,
+	  compare-with-hybrid/input/random/0.9/random-30-3.gw,
+	  compare-with-hybrid/input/random/0.9/random-30-4.gw,
+	  compare-with-hybrid/input/random/0.9/random-30-5.gw,
+	  compare-with-hybrid/input/random/0.9/random-40-1.gw,
+	  compare-with-hybrid/input/random/0.9/random-40-2.gw,
+	  compare-with-hybrid/input/random/0.9/random-40-3.gw,
+	  compare-with-hybrid/input/random/0.9/random-40-4.gw,
+	  compare-with-hybrid/input/random/0.9/random-40-5.gw,
+	  compare-with-hybrid/input/random/0.9/random-50-1.gw,
+	  compare-with-hybrid/input/random/0.9/random-50-2.gw,
+	  compare-with-hybrid/input/random/0.9/random-50-3.gw,
+	  compare-with-hybrid/input/random/0.9/random-50-4.gw,
+	  compare-with-hybrid/input/random/0.9/random-50-5.gw,
+	  compare-with-hybrid/input/random/0.9/random-60-1.gw,
+	  compare-with-hybrid/input/random/0.9/random-60-2.gw,
+	  compare-with-hybrid/input/random/0.9/random-60-3.gw,
+	  compare-with-hybrid/input/random/0.9/random-60-4.gw,
+	  compare-with-hybrid/input/random/0.9/random-60-5.gw,
+	  compare-with-hybrid/input/random/0.9/random-70-1.gw,
+	  compare-with-hybrid/input/random/0.9/random-70-2.gw,
+	  compare-with-hybrid/input/random/0.9/random-70-3.gw,
+	  compare-with-hybrid/input/random/0.9/random-70-4.gw,
+	  compare-with-hybrid/input/random/0.9/random-70-5.gw,
+	  compare-with-hybrid/input/random/0.9/random-80-1.gw,
+	  compare-with-hybrid/input/random/0.9/random-80-2.gw,
+	  compare-with-hybrid/input/random/0.9/random-80-3.gw,
+	  compare-with-hybrid/input/random/0.9/random-80-4.gw,
+	  compare-with-hybrid/input/random/0.9/random-80-5.gw,
+	  compare-with-hybrid/input/random/0.9/random-90-1.gw,
+	  compare-with-hybrid/input/random/0.9/random-90-2.gw,
+	  compare-with-hybrid/input/random/0.9/random-90-3.gw,
+	  compare-with-hybrid/input/random/0.9/random-90-4.gw,
+	  compare-with-hybrid/input/random/0.9/random-90-5.gw,
+	  compare-with-hybrid/input/random/sparse/random-10-1.gw,
+	  compare-with-hybrid/input/random/sparse/random-10-2.gw,
+	  compare-with-hybrid/input/random/sparse/random-10-3.gw,
+	  compare-with-hybrid/input/random/sparse/random-10-4.gw,
+	  compare-with-hybrid/input/random/sparse/random-10-5.gw,
+	  compare-with-hybrid/input/random/sparse/random-100-1.gw,
+	  compare-with-hybrid/input/random/sparse/random-100-2.gw,
+	  compare-with-hybrid/input/random/sparse/random-100-3.gw,
+	  compare-with-hybrid/input/random/sparse/random-100-4.gw,
+	  compare-with-hybrid/input/random/sparse/random-100-5.gw,
+	  compare-with-hybrid/input/random/sparse/random-1000-1.gw,
+	  compare-with-hybrid/input/random/sparse/random-1000-2.gw,
+	  compare-with-hybrid/input/random/sparse/random-1000-3.gw,
+	  compare-with-hybrid/input/random/sparse/random-1000-4.gw,
+	  compare-with-hybrid/input/random/sparse/random-1000-5.gw,
+	  compare-with-hybrid/input/random/sparse/random-125-1.gw,
+	  compare-with-hybrid/input/random/sparse/random-125-2.gw,
+	  compare-with-hybrid/input/random/sparse/random-125-3.gw,
+	  compare-with-hybrid/input/random/sparse/random-125-4.gw,
+	  compare-with-hybrid/input/random/sparse/random-125-5.gw,
+	  compare-with-hybrid/input/random/sparse/random-1250-1.gw,
+	  compare-with-hybrid/input/random/sparse/random-1250-2.gw,
+	  compare-with-hybrid/input/random/sparse/random-1250-3.gw,
+	  compare-with-hybrid/input/random/sparse/random-1250-4.gw,
+	  compare-with-hybrid/input/random/sparse/random-1250-5.gw,
+	  compare-with-hybrid/input/random/sparse/random-150-1.gw,
+	  compare-with-hybrid/input/random/sparse/random-150-2.gw,
+	  compare-with-hybrid/input/random/sparse/random-150-3.gw,
+	  compare-with-hybrid/input/random/sparse/random-150-4.gw,
+	  compare-with-hybrid/input/random/sparse/random-150-5.gw,
+	  compare-with-hybrid/input/random/sparse/random-1500-1.gw,
+	  compare-with-hybrid/input/random/sparse/random-1500-2.gw,
+	  compare-with-hybrid/input/random/sparse/random-1500-3.gw,
+	  compare-with-hybrid/input/random/sparse/random-1500-4.gw,
+	  compare-with-hybrid/input/random/sparse/random-1500-5.gw,
+	  compare-with-hybrid/input/random/sparse/random-175-1.gw,
+	  compare-with-hybrid/input/random/sparse/random-175-2.gw,
+	  compare-with-hybrid/input/random/sparse/random-175-3.gw,
+	  compare-with-hybrid/input/random/sparse/random-175-4.gw,
+	  compare-with-hybrid/input/random/sparse/random-175-5.gw,
+	  compare-with-hybrid/input/random/sparse/random-1750-1.gw,
+	  compare-with-hybrid/input/random/sparse/random-1750-2.gw,
+	  compare-with-hybrid/input/random/sparse/random-1750-3.gw,
+	  compare-with-hybrid/input/random/sparse/random-1750-4.gw,
+	  compare-with-hybrid/input/random/sparse/random-1750-5.gw,
+	  compare-with-hybrid/input/random/sparse/random-20-1.gw,
+	  compare-with-hybrid/input/random/sparse/random-20-2.gw,
+	  compare-with-hybrid/input/random/sparse/random-20-3.gw,
+	  compare-with-hybrid/input/random/sparse/random-20-4.gw,
+	  compare-with-hybrid/input/random/sparse/random-20-5.gw,
+	  compare-with-hybrid/input/random/sparse/random-200-1.gw,
+	  compare-with-hybrid/input/random/sparse/random-200-2.gw,
+	  compare-with-hybrid/input/random/sparse/random-200-3.gw,
+	  compare-with-hybrid/input/random/sparse/random-200-4.gw,
+	  compare-with-hybrid/input/random/sparse/random-200-5.gw,
+	  compare-with-hybrid/input/random/sparse/random-233-1.gw,
+	  compare-with-hybrid/input/random/sparse/random-233-2.gw,
+	  compare-with-hybrid/input/random/sparse/random-233-3.gw,
+	  compare-with-hybrid/input/random/sparse/random-233-4.gw,
+	  compare-with-hybrid/input/random/sparse/random-233-5.gw,
+	  compare-with-hybrid/input/random/sparse/random-266-1.gw,
+	  compare-with-hybrid/input/random/sparse/random-266-2.gw,
+	  compare-with-hybrid/input/random/sparse/random-266-3.gw,
+	  compare-with-hybrid/input/random/sparse/random-266-4.gw,
+	  compare-with-hybrid/input/random/sparse/random-266-5.gw,
+	  compare-with-hybrid/input/random/sparse/random-30-1.gw,
+	  compare-with-hybrid/input/random/sparse/random-30-2.gw,
+	  compare-with-hybrid/input/random/sparse/random-30-3.gw,
+	  compare-with-hybrid/input/random/sparse/random-30-4.gw,
+	  compare-with-hybrid/input/random/sparse/random-30-5.gw,
+	  compare-with-hybrid/input/random/sparse/random-300-1.gw,
+	  compare-with-hybrid/input/random/sparse/random-300-2.gw,
+	  compare-with-hybrid/input/random/sparse/random-300-3.gw,
+	  compare-with-hybrid/input/random/sparse/random-300-4.gw,
+	  compare-with-hybrid/input/random/sparse/random-300-5.gw,
+	  compare-with-hybrid/input/random/sparse/random-350-1.gw,
+	  compare-with-hybrid/input/random/sparse/random-350-2.gw,
+	  compare-with-hybrid/input/random/sparse/random-350-3.gw,
+	  compare-with-hybrid/input/random/sparse/random-350-4.gw,
+	  compare-with-hybrid/input/random/sparse/random-350-5.gw,
+	  compare-with-hybrid/input/random/sparse/random-40-1.gw,
+	  compare-with-hybrid/input/random/sparse/random-40-2.gw,
+	  compare-with-hybrid/input/random/sparse/random-40-3.gw,
+	  compare-with-hybrid/input/random/sparse/random-40-4.gw,
+	  compare-with-hybrid/input/random/sparse/random-40-5.gw,
+	  compare-with-hybrid/input/random/sparse/random-400-1.gw,
+	  compare-with-hybrid/input/random/sparse/random-400-2.gw,
+	  compare-with-hybrid/input/random/sparse/random-400-3.gw,
+	  compare-with-hybrid/input/random/sparse/random-400-4.gw,
+	  compare-with-hybrid/input/random/sparse/random-400-5.gw,
+	  compare-with-hybrid/input/random/sparse/random-50-1.gw,
+	  compare-with-hybrid/input/random/sparse/random-50-2.gw,
+	  compare-with-hybrid/input/random/sparse/random-50-3.gw,
+	  compare-with-hybrid/input/random/sparse/random-50-4.gw,
+	  compare-with-hybrid/input/random/sparse/random-50-5.gw,
+	  compare-with-hybrid/input/random/sparse/random-500-1.gw,
+	  compare-with-hybrid/input/random/sparse/random-500-2.gw,
+	  compare-with-hybrid/input/random/sparse/random-500-3.gw,
+	  compare-with-hybrid/input/random/sparse/random-500-4.gw,
+	  compare-with-hybrid/input/random/sparse/random-500-5.gw,
+	  compare-with-hybrid/input/random/sparse/random-60-1.gw,
+	  compare-with-hybrid/input/random/sparse/random-60-2.gw,
+	  compare-with-hybrid/input/random/sparse/random-60-3.gw,
+	  compare-with-hybrid/input/random/sparse/random-60-4.gw,
+	  compare-with-hybrid/input/random/sparse/random-60-5.gw,
+	  compare-with-hybrid/input/random/sparse/random-70-1.gw,
+	  compare-with-hybrid/input/random/sparse/random-70-2.gw,
+	  compare-with-hybrid/input/random/sparse/random-70-3.gw,
+	  compare-with-hybrid/input/random/sparse/random-70-4.gw,
+	  compare-with-hybrid/input/random/sparse/random-70-5.gw,
+	  compare-with-hybrid/input/random/sparse/random-750-1.gw,
+	  compare-with-hybrid/input/random/sparse/random-750-2.gw,
+	  compare-with-hybrid/input/random/sparse/random-750-3.gw,
+	  compare-with-hybrid/input/random/sparse/random-750-4.gw,
+	  compare-with-hybrid/input/random/sparse/random-750-5.gw,
+	  compare-with-hybrid/input/random/sparse/random-80-1.gw,
+	  compare-with-hybrid/input/random/sparse/random-80-2.gw,
+	  compare-with-hybrid/input/random/sparse/random-80-3.gw,
+	  compare-with-hybrid/input/random/sparse/random-80-4.gw,
+	  compare-with-hybrid/input/random/sparse/random-80-5.gw,
+	  compare-with-hybrid/input/random/sparse/random-90-1.gw,
+	  compare-with-hybrid/input/random/sparse/random-90-2.gw,
+	  compare-with-hybrid/input/random/sparse/random-90-3.gw,
+	  compare-with-hybrid/input/random/sparse/random-90-4.gw,
+	  compare-with-hybrid/input/random/sparse/random-90-5.gw,
+	  compare-with-hybrid/input_weighted/hypercubes/Q_10.mhgf,
+	  compare-with-hybrid/input_weighted/hypercubes/Q_2.mhgf,
+	  compare-with-hybrid/input_weighted/hypercubes/Q_3.mhgf,
+	  compare-with-hybrid/input_weighted/hypercubes/Q_4.mhgf,
+	  compare-with-hybrid/input_weighted/hypercubes/Q_5.mhgf,
+	  compare-with-hybrid/input_weighted/hypercubes/Q_6.mhgf,
+	  compare-with-hybrid/input_weighted/hypercubes/Q_7.mhgf,
+	  compare-with-hybrid/input_weighted/hypercubes/Q_8.mhgf,
+	  compare-with-hybrid/input_weighted/hypercubes/Q_9.mhgf,
+	  compare-with-hybrid/input_weighted/random/create.sh,
+	  compare-with-hybrid/input_weighted/random/0.1/random-10-1.gw,
+	  compare-with-hybrid/input_weighted/random/0.1/random-10-2.gw,
+	  compare-with-hybrid/input_weighted/random/0.1/random-10-3.gw,
+	  compare-with-hybrid/input_weighted/random/0.1/random-10-4.gw,
+	  compare-with-hybrid/input_weighted/random/0.1/random-10-5.gw,
+	  compare-with-hybrid/input_weighted/random/0.1/random-100-1.gw,
+	  compare-with-hybrid/input_weighted/random/0.1/random-100-2.gw,
+	  compare-with-hybrid/input_weighted/random/0.1/random-100-3.gw,
+	  compare-with-hybrid/input_weighted/random/0.1/random-100-4.gw,
+	  compare-with-hybrid/input_weighted/random/0.1/random-100-5.gw,
+	  compare-with-hybrid/input_weighted/random/0.1/random-125-1.gw,
+	  compare-with-hybrid/input_weighted/random/0.1/random-125-2.gw,
+	  compare-with-hybrid/input_weighted/random/0.1/random-125-3.gw,
+	  compare-with-hybrid/input_weighted/random/0.1/random-125-4.gw,
+	  compare-with-hybrid/input_weighted/random/0.1/random-125-5.gw,
+	  compare-with-hybrid/input_weighted/random/0.1/random-20-1.gw,
+	  compare-with-hybrid/input_weighted/random/0.1/random-20-2.gw,
+	  compare-with-hybrid/input_weighted/random/0.1/random-20-3.gw,
+	  compare-with-hybrid/input_weighted/random/0.1/random-20-4.gw,
+	  compare-with-hybrid/input_weighted/random/0.1/random-20-5.gw,
+	  compare-with-hybrid/input_weighted/random/0.1/random-30-1.gw,
+	  compare-with-hybrid/input_weighted/random/0.1/random-30-2.gw,
+	  compare-with-hybrid/input_weighted/random/0.1/random-30-3.gw,
+	  compare-with-hybrid/input_weighted/random/0.1/random-30-4.gw,
+	  compare-with-hybrid/input_weighted/random/0.1/random-30-5.gw,
+	  compare-with-hybrid/input_weighted/random/0.1/random-40-1.gw,
+	  compare-with-hybrid/input_weighted/random/0.1/random-40-2.gw,
+	  compare-with-hybrid/input_weighted/random/0.1/random-40-3.gw,
+	  compare-with-hybrid/input_weighted/random/0.1/random-40-4.gw,
+	  compare-with-hybrid/input_weighted/random/0.1/random-40-5.gw,
+	  compare-with-hybrid/input_weighted/random/0.1/random-50-1.gw,
+	  compare-with-hybrid/input_weighted/random/0.1/random-50-2.gw,
+	  compare-with-hybrid/input_weighted/random/0.1/random-50-3.gw,
+	  compare-with-hybrid/input_weighted/random/0.1/random-50-4.gw,
+	  compare-with-hybrid/input_weighted/random/0.1/random-50-5.gw,
+	  compare-with-hybrid/input_weighted/random/0.1/random-60-1.gw,
+	  compare-with-hybrid/input_weighted/random/0.1/random-60-2.gw,
+	  compare-with-hybrid/input_weighted/random/0.1/random-60-3.gw,
+	  compare-with-hybrid/input_weighted/random/0.1/random-60-4.gw,
+	  compare-with-hybrid/input_weighted/random/0.1/random-60-5.gw,
+	  compare-with-hybrid/input_weighted/random/0.1/random-70-1.gw,
+	  compare-with-hybrid/input_weighted/random/0.1/random-70-2.gw,
+	  compare-with-hybrid/input_weighted/random/0.1/random-70-3.gw,
+	  compare-with-hybrid/input_weighted/random/0.1/random-70-4.gw,
+	  compare-with-hybrid/input_weighted/random/0.1/random-70-5.gw,
+	  compare-with-hybrid/input_weighted/random/0.1/random-80-1.gw,
+	  compare-with-hybrid/input_weighted/random/0.1/random-80-2.gw,
+	  compare-with-hybrid/input_weighted/random/0.1/random-80-3.gw,
+	  compare-with-hybrid/input_weighted/random/0.1/random-80-4.gw,
+	  compare-with-hybrid/input_weighted/random/0.1/random-80-5.gw,
+	  compare-with-hybrid/input_weighted/random/0.1/random-90-1.gw,
+	  compare-with-hybrid/input_weighted/random/0.1/random-90-2.gw,
+	  compare-with-hybrid/input_weighted/random/0.1/random-90-3.gw,
+	  compare-with-hybrid/input_weighted/random/0.1/random-90-4.gw,
+	  compare-with-hybrid/input_weighted/random/0.1/random-90-5.gw,
+	  compare-with-hybrid/input_weighted/random/0.3/random-10-1.gw,
+	  compare-with-hybrid/input_weighted/random/0.3/random-10-2.gw,
+	  compare-with-hybrid/input_weighted/random/0.3/random-10-3.gw,
+	  compare-with-hybrid/input_weighted/random/0.3/random-10-4.gw,
+	  compare-with-hybrid/input_weighted/random/0.3/random-10-5.gw,
+	  compare-with-hybrid/input_weighted/random/0.3/random-100-1.gw,
+	  compare-with-hybrid/input_weighted/random/0.3/random-100-2.gw,
+	  compare-with-hybrid/input_weighted/random/0.3/random-100-3.gw,
+	  compare-with-hybrid/input_weighted/random/0.3/random-100-4.gw,
+	  compare-with-hybrid/input_weighted/random/0.3/random-100-5.gw,
+	  compare-with-hybrid/input_weighted/random/0.3/random-125-1.gw,
+	  compare-with-hybrid/input_weighted/random/0.3/random-125-2.gw,
+	  compare-with-hybrid/input_weighted/random/0.3/random-125-3.gw,
+	  compare-with-hybrid/input_weighted/random/0.3/random-125-4.gw,
+	  compare-with-hybrid/input_weighted/random/0.3/random-125-5.gw,
+	  compare-with-hybrid/input_weighted/random/0.3/random-20-1.gw,
+	  compare-with-hybrid/input_weighted/random/0.3/random-20-2.gw,
+	  compare-with-hybrid/input_weighted/random/0.3/random-20-3.gw,
+	  compare-with-hybrid/input_weighted/random/0.3/random-20-4.gw,
+	  compare-with-hybrid/input_weighted/random/0.3/random-20-5.gw,
+	  compare-with-hybrid/input_weighted/random/0.3/random-30-1.gw,
+	  compare-with-hybrid/input_weighted/random/0.3/random-30-2.gw,
+	  compare-with-hybrid/input_weighted/random/0.3/random-30-3.gw,
+	  compare-with-hybrid/input_weighted/random/0.3/random-30-4.gw,
+	  compare-with-hybrid/input_weighted/random/0.3/random-30-5.gw,
+	  compare-with-hybrid/input_weighted/random/0.3/random-40-1.gw,
+	  compare-with-hybrid/input_weighted/random/0.3/random-40-2.gw,
+	  compare-with-hybrid/input_weighted/random/0.3/random-40-3.gw,
+	  compare-with-hybrid/input_weighted/random/0.3/random-40-4.gw,
+	  compare-with-hybrid/input_weighted/random/0.3/random-40-5.gw,
+	  compare-with-hybrid/input_weighted/random/0.3/random-50-1.gw,
+	  compare-with-hybrid/input_weighted/random/0.3/random-50-2.gw,
+	  compare-with-hybrid/input_weighted/random/0.3/random-50-3.gw,
+	  compare-with-hybrid/input_weighted/random/0.3/random-50-4.gw,
+	  compare-with-hybrid/input_weighted/random/0.3/random-50-5.gw,
+	  compare-with-hybrid/input_weighted/random/0.3/random-60-1.gw,
+	  compare-with-hybrid/input_weighted/random/0.3/random-60-2.gw,
+	  compare-with-hybrid/input_weighted/random/0.3/random-60-3.gw,
+	  compare-with-hybrid/input_weighted/random/0.3/random-60-4.gw,
+	  compare-with-hybrid/input_weighted/random/0.3/random-60-5.gw,
+	  compare-with-hybrid/input_weighted/random/0.3/random-70-1.gw,
+	  compare-with-hybrid/input_weighted/random/0.3/random-70-2.gw,
+	  compare-with-hybrid/input_weighted/random/0.3/random-70-3.gw,
+	  compare-with-hybrid/input_weighted/random/0.3/random-70-4.gw,
+	  compare-with-hybrid/input_weighted/random/0.3/random-70-5.gw,
+	  compare-with-hybrid/input_weighted/random/0.3/random-80-1.gw,
+	  compare-with-hybrid/input_weighted/random/0.3/random-80-2.gw,
+	  compare-with-hybrid/input_weighted/random/0.3/random-80-3.gw,
+	  compare-with-hybrid/input_weighted/random/0.3/random-80-4.gw,
+	  compare-with-hybrid/input_weighted/random/0.3/random-80-5.gw,
+	  compare-with-hybrid/input_weighted/random/0.3/random-90-1.gw,
+	  compare-with-hybrid/input_weighted/random/0.3/random-90-2.gw,
+	  compare-with-hybrid/input_weighted/random/0.3/random-90-3.gw,
+	  compare-with-hybrid/input_weighted/random/0.3/random-90-4.gw,
+	  compare-with-hybrid/input_weighted/random/0.3/random-90-5.gw,
+	  compare-with-hybrid/input_weighted/random/0.5/random-10-1.gw,
+	  compare-with-hybrid/input_weighted/random/0.5/random-10-2.gw,
+	  compare-with-hybrid/input_weighted/random/0.5/random-10-3.gw,
+	  compare-with-hybrid/input_weighted/random/0.5/random-10-4.gw,
+	  compare-with-hybrid/input_weighted/random/0.5/random-10-5.gw,
+	  compare-with-hybrid/input_weighted/random/0.5/random-100-1.gw,
+	  compare-with-hybrid/input_weighted/random/0.5/random-100-2.gw,
+	  compare-with-hybrid/input_weighted/random/0.5/random-100-3.gw,
+	  compare-with-hybrid/input_weighted/random/0.5/random-100-4.gw,
+	  compare-with-hybrid/input_weighted/random/0.5/random-100-5.gw,
+	  compare-with-hybrid/input_weighted/random/0.5/random-125-1.gw,
+	  compare-with-hybrid/input_weighted/random/0.5/random-125-2.gw,
+	  compare-with-hybrid/input_weighted/random/0.5/random-125-3.gw,
+	  compare-with-hybrid/input_weighted/random/0.5/random-125-4.gw,
+	  compare-with-hybrid/input_weighted/random/0.5/random-125-5.gw,
+	  compare-with-hybrid/input_weighted/random/0.5/random-20-1.gw,
+	  compare-with-hybrid/input_weighted/random/0.5/random-20-2.gw,
+	  compare-with-hybrid/input_weighted/random/0.5/random-20-3.gw,
+	  compare-with-hybrid/input_weighted/random/0.5/random-20-4.gw,
+	  compare-with-hybrid/input_weighted/random/0.5/random-20-5.gw,
+	  compare-with-hybrid/input_weighted/random/0.5/random-30-1.gw,
+	  compare-with-hybrid/input_weighted/random/0.5/random-30-2.gw,
+	  compare-with-hybrid/input_weighted/random/0.5/random-30-3.gw,
+	  compare-with-hybrid/input_weighted/random/0.5/random-30-4.gw,
+	  compare-with-hybrid/input_weighted/random/0.5/random-30-5.gw,
+	  compare-with-hybrid/input_weighted/random/0.5/random-40-1.gw,
+	  compare-with-hybrid/input_weighted/random/0.5/random-40-2.gw,
+	  compare-with-hybrid/input_weighted/random/0.5/random-40-3.gw,
+	  compare-with-hybrid/input_weighted/random/0.5/random-40-4.gw,
+	  compare-with-hybrid/input_weighted/random/0.5/random-40-5.gw,
+	  compare-with-hybrid/input_weighted/random/0.5/random-50-1.gw,
+	  compare-with-hybrid/input_weighted/random/0.5/random-50-2.gw,
+	  compare-with-hybrid/input_weighted/random/0.5/random-50-3.gw,
+	  compare-with-hybrid/input_weighted/random/0.5/random-50-4.gw,
+	  compare-with-hybrid/input_weighted/random/0.5/random-50-5.gw,
+	  compare-with-hybrid/input_weighted/random/0.5/random-60-1.gw,
+	  compare-with-hybrid/input_weighted/random/0.5/random-60-2.gw,
+	  compare-with-hybrid/input_weighted/random/0.5/random-60-3.gw,
+	  compare-with-hybrid/input_weighted/random/0.5/random-60-4.gw,
+	  compare-with-hybrid/input_weighted/random/0.5/random-60-5.gw,
+	  compare-with-hybrid/input_weighted/random/0.5/random-70-1.gw,
+	  compare-with-hybrid/input_weighted/random/0.5/random-70-2.gw,
+	  compare-with-hybrid/input_weighted/random/0.5/random-70-3.gw,
+	  compare-with-hybrid/input_weighted/random/0.5/random-70-4.gw,
+	  compare-with-hybrid/input_weighted/random/0.5/random-70-5.gw,
+	  compare-with-hybrid/input_weighted/random/0.5/random-80-1.gw,
+	  compare-with-hybrid/input_weighted/random/0.5/random-80-2.gw,
+	  compare-with-hybrid/input_weighted/random/0.5/random-80-3.gw,
+	  compare-with-hybrid/input_weighted/random/0.5/random-80-4.gw,
+	  compare-with-hybrid/input_weighted/random/0.5/random-80-5.gw,
+	  compare-with-hybrid/input_weighted/random/0.5/random-90-1.gw,
+	  compare-with-hybrid/input_weighted/random/0.5/random-90-2.gw,
+	  compare-with-hybrid/input_weighted/random/0.5/random-90-3.gw,
+	  compare-with-hybrid/input_weighted/random/0.5/random-90-4.gw,
+	  compare-with-hybrid/input_weighted/random/0.5/random-90-5.gw,
+	  compare-with-hybrid/input_weighted/random/0.9/random-10-1.gw,
+	  compare-with-hybrid/input_weighted/random/0.9/random-10-2.gw,
+	  compare-with-hybrid/input_weighted/random/0.9/random-10-3.gw,
+	  compare-with-hybrid/input_weighted/random/0.9/random-10-4.gw,
+	  compare-with-hybrid/input_weighted/random/0.9/random-10-5.gw,
+	  compare-with-hybrid/input_weighted/random/0.9/random-20-1.gw,
+	  compare-with-hybrid/input_weighted/random/0.9/random-20-2.gw,
+	  compare-with-hybrid/input_weighted/random/0.9/random-20-3.gw,
+	  compare-with-hybrid/input_weighted/random/0.9/random-20-4.gw,
+	  compare-with-hybrid/input_weighted/random/0.9/random-20-5.gw,
+	  compare-with-hybrid/input_weighted/random/0.9/random-30-1.gw,
+	  compare-with-hybrid/input_weighted/random/0.9/random-30-2.gw,
+	  compare-with-hybrid/input_weighted/random/0.9/random-30-3.gw,
+	  compare-with-hybrid/input_weighted/random/0.9/random-30-4.gw,
+	  compare-with-hybrid/input_weighted/random/0.9/random-30-5.gw,
+	  compare-with-hybrid/input_weighted/random/0.9/random-40-1.gw,
+	  compare-with-hybrid/input_weighted/random/0.9/random-40-2.gw,
+	  compare-with-hybrid/input_weighted/random/0.9/random-40-3.gw,
+	  compare-with-hybrid/input_weighted/random/0.9/random-40-4.gw,
+	  compare-with-hybrid/input_weighted/random/0.9/random-40-5.gw,
+	  compare-with-hybrid/input_weighted/random/0.9/random-50-1.gw,
+	  compare-with-hybrid/input_weighted/random/0.9/random-50-2.gw,
+	  compare-with-hybrid/input_weighted/random/0.9/random-50-3.gw,
+	  compare-with-hybrid/input_weighted/random/0.9/random-50-4.gw,
+	  compare-with-hybrid/input_weighted/random/0.9/random-50-5.gw,
+	  compare-with-hybrid/input_weighted/random/0.9/random-60-1.gw,
+	  compare-with-hybrid/input_weighted/random/0.9/random-60-2.gw,
+	  compare-with-hybrid/input_weighted/random/0.9/random-60-3.gw,
+	  compare-with-hybrid/input_weighted/random/0.9/random-60-4.gw,
+	  compare-with-hybrid/input_weighted/random/0.9/random-60-5.gw,
+	  compare-with-hybrid/input_weighted/random/0.9/random-70-1.gw,
+	  compare-with-hybrid/input_weighted/random/0.9/random-70-2.gw,
+	  compare-with-hybrid/input_weighted/random/0.9/random-70-3.gw,
+	  compare-with-hybrid/input_weighted/random/0.9/random-70-4.gw,
+	  compare-with-hybrid/input_weighted/random/0.9/random-70-5.gw,
+	  compare-with-hybrid/input_weighted/random/0.9/random-80-1.gw,
+	  compare-with-hybrid/input_weighted/random/0.9/random-80-2.gw,
+	  compare-with-hybrid/input_weighted/random/0.9/random-80-3.gw,
+	  compare-with-hybrid/input_weighted/random/0.9/random-80-4.gw,
+	  compare-with-hybrid/input_weighted/random/0.9/random-80-5.gw,
+	  compare-with-hybrid/input_weighted/random/0.9/random-90-1.gw,
+	  compare-with-hybrid/input_weighted/random/0.9/random-90-2.gw,
+	  compare-with-hybrid/input_weighted/random/0.9/random-90-3.gw,
+	  compare-with-hybrid/input_weighted/random/0.9/random-90-4.gw,
+	  compare-with-hybrid/input_weighted/random/0.9/random-90-5.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-10-1.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-10-2.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-10-3.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-10-4.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-10-5.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-100-1.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-100-2.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-100-3.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-100-4.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-100-5.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-1000-1.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-1000-2.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-1000-3.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-1000-4.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-1000-5.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-125-1.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-125-2.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-125-3.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-125-4.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-125-5.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-1250-1.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-1250-2.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-1250-3.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-1250-4.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-1250-5.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-150-1.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-150-2.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-150-3.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-150-4.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-150-5.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-1500-1.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-1500-2.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-1500-3.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-1500-4.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-1500-5.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-175-1.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-175-2.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-175-3.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-175-4.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-175-5.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-20-1.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-20-2.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-20-3.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-20-4.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-20-5.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-200-1.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-200-2.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-200-3.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-200-4.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-200-5.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-233-1.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-233-2.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-233-3.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-233-4.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-233-5.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-266-1.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-266-2.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-266-3.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-266-4.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-266-5.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-30-1.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-30-2.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-30-3.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-30-4.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-30-5.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-300-1.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-300-2.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-300-3.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-300-4.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-300-5.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-350-1.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-350-2.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-350-3.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-350-4.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-350-5.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-40-1.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-40-2.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-40-3.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-40-4.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-40-5.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-400-1.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-400-2.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-400-3.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-400-4.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-400-5.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-50-1.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-50-2.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-50-3.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-50-4.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-50-5.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-500-1.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-500-2.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-500-3.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-500-4.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-500-5.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-60-1.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-60-2.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-60-3.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-60-4.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-60-5.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-70-1.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-70-2.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-70-3.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-70-4.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-70-5.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-750-1.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-750-2.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-750-3.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-750-4.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-750-5.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-80-1.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-80-2.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-80-3.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-80-4.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-80-5.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-90-1.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-90-2.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-90-3.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-90-4.gw,
+	  compare-with-hybrid/input_weighted/random/sparse/random-90-5.gw,
+	  compare-with-hybrid/output/comparison.results,
+	  compare-with-hybrid/output/hypercubes/comparison.numbers,
+	  compare-with-hybrid/output/random/sparse.comparison,
+	  compare-with-hybrid/output/random/0.3/comparison.numbers,
+	  compare-with-hybrid/output/random/0.5/comparison.numbers,
+	  compare-with-hybrid/output/random/0.9/comparison.numbers,
+	  compare-with-hybrid/output_weighted/comparison.results,
+	  compare-with-hybrid/output_weighted/hypercubes/comparison.numbers,
+	  compare-with-hybrid/output_weighted/random/sparse.comparison,
+	  compare-with-hybrid/output_weighted/random/0.3/comparison.numbers,
+	  compare-with-hybrid/output_weighted/random/0.5/comparison.numbers,
+	  compare-with-hybrid/output_weighted/random/0.9/comparison.numbers:
+	  Initial revision
+

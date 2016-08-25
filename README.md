@@ -1,18 +1,18 @@
 
-Minimum Cycle Basis Library
----------------------------
+Minimum Cycle Basis (MCB) Library
+---------------------------------
 
 This package implements algorithms to compute Minimum 
 Cycle Bases of weighted graphs.
 
 For undirected graphs, two algorithms:
 
-   - An O(m^3 + m n^2 \log n ) algorithm
-   - An O( m^2 n^2 ) algorithm
+   - An O(m^3 + m n^2 \log n) algorithm
+   - An O( m^2 n^2) algorithm
 
 For directed graphs:
 
-   - An O(m^3 + m n^2 \log n ) Monte-Carlo algorithm
+   - An O(m^3 + m n^2 \log n) Monte-Carlo algorithm
 
 This program can be freely used in an academic environment
 ONLY for research purposes, subject to the following restrictions:

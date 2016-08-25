@@ -52,21 +52,20 @@ using namespace leda;
 #endif
 
 // length
-edge_map < int >lenmap;
+edge_map<int> lenmap;
 
 // read edge weight
 // in the following form: label "weight" or label "uniquenumber (weight)"
-bool get_edge_weight( const gml_object * gobj, graph * G, edge e )
-{
-    char *str = gobj->get_string(  );
+bool get_edge_weight( const gml_object* gobj, graph* G, edge e ) {
+    char* str = gobj->get_string();
     int w, tw;
-
     if ( sscanf( str, "%d (%d)", &tw, &w ) == 2 ) {
-	lenmap[e] = w;
-    } else if ( sscanf( str, "%d", &w ) == 1 ) {
-	lenmap[e] = w;
-    } else
-	return false;
+        lenmap[ e ] = w;
+    }
+    else if ( sscanf( str, "%d", &w ) == 1 ) { 
+        lenmap[ e ] = w;
+    }
+    else return false;
 
     return true;
 }
@@ -74,47 +73,39 @@ bool get_edge_weight( const gml_object * gobj, graph * G, edge e )
 // read an weighted graph in GML format and 
 // find a minimum cycle basis. 
 // Output the time taken
-int main(  )
-{
+int main() {
 
     // initialize Graph
     graph G;
-
     lenmap.init( G );
 
     // create parser and read from standard input
     gml_graph parser( G );
-
     parser.add_edge_rule( get_edge_weight, gml_string, "label" );
-    if ( parser.parse( std::cin ) == false )
-	return -1;
+    if ( parser.parse( std::cin ) == false ) return -1;
 
     // copy from map to edge array
     edge e;
-    edge_array < int >len( G, 1 );
-
+    edge_array<int> len( G, 1 );
     forall_edges( e, G )
-	len[e] = lenmap[e];
+        len[ e ] = lenmap [ e ];
 
     // execute
     float T;
-
-    leda::used_time( T );	// start time
+    leda::used_time( T ); // start time
 
     mcb::edge_num enumb( G );
-    array < mcb::spvecfp > mcb;
-    array < mcb::spvecfp > proof;
+    array< mcb::spvecfp > mcb;
+    array< mcb::spvecfp > proof;
 
     double errorp = 0.5;
-    int w = mcb::DIR_MIN_CYCLE_BASIS < int >( G,
-					      len, mcb, proof, enumb,
-					      errorp );
+    int w = mcb::DIR_MIN_CYCLE_BASIS<int>( G, \
+            len, mcb, proof, enumb, errorp );
 
-    T = used_time( T );		// finish time
+    T = used_time( T ); // finish time
 
-    if ( DMCB_verify_basis( G, enumb, mcb, proof ) == false )
-	leda::error_handler( 999,
-			     "MIN_CYCLE_BASIS: result is not a cycle basis" );
+    if ( DMCB_verify_basis( G, enumb, mcb, proof ) == false ) 
+        leda::error_handler(999,"MIN_CYCLE_BASIS: result is not a cycle basis");
 
     std::cout << "weight: " << w << " time: " << T << std::endl;
 
@@ -122,3 +113,5 @@ int main(  )
 }
 
 /* ex: set ts=8 sw=4 sts=4 noet: */
+
+

@@ -34,6 +34,10 @@
 // Copyright (C) 2004-2005 - Dimitrios Michail
 
 
+/*! \file edge_num.h
+ *  \brief Definition of edge numbering.
+ */
+
 #ifndef EDGE_NUM_H
 #define EDGE_NUM_H
 
@@ -49,100 +53,115 @@
 #include <LEDA/b_queue.h>
 #endif
 
-namespace mcb
+namespace mcb { 
+
+
+/*! \brief An edge numbering class. 
+ *
+ * This class assigns a unique numbering to the edges of a graph. The \f$m\f$
+ * graph edges are numbered from \f$0\f$ to \f$m-1\f$. The numbering is based on 
+ * an arbitrary spanning tree \f$T\f$. Edges not in \f$T\f$ are numbered from 
+ * \f$0\f$ to \f$m -n + \kappa -1\f$ where \f$\kappa\f$
+ * are the number of (weakly) connected components of \f$G\f$. Edges in \f$T\f$ are numbered
+ * from \f$m-n+\kappa\f$ to \f$m-1\f$.
+ *
+ * An edge numbering is implemented as two arrays, and therefore requires
+ * \f$O(m)\f$ space. All operations take constant time except construction
+ * which takes linear time.
+ *
+ * This is a static data structure. Changes in the graph after initializing an edge
+ * numbering invalidate the data structure.
+ *
+ * \date 2004-2005
+ * \author Dimitris Michail
+ */
+class edge_num
 {
 
+private:
+// variables:
+    int m,n,k;
+    leda::edge *index;
+    leda::edge_array<int> rindex;
+// methods:
+    void create_numbering( const leda::graph& G );
+    int construct_tree( const leda::graph& g, leda::edge_array<bool>& tree );
 
-    /*{\Mtext \newpage {\bf \Large Edge Numbering (edge\_num)}\medskip} */
-    /*{\Manpage {edge_num} {} {An edge numbering} {l}} */
+// disabled:
+    edge_num& operator=( const edge_num& );
 
-    class edge_num
-    {
-	/*{\Mdefinition
-	   A numbering |\Mvar| provides a numbering of the edges of a graph 
-	   from $0$ to $m-1$. The numbering is based on an arbitrary spanning tree $T$.
-	   Edges not in $T$ are numbered from $0$ to $m -n + \kappa -1$ where $\kappa$
-	   are the number of (weakly) connected components of $G$. Edges in $T$ are numbered
-	   from $m-n+\kappa$ to $m-1$.} */
+public:
+    //@{
+    /*! Construct an edge numbering for a graph.
+     *  \param G The graph to construct for.
+     */
+    edge_num ( const leda::graph& G );
 
-      private:
-	// variables:
-	leda::edge * index;
-	leda::edge_array < int >rindex;
-	int m, n, k;
-	// methods:
-	void create_numbering( const leda::graph & G );
-	int construct_tree( const leda::graph & g,
-			    leda::edge_array < bool > &tree );
+    /*! Copy constructor */
+    edge_num ( const edge_num& enumb );
 
-	// disabled:
-	  edge_num & operator=( const edge_num & );
-
-      public:
-	/*{\Mcreation
-	   } */
-	  edge_num( const leda::graph & G );
-	/*{\Mcreate creates a |\Mname| for a graph |G|.
-	   } */
-	  edge_num( const edge_num & enumb );
-	/*{\Mcreate creates a |\Mname| from an edge numbering $enumb$.
-	   } */
-	 ~edge_num( void );
+    /*! Destructor */
+    ~edge_num (void);
+    //@}
 
 
-	/*{\Moperations
-	   } */
-	inline int operator(  ) ( leda::edge e ) const
-	{
-	    return rindex[e];
-	}
-	/*{\Mfunop Takes edge |e| and returns its number.
-	   } */
+    //@{
+    /*! Access the number of an edge.
+     *  \param e The edge to access.
+     *  \return The unique number of the edge.
+     */
+    inline int operator()(leda::edge e) const { 
+        return rindex[e];
+    }
 
-	inline leda::edge operator(  ) ( int i ) const
-	{
+    /*! Access the edge with a particular number.
+     *  \param i An integer from \f$0\f$ to \f$m-1\f$.
+     *  \return The edge corresponding to that integer.
+     */
+    inline leda::edge operator()(int i) const { 
 #if ! defined(LEDA_CHECKING_OFF)
-	    if ( i < 0 || i > m )
-		leda::error_handler( 999,
-				     "edge_num: illegal number requested" );
+        if ( i < 0 || i > m )
+            leda::error_handler(999,"edge_num: illegal number requested");
 #endif
-	    return index[i];
-	}
-	/*{\Mfunop Takes integer |i| and returns an edge with this number.
-	   } */
+        return index[ i ];
+    }
+    //@}
 
 
 
-	bool tree( leda::edge e ) const
-	{
-	    return ( rindex[e] >= m - n + k );
-	}
-	/*{\Mfunc Returns whether an edge |e| belongs to the tree used for constructing
-	   the numbering.} */
+    //@{
+    /*! Check if an edge belongs to the spanning forest used to construct the numbering.
+     *  \param e An edge.
+     *  \return True if e belongs to the spanning forest, false otherwise.
+     */
+    bool tree( leda::edge e ) const { 
+        return ( rindex[e] >= m - n + k );
+    }
 
-	int dim_cycle_space(  ) const
-	{
-	    return m - n + k;
-	}
-	/*{\Mfunc Returns the dimension of the cycle space. More precisely |m-n+k|, where
-	   |k| is the number of (weakly) connected components of the graph.} */
+    /*! Get the dimension of the cycle space of \f$G\f$. More precisely
+     *  \f$m - n + \kappa\f$, where \f$\kappa\f$ is the number of (weakly)
+     *  connected components of the graph.
+     *  \return The dimension of the cycle space of the graph.
+     */
+    int dim_cycle_space() const {
+        return m - n + k;
+    }
 
-	int num_weak_connected_comp(  ) const
-	{
-	    return k;
-	}
-	/*{\Mfunc Returns the number of (weakly) connected components of the graph.
-	   } */
+    /*! Returns the number of (weakly) connected components of the graph. 
+     *  \return The number of (weakly) connected components of the graph.
+     */
+    int num_weak_connected_comp() const {
+        return k;
+    }
+    //@}
 
-	/*{\Mimplementation
-	   The |\Mname| is implemented as two arrays, and therefore requires
-	   $O(m)$ space. All operations take constant time except construction
-	   which takes linear time.} */
-    };
+};
 
 
-}				// end namespace mcb
+} // end namespace mcb
 
 #endif
 
 /* ex: set ts=8 sw=4 sts=4 noet: */
+
+

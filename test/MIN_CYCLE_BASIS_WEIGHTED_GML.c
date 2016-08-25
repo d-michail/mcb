@@ -51,59 +51,55 @@ using namespace leda;
 #endif
 
 // length
-edge_map < int >lenmap;
+edge_map<int> lenmap;
 
 // read edge weight
-bool get_edge_weight( const gml_object * gobj, graph * G, edge e )
-{
-    int w = gobj->get_int(  );
-
-    lenmap[e] = w;
-    return true;
+bool get_edge_weight( const gml_object* gobj, graph* G, edge e ) { 
+        int w = gobj->get_int();
+        lenmap[ e ] = w;
+        return true;
 }
 
 // read an weighted graph in GML format and 
 // find a minimum cycle basis. 
 // Output the time taken
-int main(  )
-{
+int main() { 
 
-    // initialize Graph
-    graph G;
+        // initialize Graph
+        graph G;
+        lenmap.init( G );
+        
+        // create parser and read from standard input
+        gml_graph parser( G );
+        parser.add_edge_rule( get_edge_weight, gml_int, "label" );
+        if ( parser.parse( std::cin ) == false ) return -1;
+        
+        // copy from map to edge array
+        edge e;
+        edge_array<int> len( G, 1 );
+        forall_edges( e, G ) 
+                len[ e ] = lenmap [ e ];
+        
+        // execute
+        float T,T1;
+        
+        leda::used_time( T ); // start time
+        
+        mcb::edge_num enumb( G );
+        array< mcb::spvecgf2 > mcb;
+        array< mcb::spvecgf2 > proof;
 
-    lenmap.init( G );
+        int w = mcb::MIN_CYCLE_BASIS_DEPINA( G, len, mcb, proof, enumb );
 
-    // create parser and read from standard input
-    gml_graph parser( G );
+        T1 = used_time( T ); // finish time
+        
+        std::cout << "weight = " << w << std::endl;
+        std::cout << "time   = " << T1 << std::endl;
 
-    parser.add_edge_rule( get_edge_weight, gml_int, "label" );
-    if ( parser.parse( std::cin ) == false )
-	return -1;
-
-    // copy from map to edge array
-    edge e;
-    edge_array < int >len( G, 1 );
-
-    forall_edges( e, G )
-	len[e] = lenmap[e];
-
-    // execute
-    float T, T1;
-
-    leda::used_time( T );	// start time
-
-    mcb::edge_num enumb( G );
-    array < d_int_set > mcb;
-    array < d_int_set > proof;
-
-    int w = mcb::MIN_CYCLE_BASIS_DEPINA( G, len, mcb, proof, enumb );
-
-    T1 = used_time( T );	// finish time
-
-    std::cout << "weight = " << w << std::endl;
-    std::cout << "time   = " << T1 << std::endl;
-
-    return 0;
+        return 0;
 }
 
 /* ex: set ts=8 sw=4 sts=4 noet: */
+
+
+

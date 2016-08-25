@@ -43,3 +43,8 @@ LEP_WLIBS = @LEP_WLIBS@
 
 LIB_SUFFIX = @LIB_SUFFIX@
 
+#
+# tags support
+#
+CTAGS = @CTAGS@
+ETAGS = @ETAGS@

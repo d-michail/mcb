@@ -55,29 +55,26 @@
 using namespace leda;
 #endif
 
-edge_array < int >len;
+edge_array<int> len;
 
 
 // write edge weight to ostream
-void write_edge_weight( std::ostream & o, const graph * G, const edge e )
-{
+void write_edge_weight( std::ostream& o, const graph* G, const edge e ) { 
     o << "    label \"" << len[e] << "\"" << std::endl;
 }
 
 
 // create graph
-void create_graph( int n, int m, graph & G, edge_array < int >&len )
-{
+void create_graph( int n, int m, graph& G, edge_array<int>& len ) { 
 
     // create random graph
-    random_graph( G, n, m, true, true, true );
+    random_graph( G, n, m , true, true, true );
 
     // give non-negative edge lengths
     len.init( G );
     edge e;
-
-    forall_edges( e, G )
-	len[e] = rand_int( 1, 65536 );
+    forall_edges (e,G)
+        len[e] = rand_int( 1, 65536 );
 }
 
 /* ex: set ts=8 sw=4 sts=4 noet: */
@@ -85,63 +82,59 @@ void create_graph( int n, int m, graph & G, edge_array < int >&len )
 
 
 
-int main(  )
-{
+int main() { 
     int i = 0, n, m;
 
-    while ( true ) {
-	std::cout << "example " << i++ << std::endl;
+    while( true ) { 
+        std::cout << "example " << i++ << std::endl;
 
-	// create random graph
-	graph G;
+        // create random graph
+        graph G;
 
-	n = rand_int( 1, 40 );
-	m = rand_int( 1, n * ( n - 1 ) / 2 );
-	create_graph( n, m, G, len );
+        n = rand_int( 1, 40 );
+        m = rand_int( 1, n*(n-1)/2 );
+        create_graph( n, m, G, len );
 
-	// write graph to file
-	G.write_gml( "graph.input", 0, write_edge_weight );
+        // write graph to file
+        G.write_gml("graph.input", 0, write_edge_weight );
 
-	mcb::edge_num enumb( G );
-	int N = enumb.dim_cycle_space(  );
-	int c = enumb.num_weak_connected_comp(  );
+        mcb::edge_num enumb( G );
+        int N = enumb.dim_cycle_space();
+        int c = enumb.num_weak_connected_comp();
+        m = G.number_of_edges();
+        n = G.number_of_nodes();
 
-	m = G.number_of_edges(  );
-	n = G.number_of_nodes(  );
+        std::cout << " N = m - n + c = " << G.number_of_edges(); 
+        std::cout << " - " << G.number_of_nodes() << " + ";
+        std::cout << c << " = " << N << std::endl;
 
-	std::cout << " N = m - n + c = " << G.number_of_edges(  );
-	std::cout << " - " << G.number_of_nodes(  ) << " + ";
-	std::cout << c << " = " << N << std::endl;
+        if ( N <= 0 ) continue;
 
-	if ( N <= 0 )
-	    continue;
+        float Tdirstart, Tdirend;
+        float Tundirstart, Tundirend;
 
-	float Tdirstart, Tdirend;
-	float Tundirstart, Tundirend;
+        leda::used_time( Tdirstart );
+        array< list<edge> > mcbdir;
+        int wdir = mcb::MCB( G, len, mcbdir );
+        Tdirend = used_time( Tdirstart );
 
-	leda::used_time( Tdirstart );
-	array < list < edge > >mcbdir;
-	int wdir = mcb::MCB( G, len, mcbdir );
+        // make graph undirected
+        G.make_undirected();
 
-	Tdirend = used_time( Tdirstart );
+        leda::used_time( Tundirstart );
+        array< list<edge> > mcbundir;
+        int wundir = mcb::MCB( G, len, mcbundir );
+        Tundirend = used_time( Tundirstart );
 
-	// make graph undirected
-	G.make_undirected(  );
+        if ( N > 0 ) { 
+            std::cout << "directed MCB weight: " << wdir ; 
+            std::cout << " in time: " << Tdirend << " sec" << std::endl;
+            std::cout << "undirected MCB weight: " << wundir;
+            std::cout << " in time: " << Tundirend << " sec" << std::endl;
+        }
 
-	leda::used_time( Tundirstart );
-	array < list < edge > >mcbundir;
-	int wundir = mcb::MCB( G, len, mcbundir );
-
-	Tundirend = used_time( Tundirstart );
-
-	if ( N > 0 ) {
-	    std::cout << "directed MCB weight: " << wdir;
-	    std::cout << " in time: " << Tdirend << " sec" << std::endl;
-	    std::cout << "undirected MCB weight: " << wundir;
-	    std::cout << " in time: " << Tundirend << " sec" << std::endl;
-	}
-
-	std::cout << std::endl;
+        std::cout << std::endl;
     }
     return 0;
 }
+

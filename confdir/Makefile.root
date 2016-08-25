@@ -4,6 +4,13 @@
 
 include make.config
 
+ifdef ETAGS
+    ETAGFILES = $(shell find . -name "*.[Cch]" | grep -v /CVS/)
+endif
+ifdef CTAGS
+    CTAGFILES = $(shell find . -name "*.[Cch]" | grep -v /CVS/)
+endif
+
 LIB_NAME = lib$(LEP_NAME)$(LIB_SUFFIX)
 LEP_INCL_PATH_NAME = $(LEDA_INCL_PATH)/LEP/$(LEP_PATH_NAME)
 
@@ -65,11 +72,17 @@ clean:
 	cd src; $(MAKE) -i clean
 
 #------------------------------------------------------------------------------
-# CVS changelog
+# CVS changelog and tags
 #------------------------------------------------------------------------------
 
 changelog: 
 	cvs2cl -P --utc
+
+tags: $(CTAGFILES)
+	$(CTAGS) $(CTAGFILES)
+
+TAGS: $(ETAGFILES)
+	$(ETAGS) $(ETAGFILES)
 
 #------------------------------------------------------------------------------
 # Creating configure script
@@ -77,3 +90,4 @@ changelog:
 
 conf:
 	cd confdir; $(MAKE) -i configure
+	cd confdir; $(MAKE) -i copyfiles

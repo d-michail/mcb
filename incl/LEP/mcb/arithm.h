@@ -33,6 +33,10 @@
 // Copyright (C) 2004-2005 - Dimitrios Michail
 
 
+/*! \file arithm.h
+ *  \brief Basic arithmetic definitions.
+ */
+
 #ifndef ARITHM_H
 #define ARITHM_H
 
@@ -42,27 +46,31 @@
 #include <LEDA/integer.h>
 #endif
 
-namespace mcb
-{
+namespace mcb { 
 
-    // define the types used in our implementation
-    typedef long indextype;
-    typedef short etype;
-    typedef leda::integer ptype;
+// define the types used in our implementation
 
-    // give compare for ptype
-    inline int compare( const ptype & x, const ptype & y )
-    {
-	if ( x < y )
-	    return -1;
-	else if ( x > y )
-	    return 1;
-	else
-	    return 0;
-    }
+/*! The index type used for the directed cycle basis algorithm.
+ */
+typedef long indextype;
+typedef short etype;
+/*! The prime type used for the directed cycle basis algorithm.
+ */
+typedef leda::integer ptype;
 
-}				// end of namespace mcb
+// give compare for ptype
+inline int compare(const ptype& x, const ptype& y)  
+{ 
+    if (x < y) return -1;                              
+    else if (x > y) return 1;                          
+    else return 0;                                     
+} 
 
-#endif				// ARITHM_H
+} // end of namespace mcb
+
+#endif // ARITHM_H
 
 /* ex: set ts=8 sw=4 sts=4 noet: */
+
+
+

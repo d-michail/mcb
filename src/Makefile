@@ -5,6 +5,13 @@
 include ../make.config
 include make.lst
 
+ifdef ETAGS
+    ETAGFILES = $(shell find . -name "*.[Cch]" | grep -v /CVS/)
+endif
+ifdef CTAGS
+    CTAGFILES = $(shell find . -name "*.[Cch]" | grep -v /CVS/)
+endif
+
 #------------------------------------------------------------------------------
 # General settings
 #------------------------------------------------------------------------------
@@ -56,3 +63,9 @@ clean :
 
 touch: 
 	touch *.c
+
+tags: $(CTAGFILES)
+	$(CTAGS) $(CTAGFILES)
+
+TAGS: $(ETAGFILES)
+	$(ETAGS) $(ETAGFILES)

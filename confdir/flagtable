@@ -39,35 +39,32 @@
 #       OS                   COMPFLAGS          CXXLIBFLAG                SOCLIBS                 
 #                CXX                                       CXXOPTFLAG           RFLAG
 #                
-shared, Solaris, g++,  no,   ,      -fPIC,     -G,         -O2 -fno-schedule-insns -fno-schedule-insns2,  .so,     -lsocket -lthread, 	-R;
+shared, Solaris, g++,  no,   ,      -fPIC,     -G,         -O2,  .so,     -lsocket -lthread, 	-R;
 shared, Solaris, CC,   no,   ,      -PIC,      -G,         -O,  .so,     -lsocket -lthread, 	-R;
 shared, Solaris, KCC,  no,   ,      -KPIC,     -G,         +K3, .so,     -lsocket -lthread, 	-R;
-shared, SunOS,   g++,  no,   ,      -fPIC,     -G,         -O2 -fno-schedule-insns -fno-schedule-insns2,  .so,     -lsocket -lthread, 	-R;
+shared, SunOS,   g++,  no,   ,      -fPIC,     -G,         -O2,  .so,     -lsocket -lthread, 	-R;
 shared, SunOS,   CC,   no,   ,      -PIC,      -G,         -O,  .so,     -lsocket -lthread, 	-R;
-shared, Linux,   g++,  no,   ,      -fpic,     -shared,    -O2 -fno-schedule-insns -fno-schedule-insns2,  .so,      , 	-Xlinker -rpath -Xlinker ;
-shared, Linux,   g++-3.4,  no,   ,      -fpic,     -shared,    -O2 -fno-schedule-insns -fno-schedule-insns2,  .so,      , 	-Xlinker -rpath -Xlinker ;
-shared, Linux,   g++-4.0,  no,   ,      -fpic,     -shared,    -O2 -fno-schedule-insns -fno-schedule-insns2,  .so,      , 	-Xlinker -rpath -Xlinker ;
+shared, Linux,   g++,  no,   ,      -fpic,     -shared,    -O2,  .so,      , 	-Xlinker -rpath -Xlinker ;
 shared, IRIX,    CC,   64,   -64 -LANG:std,   -KPIC,     -shared, -O, .so,      , 	-rpath;
 shared, IRIX,    CC,   no,   -LANG:std,       -KPIC,     -shared, -O, .so,      , 	-rpath;
 shared, IRIX,    CC,   o32,  -32 -LANG:std,   -KPIC,     -shared, -O, .so,      ,    -rpath;
 shared, IRIX,    CC,   n32,  -n32 -LANG:std,  -KPIC,     -shared, -O, .so,      ,    -rpath;
-shared, IRIX,    g++,  no,   ,      -fpic,     -shared,    -O2 -fno-schedule-insns -fno-schedule-insns2,  .so,     ,      -rpath;
-shared, IRIX,    g++,  64,   -mabi=64, -fpic,  -shared,    -O2 -fno-schedule-insns -fno-schedule-insns2,  .so,     ,      -rpath;
-shared, HP-UX,   g++,  no,   ,      -fPIC,     -shared,    -O2 -fno-schedule-insns -fno-schedule-insns2,  .sl,     ,      -R;
+shared, IRIX,    g++,  no,   ,      -fpic,     -shared,    -O2,  .so,     ,      -rpath;
+shared, IRIX,    g++,  64,   -mabi=64, -fpic,  -shared,    -O2,  .so,     ,      -rpath;
+shared, HP-UX,   g++,  no,   ,      -fPIC,     -shared,    -O2,  .sl,     ,      -R;
 shared, HP-UX,   CC,   no,   ,      +Z,        -b,         -O,  .sl,     ,      -R;
-static, Solaris, g++,  no,   ,      ,          ,           -O2 -fno-schedule-insns -fno-schedule-insns2,  .a,      -lsocket -lthread, 	-R;
+static, Solaris, g++,  no,   ,      ,          ,           -O2,  .a,      -lsocket -lthread, 	-R;
 static, Solaris, CC,   no,   ,      ,          ,           -O,  .a,      -lsocket -lthread, 	-R;
 static, Solaris, KCC,  no,   ,      ,          ,           +K3, .a,      -lsocket -lthread, 	-R;
-static, SunOS,   g++,  no,   ,      ,          ,           -O2 -fno-schedule-insns -fno-schedule-insns2,  .a,      -lsocket -lthread, 	-R;
+static, SunOS,   g++,  no,   ,      ,          ,           -O2,  .a,      -lsocket -lthread, 	-R;
 static, SunOS,   CC,   no,   ,      ,          ,           -O,  .a,      -lsocket -lthread, 	-R;
-static, Linux,   g++,  no,   ,      ,          ,           -O2 -fno-schedule-insns -fno-schedule-insns2,  .a,      ,      -Xlinker -rpath -Xlinker ;
-static, Linux,   g++-3.4, no,,      ,          ,           -O2 -fno-schedule-insns -fno-schedule-insns2,  .a,      ,      -Xlinker -rpath -Xlinker ;
-static, Cygwin,  g++,  no,   ,      ,          ,           -O2 -fno-schedule-insns -fno-schedule-insns2,  .a,      ,      -Xlinker -rpath -Xlinker ;
+static, Linux,   g++,  no,   ,      ,          ,           -O2,  .a,      ,      -Xlinker -rpath -Xlinker ;
+static, Cygwin,  g++,  no,   ,      ,          ,           -O2,  .a,      ,      -Xlinker -rpath -Xlinker ;
 static, IRIX,    CC,   64,   -64 -LANG:std,  , ,           -O,  .a,      ,      -rpath;
 static, IRIX,    CC,   no,   -LANG:std,      , ,           -O,  .a,      ,      -rpath;
 static, IRIX,    CC,   o32,  -32 -LANG:std,  , ,           -O,  .a,      ,      -rpath;
 static, IRIX,    CC,   n32,  -n32 -LANG:std, , ,           -O,  .a,      ,      -rpath;
-static, IRIX,    g++,  no,   ,      ,          ,           -O2 -fno-schedule-insns -fno-schedule-insns2,  .a,      ,      -rpath;
-static, IRIX,    g++,  64,   -mabi=64, ,       ,           -O2 -fno-schedule-insns -fno-schedule-insns2,  .a,      ,      -rpath;
-static, HP-UX,   g++,  no,   ,      ,          ,           -O2 -fno-schedule-insns -fno-schedule-insns2,  .a,      ,      -R;
+static, IRIX,    g++,  no,   ,      ,          ,           -O2,  .a,      ,      -rpath;
+static, IRIX,    g++,  64,   -mabi=64, ,       ,           -O2,  .a,      ,      -rpath;
+static, HP-UX,   g++,  no,   ,      ,          ,           -O2,  .a,      ,      -R;
 static, HP-UX,   CC,   no,   ,      ,          ,           -O,  .a,      ,      -R;

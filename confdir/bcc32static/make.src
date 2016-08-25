@@ -19,7 +19,7 @@ LEP_OBJECTS = $(LEP_SOURCES:.c=.obj)
 all: $(LIB)
 
 .c.obj:
-	$(CC) -I$(LEDAROOT)\incl -I..\incl $*.c
+	$(CC) $(LEDAFLAGS) -I$(LEDAROOT)\incl -I..\incl $*.c
 	@if not exist $(LIB) $(AR0) $(LIB) $(ARC) $*.obj > NUL		
 	$(AR) $(LIB) $(ARC) $*.obj > NUL
 
