@@ -1,7 +1,4 @@
-#line 6220 "MIN_CYCLE_BASIS.lw"
 //---------------------------------------------------------------------
-// File automatically generated using notangle from DMIN_CYCLE_BASIS.lw
-//
 // emails and bugs: Dimitrios Michail <dimitrios.michail@gmail.com>
 //---------------------------------------------------------------------
 //
@@ -31,18 +28,21 @@
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 //
-// Copyright (C) 2004-2005 - Dimitrios Michail
+// Copyright (C) 2004-2006 - Dimitrios Michail
 
 
-#line 8397 "MIN_CYCLE_BASIS.lw"
 #include <iostream>
-#include <LEP/mcb/dir_min_cycle_basis.h>
+
+#include <LEP/mcb/mcb_approx.h>
 
 #ifdef LEDA_GE_V5
 #include <LEDA/graphics/graphwin.h>
+#include <LEDA/graph/graph.h>
 #else
 #include <LEDA/graphwin.h>
+#include <LEDA/graph.h>
 #endif
+
 
 #if defined(LEDA_NAMESPACE)
 using namespace leda;
@@ -50,12 +50,13 @@ using namespace leda;
 
 graph G;
 edge_map<int> Gcost(G);
+int k;
 
-void run_and_display(GraphWin& gw) {
+void run_and_display(GraphWin& gw) { 
 
     bool flush = gw.set_flush(false);
 
-    gw.message("\\bf Computing Directed Minimum Cycle Basis");
+    gw.message("\\bf Computing Approximate Minimum Cycle Basis");
 
     edge_array<int> cost(G);
     edge e;
@@ -63,23 +64,17 @@ void run_and_display(GraphWin& gw) {
 
     // meet preconditions
     Delete_Loops( G );
-    Make_Simple( G );
     gw.update_graph();
+    gw.set_flush(flush);
+    gw.redraw();
 
     // initialize
     mcb::edge_num enumb( G );
     int N = enumb.dim_cycle_space();
-    array< mcb::spvecfp > mcb;
-    array< mcb::spvecfp > proof;
-    double errorp = 0.1;
+    array< mcb::spvecgf2 > mcb;
 
-    int w = mcb::DIR_MIN_CYCLE_BASIS<int>( G, \
-	    cost, mcb, proof, enumb, errorp );
+    int w = mcb::UMCB_APPROX( G, cost, k, mcb, enumb );
 
-    if ( DMCB_verify_basis( G, enumb, mcb, proof ) == false ) 
-	leda::error_handler(999,"MIN_CYCLE_BASIS: result is not a cycle basis");
-
-    // assign labels to edges: num( weight )
     forall_edges(e,G) {
 	gw.set_color( e, black );
 	gw.set_label(e,string("%d (%d)", enumb(e), cost[e] ));
@@ -87,28 +82,21 @@ void run_and_display(GraphWin& gw) {
 
     // set edges of spanning tree as red
     forall_edges( e , G )
-	if ( enumb.tree(e) )
+	if ( enumb.tree(e) ) 
 	    gw.set_color( e, red );
 
-    if ( N > 0 ) {
+    if ( N > 0 ) { 
 	// print cycles
-	std::cout << "*** DIRECTED MINIMUM CYCLE BASIS ***" << std::endl;
+	std::cout << "*** " << (2*k-1) << "-APPROX"; 
+	std::cout << " MINIMUM CYCLE BASIS ***" << std::endl;
 	std::cout << "Total weight = " << w << std::endl;
-	for( int i = 0; i < N; i++ ) {
-	    std::cout << "cycle " << i+1;
-	    std::cout << " : "; 
-	    
-	    list_item it = mcb[i].first();
-	    while( it != nil ) { 
-		std::cout << ( ( mcb[i].inf( it ) == -1 )? "(-)":"" );
-		std::cout << mcb[i].index( it ) - 1; 
-
-		it = mcb[i].succ( it );
-		if ( it != nil ) std::cout << " ";
-	    }
-	    
-	    std::cout  << std::endl;
+	for( int i = 0; i < N; i++ ) { 
+	    std::cout << "cycle " << i+1; 
+	    std::cout << " : " << mcb[i] << std::endl;
 	}
+    }
+    else {
+	std::cout << "Dimension of cycle space is zero" << std::endl;
     }
 
     gw.set_flush(flush);
@@ -118,20 +106,24 @@ void run_and_display(GraphWin& gw) {
 void new_node_handler(GraphWin& gw, node) {}
 
 void new_edge_handler(GraphWin& gw, edge e) {
-    Gcost[e] = rand_int(1, 10);
+    Gcost[e] = 1;
     gw.set_slider_value(e,Gcost[e]/100.0,1);
     run_and_display(gw);
 }
 
-void del_edge_handler(GraphWin& gw) { run_and_display(gw); }
+void del_edge_handler(GraphWin& gw) { 
+    run_and_display(gw);
+}
 
-void del_node_handler(GraphWin& gw) { run_and_display(gw); }
+void del_node_handler(GraphWin& gw) { 
+    run_and_display(gw);
+}
 
-void init_graph_handler( GraphWin &gw ) {
+void init_graph_handler( GraphWin &gw ) { 
     edge e;
     forall_edges(e,G) {
 	if ( Gcost[e] == 0 ) { 
-	    Gcost[e] = rand_int(1, 10);
+	    Gcost[e] = 1;
 	}
 	gw.set_slider_value(e,Gcost[e]/100.0,1);
     }
@@ -139,34 +131,41 @@ void init_graph_handler( GraphWin &gw ) {
 }
 
 // rank sliders
+
 void start_cost_slider_handler(GraphWin& gw, edge, double)
-{
-    gw.message("\\bf\\red Change Edge Cost");
+{ 
+    gw.message("\\bf\\red Change Edge Cost"); 
 }
 
-void cost_slider_handler(GraphWin& gw, edge e, double f)
-{
+void cost_slider_handler(GraphWin& gw, edge e, double f) 
+{ 
     Gcost[e] = int(100*f);
     if( Gcost[e] == 0 ) Gcost[e] = 1;
 }
 
 void end_cost_slider_handler(GraphWin& gw, edge, double)
-{
+{ 
     run_and_display(gw);
 }
 
-int main()
+int main(int argc, char *argv[])
 {
-    GraphWin gw(G,"Directed Minimum Cycle Basis");
+    // read k
+    k = -1;
+    if ( argc > 1 ) k = atoi( argv[1] );
+    if ( k < 1 ) k = 2;
 
-    gw.add_help_text("DIR_MIN_CYCLE_BASIS");
+    GraphWin gw(G,"Approximate Minimum Cycle Basis");
+
+    gw.add_help_text("GW_UMCB_APPROX");
     gw.display();
-    gw.display_help_text("DIR_MIN_CYCLE_BASIS");
+    gw.display_help_text("GW_UMCB_APPROX");
 
     gw.set_action(A_LEFT | A_DRAG | A_EDGE , NULL);
     gw.win_init(0,200,0);
 
     // set handlers
+
     gw.set_init_graph_handler(init_graph_handler);
 
     gw.set_del_edge_handler(del_edge_handler);
@@ -178,14 +177,11 @@ int main()
     gw.set_end_edge_slider_handler(end_cost_slider_handler,1);
     gw.set_edge_slider_color(blue,1);
 
-    gw.set_directed(true);
+    gw.set_directed(false);
 
     gw.edit();
 
     return 0;
 }
 
-#line 6217 "MIN_CYCLE_BASIS.lw"
 /* ex: set ts=8 sw=4 sts=4 noet: */
-
-

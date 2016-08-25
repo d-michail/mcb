@@ -1,4 +1,3 @@
-#line 6220 "MIN_CYCLE_BASIS.lw"
 //---------------------------------------------------------------------
 // File automatically generated using notangle from DMIN_CYCLE_BASIS.lw
 //
@@ -31,16 +30,17 @@
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 //
-// Copyright (C) 2004-2005 - Dimitrios Michail
+// Copyright (C) 2004-2006 - Dimitrios Michail
 
 
-#line 7256 "MIN_CYCLE_BASIS.lw"
 /*! \file arithm.h
  *  \brief Basic arithmetic definitions.
  */
 
 #ifndef ARITHM_H
 #define ARITHM_H
+
+#include <LEP/mcb/config.h>
 
 #ifdef LEDA_GE_V5
 #include <LEDA/numbers/integer.h>
@@ -54,13 +54,13 @@ namespace mcb {
 
 /*! The index type used for the directed cycle basis algorithm.
  */
-typedef long indextype;
+typedef int indextype;
 typedef short etype;
 /*! The prime type used for the directed cycle basis algorithm.
  */
 typedef leda::integer ptype;
 
-// give compare for ptype
+// give compare for ptype inside mcb namespace
 inline int compare(const ptype& x, const ptype& y)  
 { 
     if (x < y) return -1;                              
@@ -72,7 +72,6 @@ inline int compare(const ptype& x, const ptype& y)
 
 #endif // ARITHM_H
 
-#line 6217 "MIN_CYCLE_BASIS.lw"
 /* ex: set ts=8 sw=4 sts=4 noet: */
 
 

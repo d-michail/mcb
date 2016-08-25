@@ -6,5 +6,5 @@
 
 
 LEPNAME = mcb
-LEP_SOURCES = MIN_CYCLE_BASIS.c edge_num.c DMIN_CYCLE_BASIS.c fp.c spvecgf2.c
+LEP_SOURCES = MIN_CYCLE_BASIS.c edge_num.c spvecfp.c spvecgf2.c mcb_approx.c verify.c transform.c ushortpath.c
 

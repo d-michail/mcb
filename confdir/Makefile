@@ -25,6 +25,7 @@ copyfiles : $(COPYFILES)
 	$(CP) make.lst.test ../test/make.lst
 	$(CP) make.lst.src ../src/make.lst
 	$(CP) configure ../configure
+	$(CP) incl/LEP/mcb/config.h.in ../incl/LEP/mcb/config.h.in
 
 clean :
 	rm -f *~

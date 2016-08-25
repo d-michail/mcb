@@ -7,10 +7,11 @@
 include ../make.config
 include make.lst
 
+PROGS_SOURCES = $(addsuffix .c,$(PROGS))
+
 #------------------------------------------------------------------------------
 # General settings
 #------------------------------------------------------------------------------
-
 IFLAGS = $(patsubst %,-I%,$(subst :, ,$(LEDA_INCL_PATH))) -I$(LEP_INCL_PATH) 
 LFLAGS = -L$(LEDA_LIB_PATH) -L$(LEP_LIB_PATH)
 RFLAGS = $(RFLAG)$(LEDA_LIB_PATH) $(RFLAG)$(LEP_LIB_PATH)
@@ -35,6 +36,13 @@ all: $(PROGS)
 
 .o:
 	$(CXX) $(LEP_LINK_FLAGS) -o $* $*.o $(LFLAGS) $(RFLAGS) $(LIBS)
+
+#----------------------------------------------------------------------------
+# depend
+#----------------------------------------------------------------------------
+
+depend:
+	makedepend -- $(CFLAGS) -I$(LEP_INCL_PATH) -- $(PROGS_SOURCES) 2>/dev/null
 
 #----------------------------------------------------------------------------
 # clean and touch

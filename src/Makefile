@@ -34,14 +34,12 @@ all: $(LINKING_MODE)
 shared: $(LEP_OBJECTS)
 	$(CXX) $(CXX_LIB_FLAGS) $(LEP_LIB_FLAGS) -o $(LIB_NAME) $(LEP_OBJECTS)
 	@$(MV) $(LIB_NAME) $(LEP_LIB_PATH)
-	@$(RM) -f $(LEP_OBJECTS)
 
 static: $(LEP_OBJECTS)
 	$(AR) $(AROPTS) $(LIB_NAME) $?
 	@if [ ! -d $(LEP_LIB_PATH) ]; then \
 	$(MKDIR) $(LEP_LIB_PATH); fi
 	@$(MV) $(LIB_NAME) $(LEP_LIB_PATH)
-	@$(RM) -f $(LEP_OBJECTS)
 
 #----------------------------------------------------------------------------
 # general rules:
@@ -49,6 +47,13 @@ static: $(LEP_OBJECTS)
 
 .c.o:
 	$(CXX) $(IFLAGS) $(CFLAGS) $(CXX_COMP_FLAGS) $(LEP_COMP_FLAGS) -c $*.c        
+
+#----------------------------------------------------------------------------
+# depend
+#----------------------------------------------------------------------------
+
+depend:
+	makedepend -- $(CFLAGS) -I$(LEP_INCL_PATH) -- $(LEP_SOURCES) 2>/dev/null
 
 #----------------------------------------------------------------------------
 # clean and touch

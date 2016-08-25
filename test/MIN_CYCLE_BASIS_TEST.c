@@ -1,4 +1,3 @@
-#line 6220 "MIN_CYCLE_BASIS.lw"
 //---------------------------------------------------------------------
 // File automatically generated using notangle from DMIN_CYCLE_BASIS.lw
 //
@@ -31,12 +30,13 @@
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 //
-// Copyright (C) 2004-2005 - Dimitrios Michail
+// Copyright (C) 2004-2006 - Dimitrios Michail
 
 
-#line 5185 "MIN_CYCLE_BASIS.lw"
 #include <iostream>
 #include <LEP/mcb/min_cycle_basis.h>
+#include <LEP/mcb/mcb_approx.h>
+#include <LEP/mcb/verify.h>
 
 #ifdef LEDA_GE_V5
 #include <LEDA/core/random_source.h>
@@ -55,30 +55,28 @@ using namespace leda;
 #endif
 
 
-#line 4644 "MIN_CYCLE_BASIS.lw"
 // create random graph
 void create_graph( int n, 
-		   int m,
-		   graph& G, 
-		   edge_array<int>& len ) {
+                   int m,
+                   graph& G, 
+                   edge_array<int>& len ) {
 
-	random_simple_undirected_graph( G, n, m );
+        random_simple_undirected_graph( G, n, m );
 
-	// meet preconditions
-	Delete_Loops( G );
-	Make_Simple( G );
-	G.make_undirected();
+        // meet preconditions
+        Delete_Loops( G );
+        Make_Simple( G );
+        G.make_undirected();
 
-	// give non-negative edge lengths
-	len.init( G );
-	edge e;
-	forall_edges (e,G)
-		len[e] = rand_int( 0, 65536 );
+        // give non-negative edge lengths
+        len.init( G );
+        edge e;
+        forall_edges (e,G)
+                len[e] = rand_int( 0, 65536 );
 }
 
 
 
-#line 5206 "MIN_CYCLE_BASIS.lw"
 int main() { 
         int i = 0, n, m;
 
@@ -90,9 +88,9 @@ int main() {
                 graph G;
                 edge_array<int> len;
 
-		n = rand_int( 1, 70 );
-		m = rand_int( 1, n*(n-1)/2 );
-		create_graph( n, m, G, len );
+                n = rand_int( 1, 70 );
+                m = rand_int( 1, n*(n-1)/2 );
+                create_graph( n, m, G, len );
 
                 mcb::edge_num enumb( G );
                 int N = enumb.dim_cycle_space();
@@ -102,7 +100,7 @@ int main() {
                 std::cout << " - " << G.number_of_nodes() << " + ";
                 std::cout << c << " = " << N;
 
-		if ( N <= 0 ) continue;
+                if ( N <= 0 ) continue;
 
                 // MCB
                 array< d_int_set > mcb;
@@ -118,16 +116,16 @@ int main() {
                         error_handler(999,"MIN_CYCLE_BASIS:\
                         not a minimum cycle basis :(");
 
-		// now try the sparse vector representation of de Pina
-		array< mcb::spvecgf2 > mcbSP; 
-		array< mcb::spvecgf2 > proofSP;
-		int wSP = mcb::MIN_CYCLE_BASIS_DEPINA( G, len, mcbSP, proofSP, enumb );
-		assert( w == wSP );
-		if ( N > 0 ) { 
-		    std::cout << " - DEPINASP(MCB) = " << wSP; 
-		    std::cout.flush();
-		}
-		// verify minimum cycle basis
+                // now try the sparse vector representation of de Pina
+                array< mcb::spvecgf2 > mcbSP; 
+                array< mcb::spvecgf2 > proofSP;
+                int wSP = mcb::MIN_CYCLE_BASIS_DEPINA( G, len, mcbSP, proofSP, enumb );
+                assert( w == wSP );
+                if ( N > 0 ) { 
+                    std::cout << " - DEPINASP(MCB) = " << wSP; 
+                    std::cout.flush();
+                }
+                // verify minimum cycle basis
                 if ( ! mcb::MIN_CYCLE_BASIS_DEPINA_CHECK( G, len, mcbSP, proofSP, enumb ) )
                         error_handler(999,"MIN_CYCLE_BASIS:\
                         not a minimum cycle basis :(");
@@ -180,13 +178,27 @@ int main() {
                 assert( w6 == w7 && w5 == w6 && w8 == w9 && w10 == w15 && 
                 w9 == w10 && w7 == w8 );
 
+                // now try approx
+                array< mcb::spvecgf2 > mcb_apr6;
+                int w_apr6 = mcb::UMCB_APPROX( G, len, 2, mcb_apr6, enumb );  
+                if ( ! mcb::verify_cycle_basis( G, enumb, mcb_apr6 ) )
+                        error_handler(999,"MIN_CYCLE_BASIS (6-APPROX): not a cycle basis :(");
+                array< mcb::spvecgf2 > mcb_uapr6;
+                int w_apr6u = mcb::UMCB_APPROX( G, 2, mcb_uapr6, enumb );  
+                if ( ! mcb::verify_cycle_basis( G, enumb, mcb_uapr6 ) )
+                        error_handler(999,"MIN_CYCLE_BASIS (6-APPROX-UNIFORM): not a cycle basis :(");
+                assert( w_apr6 <= 6 * w1 );
+                assert( w_apr6u <= 6 * w6 );
+                std::cout << " - 6-APPROX-MCB = " << w_apr6;
+                std::cout << " - 6-UNIFORM-APPROX-MCB = " << w_apr6u; 
+                std::cout.flush();
+
         }
         std::cout << "\n" << std::endl;
 
         return 0;
 }
 
-#line 6217 "MIN_CYCLE_BASIS.lw"
 /* ex: set ts=8 sw=4 sts=4 noet: */
 
 

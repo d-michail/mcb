@@ -71,6 +71,11 @@ clean:
 	cd test; $(MAKE) -i clean
 	cd src; $(MAKE) -i clean
 
+depend:
+	cd src; $(MAKE) -i depend
+	cd demo; $(MAKE) -i depend
+	cd test; $(MAKE) -i depend
+
 #------------------------------------------------------------------------------
 # CVS changelog and tags
 #------------------------------------------------------------------------------

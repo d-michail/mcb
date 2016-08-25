@@ -1,0 +1,8 @@
+We illustrate minimum cycle basis of unweighted undirected graphs.
+
+The edges of an arbitrary spanning tree used by the algorithm
+are shown in red. Each edge has a label with a unique number.
+
+As you edit the graph, a minimum cycle basis is indicated on
+the standard output. Each cycle is represented by the unique numbers
+of its edges.

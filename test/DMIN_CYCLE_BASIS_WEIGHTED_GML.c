@@ -1,4 +1,3 @@
-#line 6220 "MIN_CYCLE_BASIS.lw"
 //---------------------------------------------------------------------
 // File automatically generated using notangle from DMIN_CYCLE_BASIS.lw
 //
@@ -31,13 +30,13 @@
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 //
-// Copyright (C) 2004-2005 - Dimitrios Michail
+// Copyright (C) 2004-2006 - Dimitrios Michail
 
 
-#line 8302 "MIN_CYCLE_BASIS.lw"
 #include <iostream>
 #include <stdio.h>
 #include <LEP/mcb/dir_min_cycle_basis.h>
+#include <LEP/mcb/verify.h>
 
 #ifdef LEDA_GE_V5
 #include <LEDA/graph/graph_misc.h>
@@ -62,10 +61,10 @@ bool get_edge_weight( const gml_object* gobj, graph* G, edge e ) {
     char* str = gobj->get_string();
     int w, tw;
     if ( sscanf( str, "%d (%d)", &tw, &w ) == 2 ) {
-	lenmap[ e ] = w;
+        lenmap[ e ] = w;
     }
     else if ( sscanf( str, "%d", &w ) == 1 ) { 
-	lenmap[ e ] = w;
+        lenmap[ e ] = w;
     }
     else return false;
 
@@ -90,7 +89,7 @@ int main() {
     edge e;
     edge_array<int> len( G, 1 );
     forall_edges( e, G )
-	len[ e ] = lenmap [ e ];
+        len[ e ] = lenmap [ e ];
 
     // execute
     float T;
@@ -101,20 +100,19 @@ int main() {
     array< mcb::spvecfp > proof;
 
     double errorp = 0.5;
-    int w = mcb::DIR_MIN_CYCLE_BASIS<int>( G, \
-	    len, mcb, proof, enumb, errorp );
+    int w = mcb::DMCB<int>( G, \
+            len, mcb, proof, enumb, errorp );
 
     T = used_time( T ); // finish time
 
-    if ( DMCB_verify_basis( G, enumb, mcb, proof ) == false ) 
-	leda::error_handler(999,"MIN_CYCLE_BASIS: result is not a cycle basis");
+    if ( verify_cycle_basis( G, enumb, mcb ) == false ) 
+        leda::error_handler(999,"MIN_CYCLE_BASIS: result is not a cycle basis");
 
     std::cout << "weight: " << w << " time: " << T << std::endl;
 
     return 0;
 }
 
-#line 6217 "MIN_CYCLE_BASIS.lw"
 /* ex: set ts=8 sw=4 sts=4 noet: */
 
 

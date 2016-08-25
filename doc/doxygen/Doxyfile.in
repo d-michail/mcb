@@ -364,10 +364,11 @@ WARN_LOGFILE           =
 INPUT                  = ../../incl/LEP/mcb/mcb.h \
 			 ../../incl/LEP/mcb/edge_num.h \
 			 ../../incl/LEP/mcb/spvecgf2.h \
-			 ../../incl/LEP/mcb/fp.h \
+			 ../../incl/LEP/mcb/spvecfp.h \
 			 ../../incl/LEP/mcb/arithm.h \
 			 ../../incl/LEP/mcb/min_cycle_basis.h \
-			 ../../incl/LEP/mcb/dir_min_cycle_basis.h 
+			 ../../incl/LEP/mcb/dir_min_cycle_basis.h \
+			 ../../incl/LEP/mcb/mcb_approx.h 
 
 # If the value of the INPUT tag contains directories, you can use the 
 # FILE_PATTERNS tag to specify one or more wildcard pattern (like *.cpp 
@@ -882,7 +883,7 @@ INCLUDE_FILE_PATTERNS  =
 # or name=definition (no spaces). If the definition and the = are 
 # omitted =1 is assumed.
 
-PREDEFINED             = 
+PREDEFINED             = DOXYGEN_IGNORE_DOCS
 
 # If the MACRO_EXPANSION and EXPAND_ONLY_PREDEF tags are set to YES then 
 # this tag can be used to specify a list of macro names that should be expanded. 

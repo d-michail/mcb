@@ -17,7 +17,6 @@ subdirectories:
 
 README                    information about the LEP
 INSTALL                   this file
-CHANGES  (please read !)  most recent changes
 FIXES                     bug fixes since last release
 Makefile                  make script
 make.config               make configuration settings
@@ -25,7 +24,7 @@ configure                 configuration command
 doc/                      user manual
 incl/                     include directory
 src/                      source files
-test/ or prog/            test programs
+test/ 		          test programs
 demo/                     demo programs
 confdir/		  build system
 
@@ -54,6 +53,8 @@ confdir/		  build system
 			      doing measurements of running times.
        --enable-debug-output  Enable the debugging output of the algorithms.
        --enable-stats-output  Enable the statistic output of the algorithms.
+
+       Use ./configure --help to see all available options.
 
    d)  In case configure fails, try changing to <LEP>/mcb/confdir and 
        running make. Then go back to <LEP>/mcb and retry the configure script.
@@ -116,16 +117,26 @@ a) Header Files
    CC (g++) -I<LEDA>/incl -L<LEDA> ...
 
 
+4. Template Makefile
+--------------------
 
-5. USER MANUAL
---------------
+After compiling the LEP you can find in LEP/mcb/doc/makefiles a template
+makefile for compiling programs using the same flags. 
 
-   You can grab the user manual and the implementation documents from
-   the www server where you obtained this package
+Simply copy the makefile to the directory containing your source. 
+You must then open the makefile and change two things: a) the variable
+PROGS must contain the names of the programs that you want to build, 
+b) the makefile has to include the file make.config located in the 
+root directory of the LEP.
 
-   http://www.mpi-sb.mpg.de/~michail/mcb.shtml
+Details are also contained inside the makefile.
 
-   The manual is also contained in the doc directory.	
+
+5. DOCUMENTATION
+----------------
+
+   You can grab the documentation from the www server where you obtained 
+   this package.
 
 
 *******************************************************************************
@@ -386,11 +397,14 @@ d) To compile your program use something like
 Note that in order for the system to find the leda_xx.dll file of LEDA, the leda_xx.dll 
 must reside in a directory which is in the PATH environmental library.
 
-10. Optimization Options - IMPORTANT
-------------------------------------
+10. Optimization Options and Configuration - IMPORTANT
+------------------------------------------------------
 
-If you are using GCC version 3.4 or newer do not use the code 
-with the following optimization flags
+10.1 GCC and LEDA
+-----------------
+
+If you are using GCC version 3.4 or newer in combination with LEDA 5.0.1 
+or older do not use the code with the following optimization flags
 
 -fschedule-insns
 -fschedule-insns2
@@ -400,8 +414,16 @@ This is due to incompatibility between GCC and LEDA's memory manager.
 
 Note that the flags -O2 and -O3 use these optimization flags
 and therefore the flags -fno-schedule-insns and -fno-schedule-insns2
-must also be used. The configure script automatically enabled these
+must also be used. The configure script automatically enables these
 if required.
+
+Moreover, when using GCC 4.x and LEDA do not use strict aliasing, again
+in the author's machine unpredictable results occur. The configure script
+automatically enables the option -fno-strict-aliasing if this scenario is
+detected.
+
+10.2 Checking Disabled
+----------------------
 
 The configure script offers a flag 
 
@@ -413,3 +435,8 @@ that LEDA uses to disable any preconditions' or invariants'
 checking.
 
 Note that no check is performed in such a case. 
+
+10.3 Configuration Flags
+------------------------
+
+All configuration flags are contained in the header file config.h .

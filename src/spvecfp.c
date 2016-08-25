@@ -1,4 +1,3 @@
-#line 6220 "MIN_CYCLE_BASIS.lw"
 //---------------------------------------------------------------------
 // File automatically generated using notangle from DMIN_CYCLE_BASIS.lw
 //
@@ -31,31 +30,26 @@
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 //
-// Copyright (C) 2004-2005 - Dimitrios Michail
+// Copyright (C) 2004-2006 - Dimitrios Michail
 
 
-#line 7352 "MIN_CYCLE_BASIS.lw"
-#include <LEP/mcb/fp.h>
+#include <LEP/mcb/spvecfp.h>
 
 namespace mcb { 
 
 
-#line 7688 "MIN_CYCLE_BASIS.lw"
 // default constructor
 spvecfp::spvecfp() {
-    this->len = 1; 
-    this->p = 1;
+    this->p = 3;
 }
 
 // constructor
-spvecfp::spvecfp( indextype len, const ptype& p ) {  
+spvecfp::spvecfp( const ptype& p ) {  
 #if ! defined(LEDA_CHECKING_OFF)
-    if ( len <= 0 || p <= 0 ) 
-	leda::error_handler(999,"MIN_CYCLE_BASIS: spvecfp: \
-length or prime error");
-#endif		
+    if ( p <= 0 ) 
+        leda::error_handler(999,"MIN_CYCLE_BASIS: spvecfp: prime error");
+#endif          
     this->p = p;
-    this->len = len;
 }
 
 // copy constructor
@@ -67,29 +61,25 @@ spvecfp::~spvecfp() {
 }
 
 // clear and reset
-void spvecfp::reset( indextype len, const ptype& p ) { 
+void spvecfp::reset( const ptype& p ) { 
 #if ! defined(LEDA_CHECKING_OFF)
-    if ( len <= 0 || p <= 0 ) 
-	leda::error_handler(999,"MIN_CYCLE_BASIS: spvecfp: \
-length or prime error");
-#endif	
+    if ( p <= 0 ) 
+        leda::error_handler(999,"MIN_CYCLE_BASIS: spvecfp: prime error");
+#endif  
     l.clear();
-    this->len = len;
     this->p = p;
 }
 
 
-#line 7733 "MIN_CYCLE_BASIS.lw"
 // assign a vector to the current vector
 spvecfp& spvecfp::operator=( const spvecfp& i ) { 
     l.clear();
     this->p = i.pvalue();
-    this->len = i.max_length();
 
     list_item it = i.first();
     while( it != nil ) { 
-	this->l.append( i.l.contents( it ) ); 
-	it = i.l.succ( it );
+        this->l.append( i.l.contents( it ) ); 
+        it = i.l.succ( it );
     }
     return *this;
 }
@@ -97,29 +87,26 @@ spvecfp& spvecfp::operator=( const spvecfp& i ) {
 // assign current vector to be e_i
 spvecfp& spvecfp::operator=( const indextype& i ) {
     l.clear();
-    if ( i == 0 ) 
-	return *this;
 #if ! defined(LEDA_CHECKING_OFF)
-    assert( i > 0 && i <= len );
+    assert( i >= 0 );
 #endif
     l.append( entry(i,1) );
     return *this;
 }
 
 
-#line 7772 "MIN_CYCLE_BASIS.lw"
 // negate
 spvecfp spvecfp::operator-() const { 
-    spvecfp res ( len, p );
+    spvecfp res ( p );
     indextype index;
     ptype v;
 
     list_item it = l.first();
     while( it != nil ) { 
-	index = l.contents( it ).first();
-	v = l.contents( it ).second();
-	res.l.append( entry( index, -v ) );
-	it = l.succ( it );
+        index = l.contents( it ).first();
+        v = l.contents( it ).second();
+        res.l.append( entry( index, -v ) );
+        it = l.succ( it );
     }
     return res;
 }
@@ -127,9 +114,6 @@ spvecfp spvecfp::operator-() const {
 // compute inner product
 ptype spvecfp::operator*( const spvecfp& a ) const { 
 #if ! defined(LEDA_CHECKING_OFF)
-    if ( len != a.max_length() ) 
-	leda::error_handler(999,"MIN_CYCLE_BASIS: dot \
-product of diff length vectors");
     assert( p == a.pvalue() );
 #endif
     ptype res = 0;
@@ -138,64 +122,61 @@ product of diff length vectors");
 
     // now compute dot product
     while( it != nil && ait != nil ) { 
-	index = l.contents( it ).first();
-	aindex = a.index( ait );
+        index = l.contents( it ).first();
+        aindex = a.index( ait );
 
-	if ( index > aindex ) { ait = a.succ( ait ); }
-	else if ( index < aindex ) { it = l.succ( it ); }
-	else if ( index == aindex ) { 
-	    ptype v = (l.contents(it).second() * a.inf( ait ) )%p;
-	    res = ( res + v ) %p;
-	    it = l.succ( it );
-	    ait = a.succ( ait );
-	}
+        if ( index > aindex ) { ait = a.succ( ait ); }
+        else if ( index < aindex ) { it = l.succ( it ); }
+        else if ( index == aindex ) { 
+            ptype v = (l.contents(it).second() * a.inf( ait ) )%p;
+            res = ( res + v ) %p;
+            it = l.succ( it );
+            ait = a.succ( ait );
+        }
     }
     return res;
 }
 
 spvecfp spvecfp::operator+( const spvecfp& a ) const { 
 #if ! defined(LEDA_CHECKING_OFF)
-    if ( len != a.max_length() ) 
-	leda::error_handler(999,"MIN_CYCLE_BASIS: adding \
-different length vectors");
     assert( p == a.pvalue() );
-#endif	
-    spvecfp res( len, p );
+#endif  
+    spvecfp res( p );
     indextype index, aindex;
     list_item it = l.first(), ait = a.first();
 
     // now add them
     while( it != nil && ait != nil ) {
-	index = l.contents( it ).first();
-	aindex = a.index( ait );
+        index = l.contents( it ).first();
+        aindex = a.index( ait );
 
-	if ( index > aindex ) { 
-	    res.l.append( a.l.contents( ait ) );
-	    ait = a.succ( ait );
-	}
-	else if ( index < aindex ) { 
-	    res.l.append( l.contents( it ) );
-	    it = l.succ( it );
-	}
-	else if ( index == aindex ) { 
-	    ptype v = (l.contents( it ).second() + a.inf( ait )) % p;
-	    while( v < 0 )  v += p; // make [-i]_p = [p-i]_p
+        if ( index > aindex ) { 
+            res.l.append( a.l.contents( ait ) );
+            ait = a.succ( ait );
+        }
+        else if ( index < aindex ) { 
+            res.l.append( l.contents( it ) );
+            it = l.succ( it );
+        }
+        else if ( index == aindex ) { 
+            ptype v = (l.contents( it ).second() + a.inf( ait )) % p;
+            while( v < 0 )  v += p; // make [-i]_p = [p-i]_p
             while( v >= p ) v -= p; // make [i+p]_p = [i]_p
-	    if ( v != 0 ) 
-		res.l.append( entry( index, v ) );
-	    it = l.succ( it );
-	    ait = a.succ( ait );
-	}
+            if ( v != 0 ) 
+                res.l.append( entry( index, v ) );
+            it = l.succ( it );
+            ait = a.succ( ait );
+        }
     }
 
     // append remaining stuff
     while ( it != nil ) { 
-	res.l.append( l.contents( it ) );
-	it = l.succ( it );
+        res.l.append( l.contents( it ) );
+        it = l.succ( it );
     }
     while ( ait != nil ) { 
-	res.l.append( a.l.contents( ait ) );
-	ait = a.succ( ait );
+        res.l.append( a.l.contents( ait ) );
+        ait = a.succ( ait );
     }
 
     return res;
@@ -203,19 +184,19 @@ different length vectors");
 
 // compute product with a constant
 spvecfp spvecfp::operator*( const ptype& a ) {
-    spvecfp res( len, p );
+    spvecfp res( p );
 
     list_item it = l.first();
     while( it != nil  ) { 
-	indextype index = l.contents( it ).first();
-	ptype v = ( l.contents( it ).second() * a ) % p;
+        indextype index = l.contents( it ).first();
+        ptype v = ( l.contents( it ).second() * a ) % p;
 
-	while( v < 0 )  v += p; // make [-i]_p = [p-i]_p
-	while( v >= p ) v -= p; // make [i+p]_p = [i]_p
+        while( v < 0 )  v += p; // make [-i]_p = [p-i]_p
+        while( v >= p ) v -= p; // make [i+p]_p = [i]_p
 
-	if ( v != 0 ) 
-	    res.l.append( entry( index, v ) );
-	it = l.succ( it );
+        if ( v != 0 ) 
+            res.l.append( entry( index, v ) );
+        it = l.succ( it );
     }
     return res;
 }
@@ -234,53 +215,51 @@ spvecfp& spvecfp::operator-=( const spvecfp& a ) {
 
 // print the vector
 void spvecfp::print( std::ostream& o ) const { 
-    indextype i = 1, index;
+    indextype i = 0, index;
     list_item it = l.first();
-    index = (it != nil) ? l.contents( it ).first() : len+1 ;
+    if ( it == nil ) return;
+    index = l.contents( it ).first();
     while( true ) { 
-	while ( index > i ) { 
-	    o << 0 << " ";
-	    i++;
-	}
+        while ( index > i ) { 
+            o << 0 << " ";
+            i++;
+        }
 
-	if ( index == i && it != nil ) { 
-	    o << l.contents( it ).second() << " ";
-	    it = l.succ( it );
-	    i++;
-	}
+        if ( index == i ) { 
+            o << l.contents( it ).second() << " ";
+            it = l.succ( it );
+            i++;
+        }
 
-	if ( it == nil ) {  // no more elements
-	    index++;
-	    while( index++ <= len ) { 
-		o << 0 << " ";
-	    }
-	    break;
-	}
-	else 
-	    index = l.contents( it ).first();
+        if ( it == nil ) {  // no more elements
+            break;
+        }
+        else 
+            index = l.contents( it ).first();
     }
 }
 
 
-#line 7935 "MIN_CYCLE_BASIS.lw"
 // append an entry
 // no checking is done to ensure short order
 void spvecfp::append( indextype index, const ptype& value ) {
 #if ! defined(LEDA_CHECKING_OFF)
-    if ( index < 1 || index > len ) 
-	leda::error_handler(999,"MIN_CYCLE_BASIS: \
-appending on spvecfp: out-of-bounds");
+    if ( index < 0 )
+        leda::error_handler(999,"MIN_CYCLE_BASIS: appending on spvecfp: out-of-bounds");
 #endif
     l.append( entry( index, value ) );
 }
 
+// sort entries by index
+void spvecfp::sort() {
+    l.sort( spvecfp::compare );
+}
 
-#line 7953 "MIN_CYCLE_BASIS.lw"
+
 // define access stuff, like leda lists
 bool spvecfp::empty() const { return l.empty(); }
 void spvecfp::clear() { l.clear(); }
 indextype spvecfp::size() const {  return l.size(); }
-indextype spvecfp::max_length() const { return len; }
 ptype spvecfp::pvalue() const { return p; }
 list_item spvecfp::first() const { return l.first(); }
 list_item spvecfp::last() const { return l.last(); }
@@ -296,10 +275,8 @@ std::ostream& operator<<( std::ostream& o, const spvecfp& v ) {
 
 
 
-#line 7358 "MIN_CYCLE_BASIS.lw"
 } // end of mcb namespace
 
-#line 6217 "MIN_CYCLE_BASIS.lw"
 /* ex: set ts=8 sw=4 sts=4 noet: */
 
 

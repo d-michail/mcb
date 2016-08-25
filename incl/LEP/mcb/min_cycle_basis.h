@@ -1,4 +1,3 @@
-#line 6220 "MIN_CYCLE_BASIS.lw"
 //---------------------------------------------------------------------
 // File automatically generated using notangle from DMIN_CYCLE_BASIS.lw
 //
@@ -31,10 +30,9 @@
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 //
-// Copyright (C) 2004-2005 - Dimitrios Michail
+// Copyright (C) 2004-2006 - Dimitrios Michail
 
 
-#line 1773 "MIN_CYCLE_BASIS.lw"
 /*! \file min_cycle_basis.h
  *  \brief Algorithms for undirected MCB.
  *
@@ -52,8 +50,8 @@
  *    Each mcb::spvecgf2 represents a cycle or some edge set. Each edge of the graph
  *    is represented by a unique number provided by an edge numbering, mcb::edge_num.
  *  - A pair (mcb, proof) where both are arrays of compressed integer sets, array< d_int_set >.
- *	Each integer sets represents a cycle. In these integer sets, each edge of the graph 
- *	is represented by a unique number provided by the edge numbering, mcb::edge_num.
+ *      Each integer sets represents a cycle. In these integer sets, each edge of the graph 
+ *      is represented by a unique number provided by the edge numbering, mcb::edge_num.
  *  - A pair (mcb, proof) where both are arrays of lists of edges, array< list<edge> >.
  *      Each element of this array represents a cycle of the minimum cycle basis.
  *
@@ -68,6 +66,8 @@
 
 #ifndef MIN_CYCLE_BASIS_H
 #define MIN_CYCLE_BASIS_H
+
+#include <LEP/mcb/config.h>
 
 #ifdef LEDA_GE_V5
 #include <LEDA/graph/graph.h>
@@ -94,6 +94,8 @@
 #endif
 
 #include <LEP/mcb/SIGNED_GRAPH.h>
+#include <LEP/mcb/transform.h>
+#include <LEP/mcb/verify.h>
 
 // start our namespace
 namespace mcb 
@@ -114,35 +116,9 @@ using leda::node_set;
 #endif
 
 
-
-
-#line 1873 "MIN_CYCLE_BASIS.lw"
-// external 
-extern bool MCB_verify_basis( const leda::graph& g,
-			      leda::array< leda::d_int_set >& mcb,
- 			      const mcb::edge_num& enumb,
-		       	      bool check_cycle_basis 
-			    );
-
-extern void MCB_output_basis( const leda::graph& g,
-			      leda::array< leda::d_int_set >& C,
- 			      const mcb::edge_num& enumb,
-			      leda::array< leda::list< leda::edge > >& mcb );
-
-extern void MCB_output_basis( const leda::graph& g, 
-                       	      const leda::array< leda::list<leda::edge> >& mcb,
-			      const mcb::edge_num& enumb,
-                       	      leda::array< leda::d_int_set >& C );
-
-extern void MCB_output_basis( const leda::graph& g,
-			      const leda::array< mcb::spvecgf2 >& C,
-			      const mcb::edge_num& enumb,
-			      leda::array< leda::list< leda::edge > >& mcb );
-
-extern void MCB_output_basis( const leda::graph& g,
-			      const leda::array< mcb::spvecgf2 >& C,
-			      const mcb::edge_num& enumb,
-			      leda::array< leda::d_int_set >& mcb );
+/*! \name Undirected Minimum Cycle Basis
+ */
+//@{
 
 /*! \brief Compute a MCB of an undirected unweighted graph using de Pina's algorithm.
  * 
@@ -167,12 +143,13 @@ extern void MCB_output_basis( const leda::graph& g,
  *  \param enumb An edge numbering.
  *  \return The length of the MCB or undefined if some error occured.
  *  \pre g is undirected, simple and loopfree.
+ *  \ingroup exactmcb
  */
 extern int MIN_CYCLE_BASIS_DEPINA( const leda::graph& g,
-			    leda::array< leda::d_int_set >& mcb,
-			    leda::array< leda::d_int_set >& proof,
- 			    const mcb::edge_num& enumb
-			    );
+                            leda::array< leda::d_int_set >& mcb,
+                            leda::array< leda::d_int_set >& proof,
+                            const mcb::edge_num& enumb
+                            );
 
 /*! \brief Compute a MCB of an undirected unweighted graph using de Pina's algorithm.
  * 
@@ -193,11 +170,12 @@ extern int MIN_CYCLE_BASIS_DEPINA( const leda::graph& g,
  *  \param enumb An edge numbering.
  *  \return The length of the MCB or undefined if some error occured.
  *  \pre g is undirected, simple and loopfree.
+ *  \ingroup exactmcb
  */
 extern int MIN_CYCLE_BASIS_DEPINA( const leda::graph& g,
-			    leda::array< leda::d_int_set >& mcb,
- 			    const edge_num& enumb
-			    );
+                            leda::array< leda::d_int_set >& mcb,
+                            const mcb::edge_num& enumb
+                            );
 
 /*! \brief Compute a MCB of an undirected unweighted graph using de Pina's algorithm.
  * 
@@ -222,12 +200,13 @@ extern int MIN_CYCLE_BASIS_DEPINA( const leda::graph& g,
  *  \param enumb An edge numbering.
  *  \return The length of the MCB or undefined if some error occured.
  *  \pre g is undirected, simple and loopfree.
+ *  \ingroup exactmcb
  */
 extern int MIN_CYCLE_BASIS_DEPINA( const leda::graph& g,
-			    leda::array< mcb::spvecgf2 >& mcb,
-			    leda::array< mcb::spvecgf2 >& proof,
- 			    const edge_num& enumb
-			    );
+                            leda::array< mcb::spvecgf2 >& mcb,
+                            leda::array< mcb::spvecgf2 >& proof,
+                            const mcb::edge_num& enumb
+                            );
 
 /*! \brief Compute a MCB of an undirected unweighted graph using de Pina's algorithm.
  * 
@@ -248,11 +227,12 @@ extern int MIN_CYCLE_BASIS_DEPINA( const leda::graph& g,
  *  \param enumb An edge numbering.
  *  \return The length of the MCB or undefined if some error occured.
  *  \pre g is undirected, simple and loopfree.
+ *  \ingroup exactmcb
  */
 extern int MIN_CYCLE_BASIS_DEPINA( const leda::graph& g,
-			    leda::array< mcb::spvecgf2 >& mcb,
- 			    const edge_num& enumb
-			    );
+                            leda::array< mcb::spvecgf2 >& mcb,
+                            const mcb::edge_num& enumb
+                            );
 
 /*! \brief Compute a MCB of an undirected unweighted graph using de Pina's algorithm.
  * 
@@ -274,11 +254,12 @@ extern int MIN_CYCLE_BASIS_DEPINA( const leda::graph& g,
  *  \param proof An array of list of edges to return the proof.
  *  \return The length of the MCB or undefined if some error occured.
  *  \pre g is undirected, simple and loopfree.
+ *  \ingroup exactmcb
  */
 extern int MIN_CYCLE_BASIS_DEPINA( const leda::graph& g,
-			    leda::array< leda::list<leda::edge> >& mcb,
-			    leda::array< leda::list<leda::edge> >& proof
-			    );
+                            leda::array< leda::list<leda::edge> >& mcb,
+                            leda::array< leda::list<leda::edge> >& proof
+                            );
 
 /*! \brief Compute a MCB of an undirected unweighted graph using de Pina's algorithm.
  * 
@@ -295,15 +276,16 @@ extern int MIN_CYCLE_BASIS_DEPINA( const leda::graph& g,
  *  \param mcb A array of list of edges to return the MCB.
  *  \return The length of the MCB or undefined if some error occured.
  *  \pre g is undirected, simple and loopfree.
+ *  \ingroup exactmcb
  */
 extern int MIN_CYCLE_BASIS_DEPINA( const leda::graph& g,
-			    leda::array< leda::list<leda::edge> >& mcb
-			    );
+                            leda::array< leda::list<leda::edge> >& mcb
+                            );
 
 // unweighted hybrid algorithm
 extern void MCB_construct_superset( const leda::graph& G,
-				    leda::sortseq< leda::two_tuple<int,int>, leda::d_int_set >& super, 
-				    const edge_num& enumb);
+                                    leda::sortseq< leda::two_tuple<int,int>, leda::d_int_set >& super, 
+                                    const mcb::edge_num& enumb);
 
 extern void MCB_construct_unweighted_paths( const leda::graph& G,
         leda::node_array< leda::node_array<leda::edge> >& pred );
@@ -333,12 +315,13 @@ extern void MCB_construct_unweighted_paths( const leda::graph& G,
  *  \param enumb An edge numbering.
  *  \return The length of the MCB or undefined if some error occured.
  *  \pre g is undirected, simple and loopfree 
+ *  \ingroup exactmcb
  */
 extern int MIN_CYCLE_BASIS_HYBRID( const leda::graph& g,
-			    	   leda::array< leda::d_int_set >& mcb,
-				   leda::array< leda::d_int_set >& proof,
-			  	   const edge_num& enumb
-			    	 );
+                                   leda::array< leda::d_int_set >& mcb,
+                                   leda::array< leda::d_int_set >& proof,
+                                   const mcb::edge_num& enumb
+                                 );
 
 /*! Compute a minimum cycle basis using a hybrid algorithm.
  *
@@ -359,11 +342,12 @@ extern int MIN_CYCLE_BASIS_HYBRID( const leda::graph& g,
  *  \param enumb An edge numbering.
  *  \return The length of the MCB or undefined if some error occured.
  *  \pre g is undirected, simple and loopfree 
+ *  \ingroup exactmcb
  */
 extern int MIN_CYCLE_BASIS_HYBRID( const leda::graph& g,
-			  	   leda::array< leda::d_int_set >& mcb,
-			  	   const edge_num& enumb
-			  	 );
+                                   leda::array< leda::d_int_set >& mcb,
+                                   const mcb::edge_num& enumb
+                                 );
 
 /*! Compute a minimum cycle basis using a hybrid algorithm.
  *
@@ -386,11 +370,12 @@ extern int MIN_CYCLE_BASIS_HYBRID( const leda::graph& g,
  *  \param proof A leda::array of leda::list of edges to return the proof.
  *  \return The length of the MCB or undefined if some error occured.
  *  \pre g is undirected, simple and loopfree 
+ *  \ingroup exactmcb
  */
 extern int MIN_CYCLE_BASIS_HYBRID( const leda::graph& g,
-				   leda::array< leda::list<leda::edge> >& mcb,
-				   leda::array< leda::list<leda::edge> >& proof
-				 );
+                                   leda::array< leda::list<leda::edge> >& mcb,
+                                   leda::array< leda::list<leda::edge> >& proof
+                                 );
 
 /*! Compute a minimum cycle basis using a hybrid algorithm.
  *
@@ -409,21 +394,20 @@ extern int MIN_CYCLE_BASIS_HYBRID( const leda::graph& g,
  *  \pre g is undirected, simple and loopfree 
  */
 extern int MIN_CYCLE_BASIS_HYBRID( const leda::graph& g,
-				   leda::array< leda::list<leda::edge> >& mcb
-				   );
+                                   leda::array< leda::list<leda::edge> >& mcb
+                                   );
 
 extern void swap( leda::d_int_set& a, leda::d_int_set& b );
 
 
 
-#line 2272 "MIN_CYCLE_BASIS.lw"
 template<class W, class CONT>
 W MIN_CYCLE_BASIS_DEPINA( const graph& g,
-			  const edge_array<W>& len,
-			  array< CONT >& mcb,
-			  array< CONT >& proof,
-			  const edge_num& enumb
-			  );
+                          const edge_array<W>& len,
+                          array< CONT >& mcb,
+                          array< CONT >& proof,
+                          const mcb::edge_num& enumb
+                          );
 
 /*! \brief Compute a MCB of an undirected weighted graph using de Pina's algorithm.
  * 
@@ -452,14 +436,15 @@ W MIN_CYCLE_BASIS_DEPINA( const graph& g,
  *  \pre len is non-negative
  *  \remark Care must be taken when the template parameter is instantiated with a data type
  *          which has rounding errors.
+ *  \ingroup exactmcb
  */
 template<class W>
 W MIN_CYCLE_BASIS_DEPINA( const graph& g,
-			  const edge_array<W>& len,
-			  array< spvecgf2 >& mcb,
-			  array< spvecgf2 >& proof,
-			  const edge_num& enumb
-			  )
+                          const edge_array<W>& len,
+                          array< mcb::spvecgf2 >& mcb,
+                          array< mcb::spvecgf2 >& proof,
+                          const mcb::edge_num& enumb
+                          )
 {
     return MIN_CYCLE_BASIS_DEPINA< W, spvecgf2 >( g,len,mcb,proof,enumb );
 }
@@ -491,14 +476,15 @@ W MIN_CYCLE_BASIS_DEPINA( const graph& g,
  *  \pre len is non-negative
  *  \remark Care must be taken when the template parameter is instantiated with a data type
  *          which has rounding errors.
+ *  \ingroup exactmcb
  */
 template<class W>
 W MIN_CYCLE_BASIS_DEPINA( const graph& g,
-			  const edge_array<W>& len,
-			  array< d_int_set >& mcb,
-			  array< d_int_set >& proof,
-			  const edge_num& enumb
-			  )
+                          const edge_array<W>& len,
+                          array< d_int_set >& mcb,
+                          array< d_int_set >& proof,
+                          const mcb::edge_num& enumb
+                          )
 {
     return MIN_CYCLE_BASIS_DEPINA< W, d_int_set >( g,len,mcb,proof,enumb );
 }
@@ -507,123 +493,98 @@ W MIN_CYCLE_BASIS_DEPINA( const graph& g,
 
 template<class W, class CONT>
 W MIN_CYCLE_BASIS_DEPINA( const graph& g,
-			  const edge_array<W>& len,
-			  array< CONT >& mcb,
-			  array< CONT >& proof,
-			  const edge_num& enumb
-			  ) 
+                          const edge_array<W>& len,
+                          array< CONT >& mcb,
+                          array< CONT >& proof,
+                          const mcb::edge_num& enumb
+                          ) 
 { 
-	
-#line 2703 "MIN_CYCLE_BASIS.lw"
-#if ! defined(LEDA_CHECKING_OFF)
-	if ( g.is_undirected() == false )
-		error_handler(999,"MIN_CYCLE_BASIS: illegal graph\
-		                  (directed?)");
-	if ( Is_Undirected_Simple( g ) == false )
-		error_handler(999,"MIN_CYCLE_BASIS: illegal graph\
-		  (parallel,anti-parallel edges or loops?)");
-#endif
+        #if ! defined(LEDA_CHECKING_OFF)
+                if ( Is_Undirected_Simple( g ) == false )
+                        error_handler(999,"MIN_CYCLE_BASIS: illegal graph (parallel,anti-parallel edges or loops?)");
+        #endif
 
-#line 2369 "MIN_CYCLE_BASIS.lw"
-	
-#line 2741 "MIN_CYCLE_BASIS.lw"
-#if ! defined(LEDA_CHECKING_OFF)
-edge e1;
-forall_edges( e1 , g ) { 
-	if ( len[e1] < 0 ) 
-		error_handler(999,"MIN_CYCLE_BASIS: illegal edge \
-		                  (negative weight)");
-}
-#endif
+        
+        #if ! defined(LEDA_CHECKING_OFF)
+        edge e1;
+        forall_edges( e1 , g ) { 
+                if ( len[e1] < 0 ) 
+                        error_handler(999,"MIN_CYCLE_BASIS: illegal edge (negative weight)");
+        }
+        #endif
 
-#line 2370 "MIN_CYCLE_BASIS.lw"
-	
-#line 2729 "MIN_CYCLE_BASIS.lw"
-int N = enumb.dim_cycle_space();
-mcb.resize( N ); // set size of destination array
-proof.resize(N);
+        int N = enumb.dim_cycle_space();
+        mcb.resize( N ); // set size of destination array
+        proof.resize(N);
 
 
 
-#line 2372 "MIN_CYCLE_BASIS.lw"
 #ifdef LEP_STATS
-	float Tcycle = 0.0, Torthog = 0.0, Ttemp;
+        float Tcycle = 0.0, Torthog = 0.0, Ttemp;
 #endif
 
-	array< CONT >& C = mcb;
-	array< CONT >& S = proof;
-	
-#line 2757 "MIN_CYCLE_BASIS.lw"
-// initialize signed graph
-sgraph<W,leda::bin_heap> sg( g , len, enumb ) ; 
+        array< CONT >& C = mcb;
+        array< CONT >& S = proof;
+        // initialize signed graph
+        sgraph<W,leda::bin_heap> sg( g , len, enumb ) ; 
 
 
-#line 2380 "MIN_CYCLE_BASIS.lw"
-	// initialize cycles C and initial sets S's
-	for( int i = 0 ; i < N; i++ ) { S[i].insert( i ); }
+        // initialize cycles C and initial sets S's
+        for( int i = 0 ; i < N; i++ ) { S[i].insert( i ); }
    
-   	W min = W(), ret = W();
-   	// start computing cycles
-   	for( int k = 0; k < N; k++ ) { 
-      		
-#line 2782 "MIN_CYCLE_BASIS.lw"
-#ifdef LEP_STATS
-leda::used_time( Ttemp );
-#endif
-#line 2822 "MIN_CYCLE_BASIS.lw"
-#ifndef MCB_LEP_UNDIR_NO_EXCHANGE_HEURISTIC
-// choose the sparsest witness from the basis
-int minS = k;
-for( int r = k+1; r < N; r++ ) { 
-    if ( S[r].size() < S[minS].size() )
-	minS = r;
-}
-if ( minS != k ) {  // swap
-    mcb::swap( S[k], S[minS] );
-}
-#endif
+        W min = W(), ret = W();
+        // start computing cycles
+        for( int k = 0; k < N; k++ ) { 
+                
+                #ifdef LEP_STATS
+                leda::used_time( Ttemp );
+                #endif
+                #ifndef MCB_LEP_UNDIR_NO_EXCHANGE_HEURISTIC
+                // choose the sparsest witness from the basis
+                int minS = k;
+                for( int r = k+1; r < N; r++ ) { 
+                    if ( S[r].size() < S[minS].size() )
+                        minS = r;
+                }
+                if ( minS != k ) {  // swap
+                    mcb::swap( S[k], S[minS] );
+                }
+                #endif
 
-#line 2786 "MIN_CYCLE_BASIS.lw"
-#ifdef LEP_STATS
-Torthog += leda::used_time( Ttemp );
-#endif
-#line 2835 "MIN_CYCLE_BASIS.lw"
-ret = sg.get_shortest_odd_cycle( S[k], C[k] ); 
-min+= ret;
+                #ifdef LEP_STATS
+                Torthog += leda::used_time( Ttemp );
+                #endif
+                ret = sg.get_shortest_odd_cycle( S[k], C[k] ); 
+                min+= ret;
 
-#line 2790 "MIN_CYCLE_BASIS.lw"
-#ifdef LEP_STATS
-Tcycle += leda::used_time( Ttemp );
-#endif
+                #ifdef LEP_STATS
+                Tcycle += leda::used_time( Ttemp );
+                #endif
+                
+                for( int l = k+1; l < N; l++ )   {
+                    // cycles are smaller than sets, thus it is better
+                    // to intersect C and S than S and C
+                    if ( (C[k].intersect(S[l])).size() %2 == 1 )   {
+                        S[ l ] %= S[k];
+                    }
+                }
 
-#line 2840 "MIN_CYCLE_BASIS.lw"
-for( int l = k+1; l < N; l++ )   {
-    // cycles are smaller than sets, thus it is better
-    // to intersect C and S than S and C
-    if ( (C[k].intersect(S[l])).size() %2 == 1 )   {
-	S[ l ] %= S[k];
-    }
-}
-
-#line 2794 "MIN_CYCLE_BASIS.lw"
-#ifdef LEP_STATS
-Torthog += leda::used_time( Ttemp );
-#endif
+                #ifdef LEP_STATS
+                Torthog += leda::used_time( Ttemp );
+                #endif
 
 
-#line 2387 "MIN_CYCLE_BASIS.lw"
-   	}
+        }
 
 #ifdef LEP_STATS
     std::cout << "LEP_STATS: cycle computation time: " << Tcycle << std::endl;
     std::cout << "LEP_STATS: orthogonal base maintain time: " << Torthog << std::endl;
 #endif
 
-   	return min;
+        return min;
 }
 
 
-#line 2403 "MIN_CYCLE_BASIS.lw"
 /*! \brief Compute a MCB of an undirected weighted graph using de Pina's algorithm.
  * 
  *  The function computes a Minimum Cycle
@@ -647,13 +608,14 @@ Torthog += leda::used_time( Ttemp );
  *  \pre len is non-negative
  *  \remark Care must be taken when the template parameter is instantiated with a data type
  *          which has rounding errors.
+ *  \ingroup exactmcb
  */
 template<class W>
 W MIN_CYCLE_BASIS_DEPINA( const graph& g,
-			  const edge_array<W>& len,
-			  array< d_int_set >& mcb,
-			  const edge_num& enumb
-			  ) 
+                          const edge_array<W>& len,
+                          array< d_int_set >& mcb,
+                          const mcb::edge_num& enumb
+                          ) 
 { 
     array< d_int_set > proof_temp;
     return MIN_CYCLE_BASIS_DEPINA( g, len, mcb, proof_temp, enumb );
@@ -682,20 +644,20 @@ W MIN_CYCLE_BASIS_DEPINA( const graph& g,
  *  \pre len is non-negative
  *  \remark Care must be taken when the template parameter is instantiated with a data type
  *          which has rounding errors.
+ *  \ingroup exactmcb
  */
 template<class W>
 W MIN_CYCLE_BASIS_DEPINA( const graph& g,
-			  const edge_array<W>& len,
-			  array< spvecgf2 >& mcb,
-			  const edge_num& enumb
-			  ) 
+                          const edge_array<W>& len,
+                          array< mcb::spvecgf2 >& mcb,
+                          const mcb::edge_num& enumb
+                          ) 
 { 
     array< spvecgf2 > proof_temp;
     return MIN_CYCLE_BASIS_DEPINA( g, len, mcb, proof_temp, enumb );
 }
 
 
-#line 2487 "MIN_CYCLE_BASIS.lw"
 /*! \brief Compute a MCB of an undirected weighted graph using de Pina's algorithm.
  * 
  *  The function computes a Minimum Cycle
@@ -715,22 +677,22 @@ W MIN_CYCLE_BASIS_DEPINA( const graph& g,
  *  \pre len is non-negative
  *  \remark Care must be taken when the template parameter is instantiated with 
  *          a data type which has rounding errors.
+ *  \ingroup exactmcb
  */
 template<class W>
 W MIN_CYCLE_BASIS_DEPINA( const graph& g, 
-			  const edge_array<W>& len, 
-			  array< list<edge> >& mcb )
+                          const edge_array<W>& len, 
+                          array< list<edge> >& mcb )
 {
-	edge_num enumb(g);
-	array< d_int_set > mcb_temp, proof_temp;
-	W min = MIN_CYCLE_BASIS_DEPINA( g, len, mcb_temp, proof_temp, enumb );
-	// reformat output
-	MCB_output_basis( g, mcb_temp, enumb, mcb );
-	return min;
+        edge_num enumb(g);
+        array< spvecgf2 > mcb_temp, proof_temp;
+        W min = MIN_CYCLE_BASIS_DEPINA( g, len, mcb_temp, proof_temp, enumb );
+        // reformat output
+        spvecgf2_to_list_edges( g, enumb, mcb_temp, mcb );
+        return min;
 }
 
 
-#line 2527 "MIN_CYCLE_BASIS.lw"
 /*! \brief Compute a MCB of an undirected weighted graph using de Pina's algorithm.
  * 
  *  The function computes a Minimum Cycle
@@ -756,30 +718,30 @@ W MIN_CYCLE_BASIS_DEPINA( const graph& g,
  *  \pre len is non-negative
  *  \remark Care must be taken when the template parameter is instantiated with a data type
  *          which has rounding errors.
+ *  \ingroup exactmcb
  */
 template<class W>
 W MIN_CYCLE_BASIS_DEPINA( const graph& g, 
-			  const edge_array<W>& len,
-			  array< list<edge> >& mcb,
-			  array< list<edge> >& proof) 
+                          const edge_array<W>& len,
+                          array< list<edge> >& mcb,
+                          array< list<edge> >& proof) 
 {
-	edge_num enumb(g);
-	array< d_int_set > mcb_temp, proof_temp;
-	W min = MIN_CYCLE_BASIS_DEPINA( g, len, mcb_temp, proof_temp, enumb );
-	// reformat output
-	MCB_output_basis( g, mcb_temp, enumb, mcb );
-	MCB_output_basis( g, proof_temp, enumb, proof );
-	return min;
+        edge_num enumb(g);
+        array< spvecgf2 > mcb_temp, proof_temp;
+        W min = MIN_CYCLE_BASIS_DEPINA( g, len, mcb_temp, proof_temp, enumb );
+        // reformat output
+        spvecgf2_to_list_edges( g, enumb, mcb_temp, mcb );
+        spvecgf2_to_list_edges( g, enumb, proof_temp, proof );
+        return min;
 }
 
 
-#line 4329 "MIN_CYCLE_BASIS.lw"
 template<class W>
 bool MIN_CYCLE_BASIS_DEPINA_CHECK( const graph& g,
-				   const edge_array<W>& len,
-				   array< d_int_set >& mcb,
-				   array< d_int_set >& proof,
-				   const edge_num& enumb ) 
+                                   const edge_array<W>& len,
+                                   array< d_int_set >& mcb,
+                                   array< d_int_set >& proof,
+                                   const mcb::edge_num& enumb ) 
 
 /*\Mfunc $g$ is an undirected graph and $len$ is a non-negative length function on 
 the edges of $g$. $mcb$ is a minimum cycle basis and $proof$ a certificate of 
@@ -793,99 +755,87 @@ The running time is $O( m^3 )$ where $m$ are the number of edges of $g$. \\
 \precond $enumb$ is the same numbering as the one used to construct the $mcb$.
 */
 {
-	
-#line 2703 "MIN_CYCLE_BASIS.lw"
-#if ! defined(LEDA_CHECKING_OFF)
-	if ( g.is_undirected() == false )
-		error_handler(999,"MIN_CYCLE_BASIS: illegal graph\
-		                  (directed?)");
-	if ( Is_Undirected_Simple( g ) == false )
-		error_handler(999,"MIN_CYCLE_BASIS: illegal graph\
-		  (parallel,anti-parallel edges or loops?)");
-#endif
+        #if ! defined(LEDA_CHECKING_OFF)
+                if ( Is_Undirected_Simple( g ) == false )
+                        error_handler(999,"MIN_CYCLE_BASIS: illegal graph (parallel,anti-parallel edges or loops?)");
+        #endif
 
-#line 4349 "MIN_CYCLE_BASIS.lw"
-	
-#line 2741 "MIN_CYCLE_BASIS.lw"
-#if ! defined(LEDA_CHECKING_OFF)
-edge e1;
-forall_edges( e1 , g ) { 
-	if ( len[e1] < 0 ) 
-		error_handler(999,"MIN_CYCLE_BASIS: illegal edge \
-		                  (negative weight)");
-}
-#endif
+        
+        #if ! defined(LEDA_CHECKING_OFF)
+        edge e1;
+        forall_edges( e1 , g ) { 
+                if ( len[e1] < 0 ) 
+                        error_handler(999,"MIN_CYCLE_BASIS: illegal edge (negative weight)");
+        }
+        #endif
 
-#line 4350 "MIN_CYCLE_BASIS.lw"
-	sgraph<W,leda::bin_heap> sg( g, len, enumb );
+        sgraph<W,leda::bin_heap> sg( g, len, enumb );
 
-	if ( MCB_verify_basis( g, mcb, enumb, true ) == false ||
-	     MCB_verify_basis( g, proof, enumb, false ) == false ||
-	     mcb.size() != proof.size() ) 
-	     	return false;
+        if ( verify_cycle_basis( g, enumb, mcb ) == false ||
+             verify_basis( g, enumb, proof ) == false ||
+             mcb.size() != proof.size() ) 
+                return false;
 
-	// verify cycles
-	W cycle_len;
-	list<int> L;
-	for( int i = 0; i < mcb.size(); i++ ) { 
-		d_int_set TEMP;
-		W min = sg.get_shortest_odd_cycle( proof[i] , TEMP );
+        // verify cycles
+        W cycle_len;
+        list<int> L;
+        for( int i = 0; i < mcb.size(); i++ ) { 
+                d_int_set TEMP;
+                W min = sg.get_shortest_odd_cycle( proof[i] , TEMP );
 
-		// compute cycle length
-		cycle_len = W();
-		L.clear();
-		mcb[i].get_element_list(L);
-		int el;
-		forall( el, L ) cycle_len += len[ enumb(el) ];
-	
-		if ( cycle_len != min ) 
-			return false;
-	}
-	return true;
+                // compute cycle length
+                cycle_len = W();
+                L.clear();
+                mcb[i].get_element_list(L);
+                int el;
+                forall( el, L ) cycle_len += len[ enumb(el) ];
+        
+                if ( cycle_len != min ) 
+                        return false;
+        }
+        return true;
 }
 
 template<class W>
 bool MIN_CYCLE_BASIS_DEPINA_CHECK( const graph& g,
-				   const edge_array<W>& len,
-				   array< spvecgf2 >& mcb,
-				   array< spvecgf2 >& proof,
-				   const edge_num& enumb ) 
+                                   const edge_array<W>& len,
+                                   array< mcb::spvecgf2 >& mcb,
+                                   array< mcb::spvecgf2 >& proof,
+                                   const mcb::edge_num& enumb ) 
 
 {
 #if ! defined(LEDA_CHECKING_OFF)
     if ( mcb.size() != proof.size() || mcb.size() != enumb.dim_cycle_space() ) 
-	error_handler(999,"MIN_CYCLE_BASIS: wrong array sizes :(");
+        error_handler(999,"MIN_CYCLE_BASIS: wrong array sizes :(");
 #endif
     array< d_int_set > mcbD;
     array< d_int_set > proofD;
     mcbD.resize( mcb.size() ); 
     proofD.resize( proof.size() );
     for( int i = 0; i < mcb.size(); i++ ) { 
-	mcbD[i] = mcb[i].to_d_int_set();
-	proofD[i] = proof[i].to_d_int_set();
+        mcbD[i] = mcb[i].to_d_int_set();
+        proofD[i] = proof[i].to_d_int_set();
     }
     return MIN_CYCLE_BASIS_DEPINA_CHECK( g, len, mcbD, proofD, enumb );
 }
 
 
 
-#line 4407 "MIN_CYCLE_BASIS.lw"
 template<class W>
 bool MIN_CYCLE_BASIS_DEPINA_CHECK( const graph& g,
-				   const edge_array<W>& len,
-				   array< list<edge> >& mcb,
-				   array< list<edge> >& proof 
-				   )
+                                   const edge_array<W>& len,
+                                   const array< list<edge> >& mcb,
+                                   const array< list<edge> >& proof 
+                                   )
 {
-	edge_num enumb( g );
-	array< d_int_set > mcb_temp, proof_temp;
-	MCB_output_basis( g, mcb, enumb, mcb_temp );
-	MCB_output_basis( g, proof, enumb, proof_temp );
-	return MIN_CYCLE_BASIS_DEPINA_CHECK( g, len, mcb_temp, proof_temp, enumb );
+        edge_num enumb( g );
+        array< d_int_set > mcb_temp, proof_temp;
+        list_edges_to_d_int_set( g, enumb, mcb, mcb_temp );
+        list_edges_to_d_int_set( g, enumb, proof, proof_temp );
+        return MIN_CYCLE_BASIS_DEPINA_CHECK( g, len, mcb_temp, proof_temp, enumb );
 }
 
 
-#line 3754 "MIN_CYCLE_BASIS.lw"
 // construct unique paths from v to u
 template<class W>
 void MCB_construct_paths( const graph& G,
@@ -910,63 +860,59 @@ void MCB_construct_paths( const graph& G,
 // construct Horton's superset of MCB
 template<class W>
 void MCB_construct_superset( const graph& G,
-		const edge_array<W>& len,
-		sortseq< three_tuple<W,int,int>, d_int_set >& super, 
-		const edge_num& enumb)
+                const edge_array<W>& len,
+                sortseq< three_tuple<W,int,int>, d_int_set >& super, 
+                const mcb::edge_num& enumb)
 {
     
-#line 3833 "MIN_CYCLE_BASIS.lw"
-// initialize
-d_int_set C;
-node v,w,u,vz,ezs,ezt; 
-edge e,ez;
+    // initialize
+    d_int_set C;
+    node v,w,u,vz,ezs,ezt; 
+    edge e,ez;
 
-int c = 0;
-node_array<int> degree(G,0);
-node_set touched( G );
-bool dege;
+    int c = 0;
+    node_array<int> degree(G,0);
+    node_set touched( G );
+    bool dege;
 
-#line 3783 "MIN_CYCLE_BASIS.lw"
     W min;
 
     // construct paths
     node_array< node_array<edge> > pred( G );
     MCB_construct_paths<W>( G, len, pred );
-	
+        
     // loop - for all nodes
     forall_nodes( v , G ) { 
 
         // loop - for all edges
         forall_edges( e, G ) { 
             
-#line 3853 "MIN_CYCLE_BASIS.lw"
-dege = false;
+            dege = false;
 
-w = G.source(e);
-u = G.target(e);
+            w = G.source(e);
+            u = G.target(e);
 
-// valid?
-if ( v == w || v == u || 
-     pred[ v ][ w ] == nil || pred[ v ][ u ] == nil ||
-     pred[ v ][ w ] == e || pred[ v ][ u ] == e || 
-     pred[ w ][ v ] == e || pred[ u ][ v ] == e ) 
-	continue;
+            // valid?
+            if ( v == w || v == u || 
+                 pred[ v ][ w ] == nil || pred[ v ][ u ] == nil ||
+                 pred[ v ][ w ] == e || pred[ v ][ u ] == e || 
+                 pred[ w ][ v ] == e || pred[ u ][ v ] == e ) 
+                    continue;
 
-// try to construct cycle
-C.clear();
+            // try to construct cycle
+            C.clear();
 
-// insert e
-C.insert( enumb(e) );
-ezs = G.source( e );
-ezt = G.target( e );
-degree[ ezs ]++;
-degree[ ezt ]++;
-touched.insert( ezs );
-touched.insert( ezt );
-
+            // insert e
+            C.insert( enumb(e) );
+            ezs = G.source( e );
+            ezt = G.target( e );
+            degree[ ezs ]++;
+            degree[ ezt ]++;
+            touched.insert( ezs );
+            touched.insert( ezt );
 
 
-#line 3796 "MIN_CYCLE_BASIS.lw"
+
             min = len[ e ];
 
             // create two paths
@@ -977,52 +923,46 @@ touched.insert( ezt );
             if ( v->id() < w->id() ) { y = v; x = w; }
             else { y = w; x = v; }
             
-#line 3889 "MIN_CYCLE_BASIS.lw"
-while( pred[ y ][ x ] != nil && dege == false ) {
-	ez = pred[ y ][ x ];
-	en = enumb( ez );
-	if ( ! C.member( en ) ) {
-		C.insert( en );
-		ezs = G.source( ez );
-		ezt = G.target( ez );
-		degree[ ezs ]++;
-		degree[ ezt ]++;
-		if ( degree[ ezs ] > 2 || degree[ ezt ] > 2 )
-			dege = true;
-		touched.insert( ezs );
-		touched.insert( ezt );
-		min += len[ ez ];
-	}
-	x = G.opposite( ez, x );
-}
-
-#line 3805 "MIN_CYCLE_BASIS.lw"
-                                     
+            while( pred[ y ][ x ] != nil && dege == false ) {
+                    ez = pred[ y ][ x ];
+                    en = enumb( ez );
+                    if ( ! C.member( en ) ) {
+                            C.insert( en );
+                            ezs = G.source( ez );
+                            ezt = G.target( ez );
+                            degree[ ezs ]++;
+                            degree[ ezt ]++;
+                            if ( degree[ ezs ] > 2 || degree[ ezt ] > 2 )
+                                    dege = true;
+                            touched.insert( ezs );
+                            touched.insert( ezt );
+                            min += len[ ez ];
+                    }
+                    x = G.opposite( ez, x );
+            }
+ 
             if ( v->id() < u->id() ) { y = v; x = u; }
             else { y = u; x = v; }
             
-#line 3889 "MIN_CYCLE_BASIS.lw"
-while( pred[ y ][ x ] != nil && dege == false ) {
-	ez = pred[ y ][ x ];
-	en = enumb( ez );
-	if ( ! C.member( en ) ) {
-		C.insert( en );
-		ezs = G.source( ez );
-		ezt = G.target( ez );
-		degree[ ezs ]++;
-		degree[ ezt ]++;
-		if ( degree[ ezs ] > 2 || degree[ ezt ] > 2 )
-			dege = true;
-		touched.insert( ezs );
-		touched.insert( ezt );
-		min += len[ ez ];
-	}
-	x = G.opposite( ez, x );
-}
-
-#line 3808 "MIN_CYCLE_BASIS.lw"
-                                     
-			
+            while( pred[ y ][ x ] != nil && dege == false ) {
+                    ez = pred[ y ][ x ];
+                    en = enumb( ez );
+                    if ( ! C.member( en ) ) {
+                            C.insert( en );
+                            ezs = G.source( ez );
+                            ezt = G.target( ez );
+                            degree[ ezs ]++;
+                            degree[ ezt ]++;
+                            if ( degree[ ezs ] > 2 || degree[ ezt ] > 2 )
+                                    dege = true;
+                            touched.insert( ezs );
+                            touched.insert( ezt );
+                            min += len[ ez ];
+                    }
+                    x = G.opposite( ez, x );
+            }
+ 
+                        
             // init degree array, and check for degeneracy
             while( touched.empty() == false ) {
                 vz = touched.choose();
@@ -1041,7 +981,6 @@ while( pred[ y ][ x ] != nil && dege == false ) {
 }
 
 
-#line 4011 "MIN_CYCLE_BASIS.lw"
 /*! Compute a minimum cycle basis using a hybrid algorithm.
  *
  *  The function computes a minimum cycle basis of an undirected weighted 
@@ -1069,48 +1008,36 @@ while( pred[ y ][ x ] != nil && dege == false ) {
  *  \return The length of the MCB or undefined if some error occured.
  *  \pre g is undirected, simple and loopfree 
  *  \pre len is non-negative 
+ *  \ingroup exactmcb
  */
 template<class W>
 W MIN_CYCLE_BASIS_HYBRID( const graph& g,
-			  const edge_array<W>& len,
-			  array< d_int_set >& mcb,
-			  array< d_int_set >& proof,
-			  const edge_num& enumb
-			  ) 
+                          const edge_array<W>& len,
+                          array< d_int_set >& mcb,
+                          array< d_int_set >& proof,
+                          const mcb::edge_num& enumb
+                          ) 
 { 
+    #if ! defined(LEDA_CHECKING_OFF)
+            if ( Is_Undirected_Simple( g ) == false )
+                    error_handler(999,"MIN_CYCLE_BASIS: illegal graph (parallel,anti-parallel edges or loops?)");
+    #endif
+
     
-#line 2703 "MIN_CYCLE_BASIS.lw"
-#if ! defined(LEDA_CHECKING_OFF)
-	if ( g.is_undirected() == false )
-		error_handler(999,"MIN_CYCLE_BASIS: illegal graph\
-		                  (directed?)");
-	if ( Is_Undirected_Simple( g ) == false )
-		error_handler(999,"MIN_CYCLE_BASIS: illegal graph\
-		  (parallel,anti-parallel edges or loops?)");
-#endif
+    #if ! defined(LEDA_CHECKING_OFF)
+    edge e1;
+    forall_edges( e1 , g ) { 
+            if ( len[e1] < 0 ) 
+                    error_handler(999,"MIN_CYCLE_BASIS: illegal edge (negative weight)");
+    }
+    #endif
 
-#line 4048 "MIN_CYCLE_BASIS.lw"
-    
-#line 2741 "MIN_CYCLE_BASIS.lw"
-#if ! defined(LEDA_CHECKING_OFF)
-edge e1;
-forall_edges( e1 , g ) { 
-	if ( len[e1] < 0 ) 
-		error_handler(999,"MIN_CYCLE_BASIS: illegal edge \
-		                  (negative weight)");
-}
-#endif
-
-#line 4049 "MIN_CYCLE_BASIS.lw"
-    
-#line 2729 "MIN_CYCLE_BASIS.lw"
-int N = enumb.dim_cycle_space();
-mcb.resize( N ); // set size of destination array
-proof.resize(N);
+    int N = enumb.dim_cycle_space();
+    mcb.resize( N ); // set size of destination array
+    proof.resize(N);
 
 
 
-#line 4051 "MIN_CYCLE_BASIS.lw"
     array< d_int_set >& C = mcb;
     array< d_int_set >& S = proof;
     
@@ -1130,46 +1057,42 @@ proof.resize(N);
     leda::seq_item s;
     // start computing cycles
     for( int k = 0; k < N; k++ ) { 
-	
-#line 4094 "MIN_CYCLE_BASIS.lw"
-#ifdef LEP_STATS
-lep_stats_queries++;
-#endif
+        
+        #ifdef LEP_STATS
+        lep_stats_queries++;
+        #endif
 
-// compute shortest odd cycle
-s = super.min_item();
-bool f = false;
-while ( s != nil ) { 
-    if ( ( (super[s]).intersect( S[k] ) ).size() % 2 == 1 ) { // is odd
-	C[k] = super[s];
-	ret = super.key( s ).first();
-	super.del_item( s );
-	f = true; // found
-	break;
-    }
-    s = super.succ( s );
+        // compute shortest odd cycle
+        s = super.min_item();
+        bool f = false;
+        while ( s != nil ) { 
+            if ( ( (super[s]).intersect( S[k] ) ).size() % 2 == 1 ) { // is odd
+                C[k] = super[s];
+                ret = super.key( s ).first();
+                super.del_item( s );
+                f = true; // found
+                break;
+            }
+            s = super.succ( s );
 
-#ifdef LEP_STATS
-    lep_stats_queries++;
-#endif
-}
-if ( f == false )
-    error_handler(999,"MIN_CYCLE_BASIS (HYBRID):\
-	    superset contains no MCB :(");
-min += ret;
+        #ifdef LEP_STATS
+            lep_stats_queries++;
+        #endif
+        }
+        if ( f == false )
+            error_handler(999,"MIN_CYCLE_BASIS (HYBRID):\
+                    superset contains no MCB :(");
+        min += ret;
 
-#line 4071 "MIN_CYCLE_BASIS.lw"
-	
-#line 2840 "MIN_CYCLE_BASIS.lw"
-for( int l = k+1; l < N; l++ )   {
-    // cycles are smaller than sets, thus it is better
-    // to intersect C and S than S and C
-    if ( (C[k].intersect(S[l])).size() %2 == 1 )   {
-	S[ l ] %= S[k];
-    }
-}
+        
+        for( int l = k+1; l < N; l++ )   {
+            // cycles are smaller than sets, thus it is better
+            // to intersect C and S than S and C
+            if ( (C[k].intersect(S[l])).size() %2 == 1 )   {
+                S[ l ] %= S[k];
+            }
+        }
 
-#line 4072 "MIN_CYCLE_BASIS.lw"
     }
 
 #ifdef LEP_STATS
@@ -1180,7 +1103,6 @@ for( int l = k+1; l < N; l++ )   {
 }
 
 
-#line 4127 "MIN_CYCLE_BASIS.lw"
 /*! Compute a minimum cycle basis using a hybrid algorithm.
  *
  *  The function computes a minimum cycle basis of an undirected weighted 
@@ -1202,16 +1124,17 @@ for( int l = k+1; l < N; l++ )   {
  *  \return The length of the MCB or undefined if some error occured.
  *  \pre g is undirected, simple and loopfree 
  *  \pre len is non-negative 
+ *  \ingroup exactmcb
  */
 template<class W>
 W MIN_CYCLE_BASIS_HYBRID( const graph& g,
-			  const edge_array<W>& len,
-			  array< d_int_set >& mcb,
-			  const edge_num& enumb
-			  )
+                          const edge_array<W>& len,
+                          array< d_int_set >& mcb,
+                          const mcb::edge_num& enumb
+                          )
 {
-	array< d_int_set > proof_temp;
-	return MIN_CYCLE_BASIS_HYBRID( g, len, mcb, proof_temp, enumb );
+        array< d_int_set > proof_temp;
+        return MIN_CYCLE_BASIS_HYBRID( g, len, mcb, proof_temp, enumb );
 }
 
 /*! Compute a minimum cycle basis using a hybrid algorithm.
@@ -1237,20 +1160,21 @@ W MIN_CYCLE_BASIS_HYBRID( const graph& g,
  *  \return The length of the MCB or undefined if some error occured.
  *  \pre g is undirected, simple and loopfree 
  *  \pre len is non-negative 
+ *  \ingroup exactmcb
  */
 template<class W>
 W MIN_CYCLE_BASIS_HYBRID( const graph& g,
-			  const edge_array<W>& len,
-			  array< list<edge> >& mcb,
-			  array< list<edge> >& proof
-			  )
+                          const edge_array<W>& len,
+                          array< list<edge> >& mcb,
+                          array< list<edge> >& proof
+                          )
 {
-	array< d_int_set > mcb_temp, proof_temp;
-	edge_num enumb( g );
-	W min = MIN_CYCLE_BASIS_HYBRID( g, len, mcb_temp, proof_temp, enumb );
-	MCB_output_basis( g, mcb_temp, enumb, mcb );
-	MCB_output_basis( g, mcb_temp, enumb, proof );
-	return min;
+        array< d_int_set > mcb_temp, proof_temp;
+        edge_num enumb( g );
+        W min = MIN_CYCLE_BASIS_HYBRID( g, len, mcb_temp, proof_temp, enumb );
+        d_int_set_to_list_edges( g, enumb, mcb_temp, mcb );
+        d_int_set_to_list_edges( g, enumb, proof_temp, proof );
+        return min;
 }
 
 /*! Compute a minimum cycle basis using a hybrid algorithm.
@@ -1270,27 +1194,27 @@ W MIN_CYCLE_BASIS_HYBRID( const graph& g,
  *  \return The length of the MCB or undefined if some error occured.
  *  \pre g is undirected, simple and loopfree 
  *  \pre len is non-negative 
+ *  \ingroup exactmcb
  */
 template<class W>
 W MIN_CYCLE_BASIS_HYBRID( const graph& g,
-			  const edge_array<W>& len,
-			  array< list<edge> >& mcb
-			  )
+                          const edge_array<W>& len,
+                          array< list<edge> >& mcb
+                          )
 {
-	array< d_int_set > mcb_temp, proof_temp;
-	edge_num enumb( g );
-	W min = MIN_CYCLE_BASIS_HYBRID( g, len, mcb_temp, proof_temp, enumb );
-	MCB_output_basis( g, mcb_temp, enumb, mcb );
-	return min;
+        array< d_int_set > mcb_temp, proof_temp;
+        edge_num enumb( g );
+        W min = MIN_CYCLE_BASIS_HYBRID( g, len, mcb_temp, proof_temp, enumb );
+        d_int_set_to_list_edges( g, enumb, mcb_temp, mcb );
+        return min;
 }
 
+//@}
 
-#line 1859 "MIN_CYCLE_BASIS.lw"
 } // namespace mcb end
 
 #endif  // MIN_CYCLE_BASIS_H
 
-#line 6217 "MIN_CYCLE_BASIS.lw"
 /* ex: set ts=8 sw=4 sts=4 noet: */
 
 
