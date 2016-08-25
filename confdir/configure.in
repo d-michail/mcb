@@ -1,10 +1,11 @@
-dnl    $Id: configure.in,v 1.7 2005/02/22 14:44:10 michail Exp $
+dnl    $Id: configure.in,v 1.8 2005/02/27 13:57:45 michail Exp $
 dnl
 dnl    Modified for LEDA LEPS by M. Seel
 dnl
 dnl    Modified to support LEDA 5.x and headers compatibility,
 dnl    Fixes on acquiring g++ version number.
-dnl    by Dimitrios Michail
+dnl    Support for CYGWIN_NT-5.x for x > 0 added.
+dnl    by Dimitrios Michail <michail@mpi-sb.mpg.de>
 dnl
 dnl    Process this file with autoconf to produce a configure script.
 dnl   
@@ -411,7 +412,7 @@ dnl    determine OS and architecture and all this stuff
 dnl
 
 AC_MSG_CHECKING(your OS)
-OS=`${UNAME} -s`
+OS=`${UNAME} -s|${CUT} -d"." -f1`
 OSREV=`${UNAME} -r`
 OSMAJOR=`${ECHO} $OSREV|${CUT} -d"." -f1`
 
@@ -432,8 +433,8 @@ if test "$OS" = SunOS ; then
 dnl	SOLLIBS="-lsocket -lthread"
 fi
 
-if test "$OS" = Linux -o "$OS" = "CYGWIN_NT-5.0" ; then
-	if test "$OS" = "CYGWIN_NT-5.0" ; then
+if test "$OS" = Linux -o "$OS" = CYGWIN_NT-5 ; then
+	if test "$OS" = CYGWIN_NT-5 ; then
 		OS=Cygwin
 		LEP_WLIBS="-luser32 -lgdi32 -lcomdlg32 -lshell32 -lwsock32"
 	fi

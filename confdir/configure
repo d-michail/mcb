@@ -1121,7 +1121,7 @@ ${ECHO} ">>Platform Analysis<<"
 
 echo $ac_n "checking your OS""... $ac_c" 1>&6
 echo "configure:1124: checking your OS" >&5
-OS=`${UNAME} -s`
+OS=`${UNAME} -s|${CUT} -d"." -f1`
 OSREV=`${UNAME} -r`
 OSMAJOR=`${ECHO} $OSREV|${CUT} -d"." -f1`
 
@@ -1139,8 +1139,8 @@ if test "$OS" = SunOS ; then
 	fi
 fi
 
-if test "$OS" = Linux -o "$OS" = "CYGWIN_NT-5.0" ; then
-	if test "$OS" = "CYGWIN_NT-5.0" ; then
+if test "$OS" = Linux -o "$OS" = CYGWIN_NT-5 ; then
+	if test "$OS" = CYGWIN_NT-5 ; then
 		OS=Cygwin
 		LEP_WLIBS="-luser32 -lgdi32 -lcomdlg32 -lshell32 -lwsock32"
 	fi

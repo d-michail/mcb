@@ -5,10 +5,10 @@
 \mansection{Definition}
 
 
-A numbering \ensuremath{T} provides a numbering of the edges of an undirected graph 
+A numbering \ensuremath{T} provides a numbering of the edges of a graph 
 from $0$ to $m-1$. The numbering is based on an arbitrary spanning tree $T$.
 Edges not on $T$ are numbered from $0$ to $m -n + \kappa -1$ where $\kappa$
-are the number of connected components of $G$. Edge on $T$ are numbered
+are the number of (weakly) connected components of $G$. Edge on $T$ are numbered
 from $m-n+\kappa$ to $m-1$. 
 
 
@@ -61,14 +61,14 @@ the numbering.
 {dim\nspaceunderscore\_cycle\nspaceunderscore\_space}
 {$\,$}
 {Returns the dimension of the cycle space. More precisely \ensuremath{m-n+k}, where
-\ensuremath{k} is the number of connected components of the graph. 
+\ensuremath{k} is the number of (weakly) connected components of the graph. 
 
 }
 
 \function{\ensuremath{\mathit{int}}}
-{num\nspaceunderscore\_connected\nspaceunderscore\_comp}
+{num\nspaceunderscore\_weak\nspaceunderscore\_connected\nspaceunderscore\_comp}
 {$\,$}
-{Returns the number of connected components of the graph.
+{Returns the number of (weakly) connected components of the graph.
  
 
 }

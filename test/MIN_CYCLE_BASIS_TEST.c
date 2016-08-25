@@ -1,16 +1,25 @@
+/* ex: set tabstop=8 shiftwidth=4 softtabstop=4 noexpandtab: */
 //---------------------------------------------------------------------
 // File automatically generated using notangle from MIN_CYCLE_BASIS.lw
-// 
-// mails and bugs: Dimitris Michail <michail@mpi-sb.mpg.de>
-//--------------------------------------------------------------------- 
+//
+// mails and bugs: Dimitrios Michail <dimitrios.michail@gmail.com>
+//---------------------------------------------------------------------
 //
 // This program can be freely used in an academic environment
-// ONLY for research purposes. Any other use is strictly
-// prohibited by the author, without an explicit permission.
+// ONLY for research purposes, subject to the following restrictions:
 //
-// Note that this program uses the LEDA library, which is
-// NOT free. For more details visit Algorithmic Solutions
-// at http://www.algorithmic-solutions.com/
+// 1. The origin of this software must not be misrepresented; you must not
+//    claim that you wrote the original software. If you use this software
+//    an acknowledgment in the product documentation is required.
+// 2. Altered source versions must be plainly marked as such, and must not be
+//    misrepresented as being the original software.
+// 3. This notice may not be removed or altered from any source distribution.
+//
+// Any other use is strictly prohibited by the author, without an explicit 
+// permission.
+//
+// Note that this program uses the LEDA library, which is NOT free. For more 
+// details visit Algorithmic Solutions at http://www.algorithmic-solutions.com/
 //
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // ! Any commercial use of this software is strictly !
@@ -22,7 +31,7 @@
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 //
-// Copyright 2004,2005 - Dimitris Michail
+// Copyright (C) 2004-2005 Dimitrios Michail
 
 
 
@@ -77,7 +86,7 @@ int main() {
 
                 mcb::edge_num enumb( G );
                 int N = enumb.dim_cycle_space();
-                int c = enumb.num_connected_comp();
+                int c = enumb.num_weak_connected_comp();
 
                 std::cout << " N = m - n + c = " << G.number_of_edges(); 
                 std::cout << " - " << G.number_of_nodes() << " + ";

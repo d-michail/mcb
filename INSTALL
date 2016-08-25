@@ -219,4 +219,4 @@ d) To compile your program use something like
          -L<LEP>/mcb -L%LEDAROOT% \
 	  yoursource.c libmcb.lib leda.lib
 
-- Dimitris Michail
+
