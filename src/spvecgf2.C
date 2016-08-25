@@ -1,9 +1,4 @@
 
-//---------------------------------------------------------------------
-// File automatically generated using notangle from DMIN_CYCLE_BASIS.lw
-//
-// emails and bugs: Dimitrios Michail <dimitrios.michail@gmail.com>
-//---------------------------------------------------------------------
 //
 // This program can be freely used in an academic environment
 // ONLY for research purposes, subject to the following restrictions:
@@ -20,6 +15,7 @@
 //
 // Note that this program uses the LEDA library, which is NOT free. For more 
 // details visit Algorithmic Solutions at http://www.algorithmic-solutions.com/
+// There is also a free version of LEDA 6.0 or newer.
 //
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // ! Any commercial use of this software is strictly !
@@ -31,8 +27,8 @@
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 //
-// Copyright (C) 2004-2006 - Dimitrios Michail
-
+// Copyright (C) 2004-2008 - Dimitrios Michail <dimitrios.michail@gmail.com>
+//
 
 /*! \file spvecgf2.c
  *  \brief Implementation of sparse vector.
@@ -50,6 +46,11 @@ namespace mcb {
     spvecgf2::spvecgf2( const spvecgf2 & a )
     {
         *this = a;
+    }
+
+    spvecgf2::spvecgf2( const int& i )
+    {
+	*this = i;
     }
 
     spvecgf2::~spvecgf2(  ) {
@@ -296,10 +297,7 @@ namespace mcb {
         l.swap( a.l );
     }
 
-    // helper function
-    void swap( spvecgf2& a, spvecgf2& b ) { 
-        a.swap(b);
-    }
+    
  
     
     // append an entry
@@ -351,6 +349,17 @@ appending on spvecgf2: out-of-bounds" );
 
 
 } // end namespace mcb
+
+
+namespace std { 
+
+    // helper swap
+    template<>
+    void swap<mcb::spvecgf2>( mcb::spvecgf2& a, mcb::spvecgf2& b ) { 
+        a.swap(b);
+    }
+
+} // end of namespace mcb
 
 /* ex: set ts=8 sw=4 sts=4 noet: */
 

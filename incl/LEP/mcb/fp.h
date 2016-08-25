@@ -1,8 +1,4 @@
-//---------------------------------------------------------------------
-// File automatically generated using notangle from DMIN_CYCLE_BASIS.lw
-//
-// emails and bugs: Dimitrios Michail <dimitrios.michail@gmail.com>
-//---------------------------------------------------------------------
+
 //
 // This program can be freely used in an academic environment
 // ONLY for research purposes, subject to the following restrictions:
@@ -19,6 +15,7 @@
 //
 // Note that this program uses the LEDA library, which is NOT free. For more 
 // details visit Algorithmic Solutions at http://www.algorithmic-solutions.com/
+// There is also a free version of LEDA 6.0 or newer.
 //
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // ! Any commercial use of this software is strictly !
@@ -30,8 +27,8 @@
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 //
-// Copyright (C) 2004-2006 - Dimitrios Michail
-
+// Copyright (C) 2004-2008 - Dimitrios Michail <dimitrios.michail@gmail.com>
+//
 
 /*! \file fp.h
  *  \brief Helper functions

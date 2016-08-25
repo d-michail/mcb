@@ -1,8 +1,0 @@
-We illustrate approximate minimum cycle basis of directed graphs.
-
-The edges of an arbitrary spanning tree used by the algorithm
-are shown in red. Each edge has a label which is a unique number.
-
-As you edit the graph, an approximate minimum cycle basis is indicated on
-the standard output. Each cycle is represented by the unique numbers
-of its edges.

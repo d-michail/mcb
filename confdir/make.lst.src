@@ -5,5 +5,5 @@
 #------------------------------------------------------------------------------
 
 
-LEP_SOURCES = MIN_CYCLE_BASIS.c edge_num.c spvecfp.c spvecgf2.c mcb_approx.c verify.c transform.c ushortpath.c
+LEP_SOURCES = hybrid.C edge_num.C spvecfp.C spvecgf2.C mcb_approx.C verify.C transform.C ushortpath.C determinant.C
 

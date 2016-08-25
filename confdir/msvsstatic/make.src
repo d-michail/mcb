@@ -6,12 +6,12 @@ include comp.lst
 include Make.lst
 
 LIB = lib$(LEPNAME).lib
-LEP_OBJECTS = $(LEP_SOURCES:.c=.obj)
+LEP_OBJECTS = $(LEP_SOURCES:.C=.obj)
 
 all: $(LIB)
 
-.c.obj:
-	$(CC) $(LEDAFLAGS) -I$(LEDAROOT)\incl -I..\incl $*.c
+.C.obj:
+	$(CC) $(LEDAFLAGS) -I$(LEDAROOT)\incl -I..\incl $*.C
         @if not exist $(LIB) $(AR0)$(LIB) $(ARC) $*.obj > NUL   
 	$(AR) $(LIB) $(ARC) $*.obj > NUL
 

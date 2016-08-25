@@ -1,8 +1,3 @@
-//---------------------------------------------------------------------
-// File automatically generated using notangle from DMIN_CYCLE_BASIS.lw
-//
-// emails and bugs: Dimitrios Michail <dimitrios.michail@gmail.com>
-//---------------------------------------------------------------------
 //
 // This program can be freely used in an academic environment
 // ONLY for research purposes, subject to the following restrictions:
@@ -19,6 +14,7 @@
 //
 // Note that this program uses the LEDA library, which is NOT free. For more 
 // details visit Algorithmic Solutions at http://www.algorithmic-solutions.com/
+// There is also a free version of LEDA 6.0 or newer.
 //
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // ! Any commercial use of this software is strictly !
@@ -30,40 +26,55 @@
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 //
-// Copyright (C) 2004-2006 - Dimitrios Michail 
+// Copyright (C) 2004-2008 - Dimitrios Michail <dimitrios.michail@gmail.com>
+//
+// $Id: transform.C 6781 2008-02-20 00:10:13Z dmichail $ 
+//
 
+#include <LEP/mcb/config.h>
 
-#include <iostream>
+#ifdef LEDA_GE_V5
+#include <LEDA/system/error.h>
+#include <LEDA/numbers/integer_matrix.h>
+#else
+#include <LEDA/error.h>
+#include <LEDA/integer_matrix.h>
+#endif
 
-// Read a very simple format for graphs and write it as a GML graph.
-int main() {
-        int n,m;
-        std::cin >> n;
-        std::cin >> m;
-        
-        std::cout << "graph [" << std::endl;
-        std::cout << "directed 0" << std::endl;
-        std::cout << std::endl;
-        
-        for( int i = 0; i < n; ++i ) { 
-                std::cout << "node [ id " << i << " ]" << std::endl;
+namespace mcb 
+{ 
+
+#if defined(LEDA_NAMESPACE)
+using leda::error_handler;
+using leda::integer_matrix;
+#endif
+
+    /*  Output a LEDA integer_matrix in a format compatible with maple. 
+     *  \param out The output stream
+     *  \param B The matrix to output
+     *  \ret The output stream after outputing.
+     */ 
+    std::ostream& output_maple_format( std::ostream& out, const integer_matrix& B )
+    {
+        out << "[";
+        for( int i = 0; i < B.dim1(); ++i )  {
+            out << "[";
+            for( int j = 0; j < B.dim2(); ++j ) {
+                out << B[i][j];
+                if ( j < B.dim2()-1 ) 
+                    out << ",";
+            }
+            out << "]";       
+            if ( i < B.dim1()-1 ) 
+                out << "," << std::endl;
         }
-
-        std::cout << std::endl;
-        
-        int s,t,w;
-        for( int i = 0; i < m; ++i ) { 
-                std::cin >> s >> t >> w;
-                std::cout << "edge [" << std::endl;
-                std::cout << "\tsource " << s << std::endl;
-                std::cout << "\ttarget " << t << std::endl;
-                std::cout << "\tlabel " << w << std::endl;
-                std::cout << "]" << std::endl;
-        }
-        std::cout << std::endl;
-        std::cout << "]" << std::endl;
-}
-
-/* ex: set ts=8 sw=4 sts=4 noet: */
+        out << "]" << std::endl;
+        return out;
+    }
 
 
+
+
+} // namespace mcb end
+
+/* ex: set ts=4 sw=4 sts=4 et: */

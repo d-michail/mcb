@@ -1,6 +1,4 @@
-//---------------------------------------------------------------------
-// emails and bugs: Dimitrios Michail <dimitrios.michail@gmail.com>
-//---------------------------------------------------------------------
+
 //
 // This program can be freely used in an academic environment
 // ONLY for research purposes, subject to the following restrictions:
@@ -17,6 +15,7 @@
 //
 // Note that this program uses the LEDA library, which is NOT free. For more 
 // details visit Algorithmic Solutions at http://www.algorithmic-solutions.com/
+// There is also a free version of LEDA 6.0 or newer.
 //
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // ! Any commercial use of this software is strictly !
@@ -28,7 +27,8 @@
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 //
-// Copyright (C) 2004-2006 - Dimitrios Michail
+// Copyright (C) 2004-2008 - Dimitrios Michail <dimitrios.michail@gmail.com>
+//
 
 #include <LEP/mcb/config.h>
 
@@ -213,46 +213,6 @@ bool verify_cycles( const graph& g,
     return true;
 }
 
-bool verify_cycle( const graph& g,
-		   const list<edge>& cycle
-		)
-{
-    if ( cycle.empty() ) 
-	return false;
-
-    edge e;
-    node_array<indextype> degree( g, 0 );
-
-    forall( e, cycle ) 
-    {
-	degree[ g.target(e) ]++;
-	degree[ g.source(e) ]++;
-    }
-    
-    // check that even degrees
-    node v;
-    forall_nodes( v, g )
-	if ( degree[ v ] % 2 == 1 ) 
-	    return false;
-
-    return true;
-}
-
-bool verify_cycles( const graph& g,
-		   const array< list<edge> >& cycles
-		)
-{
-#if ! defined(LEDA_CHECKING_OFF)
-    assert( cycles.C_style() );
-#endif
-    for( int i = 0; i < cycles.size(); ++i )
-	if ( verify_cycle( g, cycles[i] ) == false )
-	    return false;
-    return true;
-}
-
-
-
 ////// VERIFY BASIS UNDIRECTED //////////
 
 bool verify_basis( const graph& g, 
@@ -298,15 +258,6 @@ bool verify_basis( const graph& g,
 
 bool verify_basis( const graph& g, 
 	const edge_num& enumb, 
-	const array< list<edge> >& mcb )
-{
-    array< d_int_set > mcb_temp;
-    list_edges_to_d_int_set( g, enumb, mcb, mcb_temp );
-    return verify_basis( g, enumb, mcb_temp );
-}
-
-bool verify_basis( const graph& g, 
-	const edge_num& enumb, 
 	const array< spvecgf2 >& mcb )
 {
     array< d_int_set > mcb_temp;
@@ -327,23 +278,6 @@ bool verify_cycle_basis( const graph& g,
 	return false;
 
     if ( verify_cycles( g, enumb, mcb ) == false ) 
-	return false;
-
-    return verify_basis( g, enumb, mcb );
-}
-
-bool verify_cycle_basis( const graph& g, 
-                   const mcb::edge_num& enumb,
-                   const array< list<edge> >& mcb)
-{
-#if ! defined(LEDA_CHECKING_OFF)
-    assert( mcb.C_style() );
-#endif
-
-    if ( mcb.size() != enumb.dim_cycle_space() )
-	return false;
-
-    if ( verify_cycles( g, mcb ) == false ) 
 	return false;
 
     return verify_basis( g, enumb, mcb );
@@ -393,7 +327,12 @@ bool verify_basis( const graph& g,
 	}
     }
 
+#if (__GNUC__ == 4) && (__GNUC_MINOR__ >= 1 )
+    int r = rank(a);
+#else
     int r = leda::rank(a);
+#endif
+
 #ifdef LEP_DEBUG_OUTPUT
     std::cout << "verify basis: rank = " << r << std::endl;
 #endif

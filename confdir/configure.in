@@ -1,7 +1,7 @@
 dnl    $Id: configure.in,v 1.45 2006/06/20 16:07:24 michail Exp $
 dnl
 dnl    Modified for LEDA LEPS by M. Seel
-dnl    Many changes by Dimitrios Michail <dimitrios.michail@gmail.com>
+dnl    Modified heavily by Dimitrios Michail <dimitrios.michail@gmail.com>
 dnl
 dnl    Modified to support LEDA 5.x and headers compatibility,
 dnl    Fixes on acquiring g++ version number.
@@ -66,6 +66,7 @@ AC_SUBST(LEP_LIB_PATH)  dnl directory of LEP libraries
 AC_SUBST(LEDAROOT)      dnl root directory of LEDA
 AC_SUBST(LEDA_INCL_PATH)    dnl directory of LEDA include files
 AC_SUBST(LEDA_LIB_PATH)     dnl directory of LEDA libraries
+AC_SUBST(LEDA_LIBS)	    dnl libraries for LEDA
 AC_SUBST(CXX)               dnl C++ compiler (absolute path)
 AC_SUBST(CXX_FLAGS)         dnl C++ compiler flags
 AC_SUBST(CXX_USER_FLAGS)    dnl C++ compiler flags
@@ -201,183 +202,22 @@ else
 fi
 AC_SUBST(HAVE_DOT)
 
+dnl    define a macro to determine LEDA's version
+dnl    syntax: AC_LEDA_VERSION(<answer>)
 dnl
-dnl    define macro to search for header files that may be somewhere in the filesystem
-dnl    if ${FIND}!=- (i.e. it has been set BEFORE py AC_PATH_PROG!) find will be used
-dnl    too if everything fails - this may take some time...
-dnl
-dnl    syntax: AC_FIND_HEADER(<PATH_VAR>,<header.h>,<additional dirnames>)
-dnl    
-dnl        PATH_VAR will be set to the include path or to empty string (if not found)
-dnl        header.h is the header file name (e.g. wait.h, GL/gl.h)
-dnl        additional dirnames are included in searches these should be absolute names!
-dnl 
-
-AC_DEFUN(AC_FIND_HEADER,[
-  _INCLUDES=
-
-  dnl    immediate return on predefined directory (read from file?)
-  if test "${$1}" != "" ; then
-    _INCLUDES=${$1}
-  fi
-
-  if test "${_INCLUDES}" = "" ; then
-    for i in /usr/include /opt/include $3 ; do
-      if test -f "$i/$2" && test "${_INCLUDES}" = ""; then
-        _INCLUDES="$i"
-      fi
-    done
-  fi
-
-  if test "${_INCLUDES}" = "" ; then
-    for i in /usr/*/include /opt/*/include ; do
-      if test -f "$i/$2" && test "${_INCLUDES}" = ""; then
-        _INCLUDES="$i"
-      fi
-    done
-  fi
-	
-  if test "${_INCLUDES}" = "" ; then
-    for i in /opt/*/*/include /usr/*/*/include /usr/local/*/*/include ; do
-      if test -f "$i/$2" && test "${_INCLUDES}" = ""; then
-        _INCLUDES="$i"
-      fi
-    done
-  fi
-
-  if test "${_INCLUDES}" = "" && test "${FIND}" != "-" ; then
-    if test "${FIND_KNOWS_PATH}" = false ; then
-      FIND_OPT="-name"
-      _TMP_FIND_NAME="$2"
-      while test _`egrep / $_TMP_FIND_NAME`_ != __ ; do
-        _TMP_FIND_NAME=`${ECHO} ${_TMP_FIND_NAME}|${CUT} -d/ -f2-`
-      done
-			
-      FIND_ARG="\*${_TMP_FIND_NAME}\*"
-    else
-      FIND_OPT="-path"
-      FIND_ARG="\*$2\*"
+AC_DEFUN(AC_LEDA_VERSION,[	
+    AC_MSG_CHECKING(exact LEDA version as reported in header files)
+    if test -f "${LEDAROOT}/incl/LEDA/basic.h"; then
+	_LEDA_VERSION=`grep __LEDA__ ${LEDAROOT}/incl/LEDA/basic.h | cut -f 3 -d' '`
+    elif test -f "${LEDAROOT}/incl/LEDA/system/basic.h"; then
+	_LEDA_VERSION=`grep __LEDA__ ${LEDAROOT}/incl/LEDA/system/basic.h | cut -f 3 -d' '`
+    else 
+	_LEDA_VERSION="none"
     fi
+    AC_MSG_RESULT(${_LEDA_VERSION})
+    $1=${_LEDA_VERSION}
+]) dnl  END of AC_LEDA_VERSION
 
-    _TMP=`${FIND} /usr ${FIND_OPT} ${FIND_ARG} -print 2>/dev/null`
-    for j in ${_TMP} ; do
-      if test "${_INCLUDES}" = "" ; then
-        _INCLUDES=`${ECHO} $j|${SED} "s/include\/.\*\$/include/"`
-      fi
-    done
-		
-    if test "${_INCLUDES}" = "" ; then
-      _TMP=`${FIND} /opt ${FIND_OPT} ${FIND_ARG} -print 2>/dev/null`
-    for j in ${_TMP} ; do
-      if test "${_INCLUDES}" = "" ; then
-        _INCLUDES=`${ECHO} $j|${SED} "s/include\/.\*\$/include/"`
-      fi
-    done
-  fi
-
-  if test "${_INCLUDES}" = "" && test "$3" != ""; then
-    for i in $3 /dev/null ; do
-      _TMP=`${FIND} $i ${FIND_OPT} ${FIND_ARG} -print 2>/dev/null`
-      for j in ${_TMP} ; do
-        if test "${_INCLUDES}" = "" ; then
-          _INCLUDES=`${ECHO} $j|${SED} "s/include\/.\*\$/include/"`
-        fi
-      done
-    done
-  fi
-fi
-
-	$1="${_INCLUDES}"
-
-])
-
-
-dnl
-dnl    define macro to search for libraries that may be somewhere in the filesystem
-dnl    if ${FIND}!=- (i.e. it has been set BEFORE py AC_PATH_PROG!) find will be used
-dnl    too if everything fails - this may take some time...
-dnl
-dnl    syntax: AC_FIND_LIB(<PATH_VAR>,<libXXX>,<additional dirnames>)
-dnl    
-dnl    PATH_VAR will be set to the library path or to empty string (if not found)
-dnl    libXXX is the header file name (e.g. libGLUT, libGL) .a, .so etc. should be omitted
-dnl    additional dirnames ar included in searches these should be absolute names!
-dnl 
-
-AC_DEFUN(AC_FIND_LIB,[
-  _LIBS=
-
-  dnl   immediate "return" on preset directory (read from file?)
-  if test "${$1}" != "" ; then
-    _LIBS=${$1}
-  fi
-
-  if test "${_LIBS}" = "" ; then
-    for i in /usr/lib /opt/lib $3 ; do
-      for j in $i/$2.* ; do
-        if test -f "$j" && test "${_LIBS}" = ""; then
-          _LIBS="$i"
-        fi
-      done
-    done
-  fi
-
-  if test "${_LIBS}" = "" ; then
-    for i in /usr/*/lib /opt/*/lib ; do
-      for j in $i/$2.* ; do
-        if test -f "$j" && test "${_LIBS}" = ""; then
-          _LIBS="$i"
-        fi
-      done
-    done
-  fi
-	
-  if test "${_LIBS}" = "" ; then
-    for i in /opt/*/*/lib /usr/*/*/lib /usr/local/*/*/lib ; do
-      for j in $i/$2.* ; do
-        if test -f "$j" && test "${_LIBS}" = ""; then
-          _LIBS="$i"
-        fi
-      done
-    done
-  fi
-
-  if test "${_LIBS}" = "" && test "${FIND}" != "-" ; then
-    if test "${_LIBS}" = "" && test "$3" != ""; then
-      for i in $3 /dev/null; do
-        if test "${_LIBS}" = "" ; then
-          _TMP=`${FIND} $i -name "$2*" -print 2>/dev/null`
-          for j in ${_TMP} ; do
-            if test "${_LIBS}" = "" ; then
-              _LIBS=`${ECHO} $j|${SED} "s/\/$2.*/\//"`
-            fi
-          done
-        fi
-      done
-    fi
-		
-    if test "${_LIBS}" = "" ; then
-      _TMP=`${FIND} /opt -name "$2*" -print 2>/dev/null`
-      for j in ${_TMP} ; do
-        if test "${_LIBS}" = "" ; then
-          _LIBS=`${ECHO} $j|${SED} "s/\/$2.*/\//"`
-        fi
-      done
-    fi
-
-    if test "${_LIBS}" = "" ; then
-      _TMP=`${FIND} /usr -name "$2*" -print 2>/dev/null`
-      for j in ${_TMP} ; do
-        if test "${_LIBS}" = "" ; then
-          _LIBS=`${ECHO} $j|${SED} "s/\/$2.*/\//"`
-        fi
-      done
-    fi
-		
-  fi
-
-	$1="${_LIBS}"
-])
 
 dnl --------------------------------------------------------------------------------
 dnl	Start of scripting
@@ -402,7 +242,6 @@ AC_MSG_PATH_PROG(CP,cp,no)
 AC_MSG_PATH_PROG(RM,rm,no)
 AC_MSG_PATH_PROG(MV,mv,no)
 AC_MSG_PATH_PROG(SED,sed,no)
-AC_MSG_PATH_PROG(FIND,find,no)
 AC_MSG_PATH_PROG(MAKE,make,no)
 AC_PROG_LN_S
 
@@ -411,21 +250,41 @@ AC_PATH_PROG(CTAGS,ctags,)
 AC_PATH_PROG(ETAGS,etags,)
 
 
-${ECHO} ">>Platform Analysis<<"
+dnl  
+dnl Determine LEDA's version
+dnl
+dnl This used to be later on but since LEDA-6.0 we need
+dnl to change the library flags.
+dnl
+${ECHO} ">>LEDA Version Analysis<<"
+AC_LEDA_VERSION(EXACT_LEDA_VERSION)
+if test "${EXACT_LEDA_VERSION}" = "none"; then 
+    AC_MSG_RESULT([LEDA not found])
+    AC_MSG_RESULT([Try setting environment variable LEDAROOT to the correct path.])
+    AC_MSG_ERROR(aborted)
+    exit
+fi
+LEDA_INCL_PATH="${LEDAROOT}/incl"
+
 dnl
 dnl    determine OS and architecture and all this stuff
 dnl
 
+${ECHO} ">>Platform Analysis<<"
 AC_MSG_CHECKING(your OS)
 OS=`${UNAME} -s|${CUT} -d"." -f1`
 OSREV=`${UNAME} -r`
 OSMAJOR=`${ECHO} $OSREV|${CUT} -d"." -f1`
-
 dnl		default...
 BINFMT="${OS}"
 
 dnl by default use X11 libs
-LEP_WLIBS="-lX11"
+LEP_WLIBS="-lW -lX11"
+LEDA_LIBS="-lP -lG -lL -lm"
+if test "${EXACT_LEDA_VERSION}" -ge 600; then
+	LEP_WLIBS=""
+	LEDA_LIBS="-lX11 -lleda -lm"
+fi
 
 if test "$OS" = SunOS ; then
 	if test "$OSMAJOR" = 5 ; then
@@ -441,7 +300,12 @@ fi
 if test "$OS" = Linux -o "$OS" = CYGWIN_NT-5 ; then
 	if test "$OS" = CYGWIN_NT-5 ; then
 		OS=Cygwin
-		LEP_WLIBS="-luser32 -lgdi32 -lcomdlg32 -lshell32 -lwsock32"
+		if test "${EXACT_LEDA_VERSION}" -ge 600; then
+			LEP_WLIBS="-luser32 -lgdi32 -lcomdlg32 -lshell32 -lwsock32"
+			LEDA_LIBS="-lleda -lm"
+		else 
+			LEP_WLIBS="-lW -luser32 -lgdi32 -lcomdlg32 -lshell32 -lwsock32"
+		fi
 	fi
 
 	PROCESSOR=`${UNAME} -m`
@@ -485,54 +349,7 @@ if test "$OS" != Linux -a "$OS" != Solaris -a "$OS" != IRIX -a "$OS" != Cygwin ;
 	AC_MSG_ERROR(aborted)
 fi
 
-dnl
-dnl 	create OS defines in config.h:
-dnl
-dnl if test "$OS" = Linux ; then
-dnl	AC_DEFINE(MCBLEP_OS_LINUX,1,"Whether the operating system is Linux")
-dnl fi
-dnl if test "$OS" = Solaris ; then
-dnl 	AC_DEFINE(MCBLEP_OS_SOLARIS,1,"Whether the operating system is Solaris")
-dnl fi
-dnl if test "$OS" = IRIX ; then
-dnl 	AC_DEFINE(MCBLEP_OS_IRIX,1,"Whether the operating system is Irix")
-dnl fi
-
-dnl
-dnl		create ARCHITECTURE defines
-dnl
-dnl if test "$ARCHITECTURE" = sparc ; then
-dnl 	AC_DEFINE(MCBLEP_ARCH_SPARC,1,"sparc architecture")
-dnlfi
-dnl if test "$ARCHITECTURE" = i386 ; then
-dnl	AC_DEFINE(MCBLEP_ARCH_I386,1,"i386 architecture")
-dnl fi
-dnl if test "$ARCHITECTURE" = x86_64; then
-dnl 	AC_DEFINE(MCBLEP_ARCH_X86_64,1,"x86_64 architecture")
-dnl fi
-dnl if test "$ARCHITECTURE" = mips ; then
-dnl 	AC_DEFINE(MCBLEP_ARCH_MIPS,1,"mips architecture")
-dnl fi
-dnl if test "$ARCHITECTURE" = alpha ; then
-dnl 	AC_DEFINE(MCBLEP_ARCH_ALPHA,1,"alpha architecture")
-dnl fi
 AC_MSG_RESULT($OS $OSREV (BINFMT=$BINFMT))
-
-
-dnl   
-dnl   check whether find can be called with the parameter -path
-dnl   (needed to find headers in a certain path like GL/libgl.h
-dnl
-if test "${FIND}" != "no" ; then
-  RESULT=`${FIND} KERNEL -path . -print 2>&1`
-  if test "${RESULT}" != "" ; then     dnl    did get an error message ... bad.
-    FIND_KNOWS_PATH=false
-  else
-    FIND_KNOWS_PATH=true
-  fi
-fi
-
-		
 
 dnl -------------------------------------------------------------------------------
 dnl		Declare compiler search order
@@ -676,21 +493,6 @@ EOF
 ]) dnl  END of AC_COMPILER_NAME
 
 
-dnl    define a macro to determine LEDA's version
-dnl    syntax: AC_LEDA_VERSION(<answer>)
-dnl
-AC_DEFUN(AC_LEDA_VERSION,[	
-    AC_MSG_CHECKING(exact LEDA version as reported in header files)
-    if test -f "${LEDAROOT}/incl/LEDA/basic.h"; then
-	_LEDA_VERSION=`grep __LEDA__ ${LEDAROOT}/incl/LEDA/basic.h | cut -f 3 -d' '`
-    elif test -f "${LEDAROOT}/incl/LEDA/system/basic.h"; then
-	_LEDA_VERSION=`grep __LEDA__ ${LEDAROOT}/incl/LEDA/system/basic.h | cut -f 3 -d' '`
-    else 
-	_LEDA_VERSION="none"
-    fi
-    AC_MSG_RESULT(${_LEDA_VERSION})
-    $1=${_LEDA_VERSION}
-]) dnl  END of AC_LEDA_VERSION
 
 dnl
 dnl Check if LEDA and the compiler are compatible
@@ -1106,12 +908,12 @@ dnl
 
 LEP_NAME="mcb"
 LEP_PATH_NAME="mcb"
-LEP_VERSION="0.7"
+LEP_VERSION="0.8"
 AC_DEFINE_UNQUOTED(PACKAGE_VERSION,"${LEP_VERSION}")
 AC_DEFINE(PACKAGE_BUGREPORT,"Dimitrios Michail <dimitrios.michail@gmail.com>")
 AC_DEFINE_UNQUOTED(PACKAGE_TARNAME,"${LEP_NAME}lep-${LEP_VERSION}")
-AC_DEFINE(PACKAGE_NAME,"Minimum Cycle Basis LEDA Extension Package")
-AC_DEFINE_UNQUOTED(PACKAGE_STRING,"Minimum Cycle Basis LEDA Extension Package v${LEP_VERSION}")
+AC_DEFINE(PACKAGE_NAME,"Minimum Cycle Basis Library")
+AC_DEFINE_UNQUOTED(PACKAGE_STRING,"Minimum Cycle Basis Library v${LEP_VERSION}")
 
 ${ECHO} ">>LEP Requirements<<"
 dnl
@@ -1126,17 +928,6 @@ if test "${LINKING_MODE}" = "shared" ; then
 else
   LEP_LIB_PATH="${LEPROOT}/static"
 fi
-
-dnl  
-dnl Determine LEDA's version
-dnl
-AC_LEDA_VERSION(EXACT_LEDA_VERSION)
-if test "${EXACT_LEDA_VERSION}" = "none"; then 
-    AC_MSG_RESULT([LEDA not found])
-    AC_MSG_ERROR(aborted)
-    exit
-fi
-LEDA_INCL_PATH="${LEDAROOT}/incl"
 
 dnl
 dnl Check for compatibility problems with compiler
@@ -1174,7 +965,9 @@ else
 fi
 
 dnl enable LEDA's template compare function
-AC_DEFINE(LEDA_COMPARE_TEMPLATE,1,Whether LEDA should define a template compare function)
+if test "${EXACT_LEDA_VERSION}" -lt 600; then
+	AC_DEFINE(LEDA_COMPARE_TEMPLATE,1,Whether LEDA should define a template compare function)
+fi
 
 dnl check for assertions
 AC_CHECK_HEADER(assert.h)
@@ -1223,33 +1016,6 @@ dnl ---------------------------------------------------------------------------
 dnl
 dnl	Checks for typedefs, structures, and compiler characteristics.
 dnl
-
-dnl @synopsis AC_C_LONG_LONG
-dnl
-dnl Provides a test for the existance of the long long int type and
-dnl defines HAVE_LONG_LONG if it is found.
-dnl
-dnl @version $Id: configure.in,v 1.45 2006/06/20 16:07:24 michail Exp $
-dnl @author Caolan McNamara <caolan@skynet.ie>
-dnl
-AC_DEFUN([AC_C_LONG_LONG],
-[AC_CACHE_CHECK(for long long int, ac_cv_c_long_long,
-[if test "$GCC" = yes; then
-ac_cv_c_long_long=yes
-else
-AC_TRY_COMPILE(,[long long int i;],
-ac_cv_c_long_long=yes,
-ac_cv_c_long_long=no)
-fi])
-if test $ac_cv_c_long_long = yes; then
-	AC_DEFINE(HAVE_LONG_LONG,,[define if the compiler supports long long])
-fi
-])
-
-AC_C_LONG_LONG
-dnl AC_TYPE_SIZE_T
-dnl AC_HEADER_TIME
-
 
 dnl
 dnl		Checks for library functions

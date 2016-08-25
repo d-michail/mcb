@@ -16,7 +16,7 @@ endif
 # General settings
 #------------------------------------------------------------------------------
 
-LEP_OBJECTS = $(LEP_SOURCES:.c=.o)
+LEP_OBJECTS = $(LEP_SOURCES:.C=.o)
 
 IFLAGS = $(patsubst %,-I%,$(subst :, ,$(LEDA_INCL_PATH))) -I$(LEP_INCL_PATH) 
 CFLAGS = $(CXX_OPT) $(CXX_FLAGS) $(CXX_USER_FLAGS)
@@ -45,8 +45,8 @@ static: $(LEP_OBJECTS)
 # general rules:
 #----------------------------------------------------------------------------
 
-.c.o:
-	$(CXX) $(IFLAGS) $(CFLAGS) $(CXX_COMP_FLAGS) $(LEP_COMP_FLAGS) -c $*.c        
+.C.o:
+	$(CXX) $(IFLAGS) $(CFLAGS) $(CXX_COMP_FLAGS) $(LEP_COMP_FLAGS) -c $*.C        
 
 #----------------------------------------------------------------------------
 # depend
@@ -67,7 +67,7 @@ clean :
 	$(RM) -f $(LEP_OBJECTS)
 
 touch: 
-	touch *.c
+	touch *.C
 
 tags: $(CTAGFILES)
 	$(CTAGS) $(CTAGFILES)

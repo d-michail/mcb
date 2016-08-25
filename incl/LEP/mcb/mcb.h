@@ -1,8 +1,3 @@
-//---------------------------------------------------------------------
-// File automatically generated using notangle from DMIN_CYCLE_BASIS.lw
-//
-// emails and bugs: Dimitrios Michail <dimitrios.michail@gmail.com>
-//---------------------------------------------------------------------
 //
 // This program can be freely used in an academic environment
 // ONLY for research purposes, subject to the following restrictions:
@@ -19,6 +14,7 @@
 //
 // Note that this program uses the LEDA library, which is NOT free. For more 
 // details visit Algorithmic Solutions at http://www.algorithmic-solutions.com/
+// There is also a free version of LEDA 6.0 or newer.
 //
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // ! Any commercial use of this software is strictly !
@@ -30,14 +26,14 @@
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 //
-// Copyright (C) 2004-2006 - Dimitrios Michail
-
+// Copyright (C) 2004-2008 - Dimitrios Michail <dimitrios.michail@gmail.com>
+//
 
 /*! \file mcb.h
  *  \brief General LEP interface.
  */
 
-/*! \mainpage Minimum Cycle Basis Leda Extension Package
+/*! \mainpage Minimum Cycle Basis Library
  *
  *  \section intro_sec Introduction
  * 
@@ -53,22 +49,27 @@
  *
  *  \subsection undir_alg_subsec Undirected Graphs
  *
- *  - An \f$O(m^3+mn^2 \log{n})\f$ algorithm due to J.C. de Pina.
+ *  - An \f$O(m^3+mn^2 \log{n})\f$ algorithm which appeared in the PhD thesis of J.C. de Pina.
  *    A description of this algorithm and an even faster one can be 
  *    found 
  *    <a href="http://www.mpii.mpg.de/~michail/papers/MinCycleBasis.ps.gz">here</a>.
  *  - An \f$O(m^2n^2)\f$ hybrid algorithm, which is a mixture of the above 
  *    algorithm and an older algorithm due to Horton. For more details see 
  *    <a href="http://www.mpii.mpg.de/~michail/papers/implMCB.ps.gz">here</a>.
+ *  - An \f$O(m^3)\f$ hybrid algorithm, which is a more clever implementation of 
+ *    the last mentioned algorithm. For more details see this
+ *    <a href="http://www.mpii.mpg.de/~michail/papers/mcblog.pdf">paper</a>.
  *  - An \f$O( m n^{1+1/k} + \min(m^3+mn^2 \log n, n^{3+3/k}))\f$ constant factor 
- *    \f$(2k-1)\f$-approximate algorithm, to appear in STACS'07.
+ *    \f$(2k-1)\f$-approximate algorithm. For more details see 
+ *    <a href="http://www.springerlink.com/content/740w28k651vx26l8">this link</a>.
  *
  *  \subsection dir_alg_subsec Directed Graphs
  * 
  *  - An \f$O(m^3+mn^2 \log{n})\f$ implementation of an \f$O(m^2 n \log{n})\f$ 
  *    randomized Monte Carlo algorithm due to T. Kavitha, which appeared in ICALP'05.
  *  - An \f$O( m n^{1+1/k} + \min(m^3+mn^2 \log n, n^{3+3/k}))\f$ constant factor 
- *    \f$(2k-1)\f$-approximate algorithm, to appear in STACS'07.
+ *    \f$(2k-1)\f$-approximate algorithm. For more details see 
+ *    <a href="http://www.springerlink.com/content/740w28k651vx26l8">this link</a>.
  *
  *  \section req_sec Requirements
  *  This implementation is written in C++ and uses 
@@ -77,8 +78,9 @@
  *  (<a href="http://www.algorithmic-solutions.com/enleps.htm">LEP</a>).
  *
  *  \section platf_sec Supported Platforms
- *  This package has been tested on the following platforms:
- *  -# gcc 3.x and 4.0.x under Linux 
+ *
+ *  Some versions of the package have been tested on the following platforms:
+ *  -# gcc 3.x, 4.0.x and 4.1.x under Linux 
  *  -# gcc 3.x under SunOS 5.9
  *  -# gcc 3.x under Cygwin
  *  -# bcc32 5.5 under Windows
@@ -88,31 +90,39 @@
  *
  *  \section lic_sec License
  *
- *  <pre>
- *  This program can be freely used in an academic environment
- *  ONLY for research purposes, subject to the following restrictions:
- *
- *  1. The origin of this software must not be misrepresented; you must not
- *     claim that you wrote the original software. If you use this software
- *     an acknowledgment in the product documentation is required.
- *  2. Altered source versions must be plainly marked as such, and must not be
- *     misrepresented as being the original software.
- *  3. This notice may not be removed or altered from any source distribution.
- *
- *  Any other use is strictly prohibited by the author, without an explicit
- *  permission.
- *
- *  This software is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *  </pre>
+ *  \verbatim
+    This program can be freely used in an academic environment
+    ONLY for research purposes, subject to the following restrictions:
+ 
+    1. The origin of this software must not be misrepresented; you must not
+       claim that you wrote the original software. If you use this software
+       an acknowledgment in the product documentation is required.
+    2. Altered source versions must be plainly marked as such, and must not be
+       misrepresented as being the original software.
+    3. This notice may not be removed or altered from any source distribution.
+ 
+    Any other use is strictly prohibited by the author, without an explicit
+    permission.
+ 
+    This software is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+    \endverbatim
  *
  *  Note that this package uses LEDA, which is 
  *  <a href="http://www.algorithmic-solutions.com/enledalizenzen.htm">not free</a>.
+ *  However, Algorithmic Solutions released a 
+ *  <a href="http://www.algorithmic-solutions.com/leda/ledak/index.htm">free version</a> 
+ *  of LEDA 6.0 which can be used to build this library.
  *
  *  \section news_sec News
  *
- *  - 1  December 2007: v0.7 released
+ *  - 18 April 2008: v0.8 released
+ *      - LEDA 6.0 and LEDA 6.0 free support
+ *      - Interface change (not compatible with previous versions)
+ *      - A lot of improvements and new features.
+ *      - Improved demo program.
+ *  - 1  December 2006: v0.7 released
  *      - Constant factor approximation algorithms for undirected and 
  *        directed graphs.
  *      - Interface change (not compatible with previous versions)
@@ -133,6 +143,7 @@
  *
  *  \section down_sec Download
  *
+ *  - Source package (v0.8). [<a href="../mcb-0.8.tar.gz">tar.gz</a>]
  *  - Source package (v0.7). [<a href="../mcb-0.7.tar.gz">tar.gz</a>]
  *  - Source package (v0.6). [<a href="../mcb-0.6.tar.gz">tar.gz</a>]
  *  - Source package (v0.5). [<a href="../mcb-0.5.tar.gz">tar.gz</a>]
@@ -145,11 +156,12 @@
  *  \subsection ex_undir Undirected MCB
  *  \code
  *  #include <LEP/mcb/mcb.h>
+ *
  *  int main() {
  *
  *      leda::graph G;
  *
- *      // construct simple, loopfree, undirected graph G 
+ *      // construct undirected, loopfree graph G 
  *
  *      leda::edge_array<int> len(G, 1);
  *
@@ -157,7 +169,7 @@
  *
  *      mcb::edge_num enumb( G );
  *      leda::array< mcb::spvecgf2 > mcb;
- *      int weight = mcb::MIN_CYCLE_BASIS_DEPINA( G, len, mcb, enumb ); 
+ *      int weight = mcb::UMCB( G, len, mcb, enumb ); 
  *
  *      int i,j;
  *      leda::edge e;
@@ -174,6 +186,7 @@
  * \subsection ex_dir Directed MCB
  * \code
  * #include <LEP/mcb/mcb.h>
+ *
  * int main() {
  *
  *      leda::graph G;
@@ -184,7 +197,7 @@
  *
  *      // fill up positive edge lengths 
  *
- *      leda::array< leda::list<leda::edge> > mcb;
+ *      leda::array< mcb::spvecfp > mcb;
  *      int weight = mcb::DMCB( G, len, mcb );
  *
  *      int i;
@@ -199,9 +212,6 @@
  *                     // do something with edge e
  *                     // direction is -1 or 1 based on traversing the cycle
  *                     // in some arbitrary direction
- *                     // note that direction is a number modulo a prime
- *                     // p which can be found by using
- *                     // ptype p = mcb[i].pvalue();
  *
  *                     it = mcb[i].succ( it );
  *              }
@@ -211,6 +221,7 @@
  *  \subsection ex_approx Undirected 2k-1 Approximate MCB
  *  \code
  *  #include <LEP/mcb/mcb.h>
+ *
  *  int main() {
  *
  *      leda::graph G;
@@ -237,7 +248,6 @@
  *      }
  *  } 
  *  \endcode
-
  *
  */
 
@@ -246,16 +256,17 @@
  */
 /*! \defgroup approxmcb Approximate MCB
  *  \defgroup exactmcb  Exact MCB
+ *  \defgroup mcbutil   Various Utilities
  */
 
 #ifndef MCB_H
 #define MCB_H
 
-
+#include <LEP/mcb/umcb.h>
+#include <LEP/mcb/spanner.h>
+#include <LEP/mcb/dmcb.h>
 #include <LEP/mcb/mcb_approx.h>
 
 #endif  // MCB_H
 
-/* ex: set ts=8 sw=4 sts=4 noet: */
-
-
+/* ex: set ts=4 sw=4 sts=4 et: */

@@ -1,6 +1,4 @@
-//---------------------------------------------------------------------
-// emails and bugs: Dimitrios Michail <dimitrios.michail@gmail.com>
-//---------------------------------------------------------------------
+
 //
 // This program can be freely used in an academic environment
 // ONLY for research purposes, subject to the following restrictions:
@@ -17,6 +15,7 @@
 //
 // Note that this program uses the LEDA library, which is NOT free. For more 
 // details visit Algorithmic Solutions at http://www.algorithmic-solutions.com/
+// There is also a free version of LEDA 6.0 or newer.
 //
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // ! Any commercial use of this software is strictly !
@@ -28,8 +27,8 @@
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 //
-// Copyright (C) 2004-2006 - Dimitrios Michail
-
+// Copyright (C) 2004-2008 - Dimitrios Michail <dimitrios.michail@gmail.com>
+//
 
 /*! \file transform.h
  *  \brief Transform cycle representations.
@@ -71,18 +70,6 @@ namespace mcb
 
     ///// UNDIRECTED CYCLES ///////
 
-    /*! Transform a cycle from a sparse vector to a list
-     *  of edges.
-     *  \param g The graph
-     *  \param enumb An edge numbering
-     *  \param in A sparse vector
-     *  \param out A list of edges.
-     */
-    void spvecgf2_to_list_edges( const graph& g,
-	    const edge_num& enumb,
-	    const spvecgf2& in,
-	    list<edge>& out );
-
     /*! Transform a cycle from a sparse vector to a dynamic set.
      *  \param g The graph
      *  \param in A sparse vector
@@ -92,22 +79,6 @@ namespace mcb
 	    const spvecgf2& in,
 	    d_int_set& out );
 
-
-    void list_edges_to_d_int_set( const graph& g, 
-	    const edge_num& enumb,
-	    const list<edge>& in,
-	    d_int_set& out );
-
-    void list_edges_to_spvecgf2( const graph& g,
-	    const edge_num& enumb,
-	    const list<edge>& in,
-	    spvecgf2& out );
-
-    void d_int_set_to_list_edges( const graph& g,
-	    const edge_num& enumb,
-	    const d_int_set& in,
-	    list<edge>& out );
-
     void d_int_set_to_spvecgf2( const graph& g,
 	    const d_int_set& in,
 	    spvecgf2& out );
@@ -116,31 +87,7 @@ namespace mcb
 	    const array< spvecgf2 >& in,
 	    array< d_int_set >& out );
 
-    void spvecgf2_to_list_edges( const graph& g,
-	    const edge_num& enumb,
-	    const array< spvecgf2 >& in,
-	    array< list<edge> >& out );
-
-    void d_int_set_to_list_edges(
-	    const graph& g,
-	    const edge_num& enumb,
-	    const array< d_int_set >& in,
-	    array< list<edge> >& out );
-
-    void list_edges_to_d_int_set(
-	    const graph& g,
-	    const edge_num& enumb,
-	    const array< list<edge> >& in,
-	    array< d_int_set >& out);
-
-
     /////// DIRECTED CYCLES //////
-
-    void spvecfp_to_list_edges( const graph& g, 
-	    const edge_num& enumb,
-	    const spvecfp& in, 
-	    list<edge>& out );
-
 
     void spvecfp_to_array_ints( const graph& g, const edge_num& enumb,
 	    const ptype &p, const spvecfp& in, array<etype>& out );

@@ -16,5 +16,5 @@ at http://www.algorithmic-solutions.com/
 ! author.                                         !
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-(C) Copyright 2004, Dimitrios Michail <dimitrios.michail@gmail.com>
+(C) Copyright 2004-2008, Dimitrios Michail <dimitrios.michail@gmail.com>
 

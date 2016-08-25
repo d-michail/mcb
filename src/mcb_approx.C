@@ -1,6 +1,3 @@
-//---------------------------------------------------------------------
-// emails and bugs: Dimitrios Michail <dimitrios.michail@gmail.com>
-//---------------------------------------------------------------------
 //
 // This program can be freely used in an academic environment
 // ONLY for research purposes, subject to the following restrictions:
@@ -17,6 +14,7 @@
 //
 // Note that this program uses the LEDA library, which is NOT free. For more 
 // details visit Algorithmic Solutions at http://www.algorithmic-solutions.com/
+// There is also a free version of LEDA 6.0 or newer.
 //
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // ! Any commercial use of this software is strictly !
@@ -28,71 +26,47 @@
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 //
-// Copyright (C) 2004-2006 - Dimitrios Michail
+// Copyright (C) 2004-2008 - Dimitrios Michail <dimitrios.michail@gmail.com>
+//
 
-
-/*! \file ushortpath.C
- *  \brief Undirected shortest paths
+/*! \file mcb_approx.C
+ *  \brief Approximate MCB construction.
  */
 
+#include <LEP/mcb/spanner.h>
 #include <LEP/mcb/ushortpath.h>
+#include <LEP/mcb/mcb_approx.h>
 
 namespace mcb { 
 
 #if defined(LEDA_NAMESPACE)
-using leda::graph;
-using leda::edge;
-using leda::edge_array;
-using leda::node;
-using leda::node_array;
-using leda::list;
-using leda::list_item;
-using leda::error_handler;
+    using leda::graph;
+    using leda::edge;
+    using leda::edge_map;
+    using leda::edge_array;
+    using leda::node;
+    using leda::node_map;
+    using leda::node_array;
 #endif
 
-ubfs::ubfs( const graph& G ) : g(G), 
-			       _pred(G, nil),
-			       _dist( G, 0 ),
-			       last_s( nil )
-{
-}
-
-ubfs::~ubfs() {}
-
-// assumption: entries in predecessor which are not nil have to 
-//             belong into Q
-void ubfs::compute_shortest_path( const node& s, const node& t, int limit )
-{
-    // empty Q assuming Q was the visited nodes in a previous run
-    while( Q.empty() == false ) 
-	_pred[ Q.pop() ] = nil;
-
-    // start BFS
-    Q.push( s );
-    _dist[ s ] = 0; 
-    _pred[ s ] = nil;
-    last_s = s;
-    for( list_item it = Q.first(); it; it = Q.succ(it))
+    int UMCB_APPROX( const graph& g,
+            const int k,
+            array< mcb::spvecgf2 >& mcb,
+            const mcb::edge_num& enumb
+            )
     {
-	node v = Q[it];
-
-	edge e;
-	forall_inout_edges(e,v)
-	{ 
-	    node w = g.opposite(v,e);
-	    if ( _pred[w] == nil && w != s && _dist[v] < limit ) { 
-		Q.append(w);
-		_dist[w] = _dist[v] + 1;
-		_pred[w] = e;
-
-		if ( w == t ) 
-		    return;
-	    }
-	}
+        unweighted_umcb_approx<mcb::spvecgf2> tmp( g, k, mcb, enumb );
+        return tmp.run();
     }
-    return;
-}
+
+    int UMCB( const graph& g,
+            array< mcb::spvecgf2 >& mcb,
+            const mcb::edge_num& enumb
+            )
+    {
+        return UMCB_APPROX( g, 1, mcb, enumb );
+    }
 
 } // end namespace mcb
 
-/* ex: set ts=8 sw=4 sts=4 noet: */
+/* ex: set ts=4 sw=4 sts=4 et: */

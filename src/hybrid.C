@@ -1,8 +1,3 @@
-//---------------------------------------------------------------------
-// File automatically generated using notangle from DMIN_CYCLE_BASIS.lw
-//
-// emails and bugs: Dimitrios Michail <dimitrios.michail@gmail.com>
-//---------------------------------------------------------------------
 //
 // This program can be freely used in an academic environment
 // ONLY for research purposes, subject to the following restrictions:
@@ -19,6 +14,7 @@
 //
 // Note that this program uses the LEDA library, which is NOT free. For more 
 // details visit Algorithmic Solutions at http://www.algorithmic-solutions.com/
+// There is also a free version of LEDA 6.0 or newer.
 //
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // ! Any commercial use of this software is strictly !
@@ -30,54 +26,61 @@
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 //
-// Copyright (C) 2004-2006 - Dimitrios Michail
+// Copyright (C) 2004-2008 - Dimitrios Michail <dimitrios.michail@gmail.com>
+//
 
-
-#include <iostream>
-#include <LEP/mcb/min_cycle_basis.h>
+#include <LEP/mcb/config.h>
 
 #ifdef LEDA_GE_V5
+#include <LEDA/graph/graph.h>
+#include <LEDA/graph/edge_array.h>
 #include <LEDA/graph/graph_misc.h>
-#include <LEDA/graph/gml_graph.h>
+#include <LEDA/core/d_int_set.h>
+#include <LEDA/system/error.h>
 #else
+#include <LEDA/graph.h>
+#include <LEDA/edge_array.h>
 #include <LEDA/graph_misc.h>
-#include <LEDA/gml_graph.h>
+#include <LEDA/d_int_set.h>
+#include <LEDA/error.h>
 #endif
+
+#include <LEP/mcb/edge_num.h>
+#include <LEP/mcb/spvecgf2.h>
+#include <LEP/mcb/umcb.h>
+
+namespace mcb 
+{ 
 
 #if defined(LEDA_NAMESPACE)
-using namespace leda;
+    using leda::graph;
+    using leda::edge;
+    using leda::edge_array;
+    using leda::array;
+    using leda::d_int_set;
+    using leda::error_handler;
 #endif
 
-// read an unweighted graph in GML format and 
-// find a minimum cycle basis. 
-// Output the time taken
-int main() { 
+    int UMCB_HYBRID( const graph& g, 
+            array< d_int_set>& mcb, 
+            array< d_int_set>& proof,
+            const mcb::edge_num& enumb )
+    {
+        leda::edge_array<int> len(g,1);
+        return UMCB_HYBRID( g, len, mcb, proof, enumb );
+    }
 
-        // initialize Graph
-        graph G;
-        
-        // create parser and read from standard input
-        gml_graph parser( G );
-        if ( parser.parse( std::cin ) == false ) return -1;
-        
-        // execute
-        float T,T1;
-        
-        leda::used_time( T ); // start time
-        
-        mcb::edge_num enumb( G );
-        array< mcb::spvecgf2 > mcb;
-        array< mcb::spvecgf2 > proof;
+    int UMCB_HYBRID( const graph& g,
+            array< d_int_set >& mcb,
+            const mcb::edge_num& enumb
+            )
+    {
+        array< d_int_set > proof_temp;
+        return UMCB_HYBRID( g, mcb, proof_temp, enumb );
+    }
 
-        mcb::MIN_CYCLE_BASIS_DEPINA( G, mcb, proof, enumb );
+} // namespace mcb end
 
-        T1 = leda::used_time( T ); // finish time
-        
-        std::cout << T1;
-
-        return 0;
-}
-
-/* ex: set ts=8 sw=4 sts=4 noet: */
+/* ex: set ts=4 sw=4 sts=4 et: */
 
 

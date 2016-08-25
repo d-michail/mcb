@@ -1,9 +1,0 @@
-We illustrate approximate minimum cycle basis of weighted undirected graphs.
-
-The edges of an arbitrary spanning tree used by the algorithm
-are shown in red. The sliders allow you to change the edge costs.
-Each edge has a label of the following form: unique number (cost).
-
-As you edit the graph, a minimum cycle basis is indicated on
-the standard output. Each cycle is represented by the unique numbers
-of its edges.

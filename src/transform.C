@@ -1,6 +1,4 @@
-//---------------------------------------------------------------------
-// emails and bugs: Dimitrios Michail <dimitrios.michail@gmail.com>
-//---------------------------------------------------------------------
+
 //
 // This program can be freely used in an academic environment
 // ONLY for research purposes, subject to the following restrictions:
@@ -17,6 +15,7 @@
 //
 // Note that this program uses the LEDA library, which is NOT free. For more 
 // details visit Algorithmic Solutions at http://www.algorithmic-solutions.com/
+// There is also a free version of LEDA 6.0 or newer.
 //
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // ! Any commercial use of this software is strictly !
@@ -28,7 +27,8 @@
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 //
-// Copyright (C) 2004-2006 - Dimitrios Michail
+// Copyright (C) 2004-2008 - Dimitrios Michail <dimitrios.michail@gmail.com>
+//
 
 #include <LEP/mcb/config.h>
 
@@ -36,7 +36,6 @@
 #include <LEDA/graph/graph.h>
 #include <LEDA/graph/edge_array.h>
 #include <LEDA/graph/graph_misc.h>
-#include <LEDA/graph/basic_graph_alg.h>
 #include <LEDA/core/array.h>
 #include <LEDA/core/list.h>
 #include <LEDA/core/d_int_set.h>
@@ -75,26 +74,6 @@ using leda::error_handler;
 
 ///// UNDIRECTED CYCLES ///////
 
-// from sparse vector to list of edges
-void spvecgf2_to_list_edges( const graph& g,
-	const edge_num& enumb,
-	const spvecgf2& in,
-	list<edge>& out )
-{
-    int index;
-    out.clear();
-
-    list_item it = in.first();
-    while( it != nil ) {
-	index = in.index( it );
-#if ! defined(LEDA_CHECKING_OFF)
-	assert( index >= 0 && index < g.number_of_edges() );
-#endif
-	out.append( enumb( index ) );
-	it = in.succ( it );
-    }
-}
-
 // from sparse vector to dynamic set
 void spvecgf2_to_d_int_set( const graph& g,
 	const spvecgf2& in,
@@ -111,51 +90,6 @@ void spvecgf2_to_d_int_set( const graph& g,
 #endif
 	out.insert( index );
 	it = in.succ( it );
-    }
-}
-
-// from list of edges to dynamic sets
-void list_edges_to_d_int_set( const graph& g, 
-	const edge_num& enumb,
-	const list<edge>& in,
-	d_int_set& out )
-{
-    out.clear();
-
-    edge e;
-    forall( e, in ) 
-	out.insert( enumb( e ) );
-}
-
-// from list of edges to spvecgf2
-void list_edges_to_spvecgf2( const graph& g,
-	const edge_num& enumb,
-	const list<edge>& in,
-	spvecgf2& out )
-{
-    out.clear();
-
-    edge e;
-    forall( e, in ) 
-    {
-	out.append( enumb(e) );
-    }
-    out.sort();
-}
-
-// from dynamic sets to list of edges
-void d_int_set_to_list_edges( const graph& g,
-	const edge_num& enumb,
-	const d_int_set& in,
-	list<edge>& out )
-{
-    out.clear();
-    for( int i = 0; i < g.number_of_edges(); ++i )
-    {
-	if ( in.member( i ) ) 
-	{
-	    out.append( enumb(i) );
-	}
     }
 }
 
@@ -183,68 +117,8 @@ void spvecgf2_to_d_int_set( const graph& g,
     }
 }
 
-void spvecgf2_to_list_edges( const graph& g,
-	const edge_num& enumb,
-	const array< spvecgf2 >& in,
-	array< list<edge> >& out )
-{
-    out.resize( in.size() );
-    for( int i = 0; i < in.size(); ++i ) {
-	out[i] = list<edge>();
-	spvecgf2_to_list_edges( g, enumb, in[i], out[i] );
-    }
-}
-
-void d_int_set_to_list_edges(
-	const graph& g,
-	const edge_num& enumb,
-	const array< d_int_set >& in,
-	array< list<edge> >& out )
-{
-    out.resize( in.size() );
-    for( int i = 0; i < in.size(); ++i ) {
-	out[i] = list<edge>();
-	d_int_set_to_list_edges( g, enumb, in[i], out[i] );
-    }
-}
-
-void list_edges_to_d_int_set(
-	const graph& g, 
-	const edge_num& enumb,
-	const array< list<edge> >& in,
-	array< d_int_set >& out 
-)
-{
-    out.resize( in.size() );
-    for( int i = 0; i < in.size(); ++i ) {
-	out[i] = d_int_set();
-	list_edges_to_d_int_set( g, enumb, in[i], out[i] );
-    }
-}
-
-
 
 /////// DIRECTED CYCLES //////
-
-// from sparse vector to list of edges
-void spvecfp_to_list_edges( const graph& g, 
-	const edge_num& enumb,
-	const spvecfp& in, 
-	list<edge>& out )
-{
-    int index;
-    out.clear();
-
-    list_item it = in.first();
-    while( it != nil ) {
-	index = in.index( it );
-#if ! defined(LEDA_CHECKING_OFF)
-	assert( index >= 0 && index < g.number_of_edges() );
-#endif
-	out.append( enumb( index ) );
-	it = in.succ( it );
-    }
-}
 
 // from sparse vector to array of integers
 void spvecfp_to_array_ints( const graph& g, const edge_num& enumb,

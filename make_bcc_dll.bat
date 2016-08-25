@@ -19,5 +19,17 @@ echo LEDAFLAGS = $(LEDAFLAGS) -DLEDA_GE_V5 >> src\make.lst
 
 :leda_l_5
 
+REM not check about LEDA 6.0 and library paths
+if exist %LEDAROOT%\libGeoW.lib goto leda_l_6
+
+echo LEDALIBS = leda.lib >> test\make.lst
+echo LEDALIBS = leda.lib >> demo\make.lst
+
+:leda_l_6
+
+echo LEDALIBS = leda.lib >> test\make.lst
+echo LEDALIBS = leda.lib libGeoW.lib >> demo\make.lst
+
+
 %make%
 set make=

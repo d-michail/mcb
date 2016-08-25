@@ -1,0 +1,70 @@
+/* incl/LEP/mcb/config.h.in.  Generated from configure.in by autoheader.  */
+
+/* Define to 1 if you have the <inttypes.h> header file. */
+#undef HAVE_INTTYPES_H
+
+/* define if the compiler supports long long */
+#undef HAVE_LONG_LONG
+
+/* Define to 1 if you have the <memory.h> header file. */
+#undef HAVE_MEMORY_H
+
+/* Define to 1 if you have the <stdint.h> header file. */
+#undef HAVE_STDINT_H
+
+/* Define to 1 if you have the <stdlib.h> header file. */
+#undef HAVE_STDLIB_H
+
+/* Define to 1 if you have the <strings.h> header file. */
+#undef HAVE_STRINGS_H
+
+/* Define to 1 if you have the <string.h> header file. */
+#undef HAVE_STRING_H
+
+/* Define to 1 if you have the <sys/stat.h> header file. */
+#undef HAVE_SYS_STAT_H
+
+/* Define to 1 if you have the <sys/types.h> header file. */
+#undef HAVE_SYS_TYPES_H
+
+/* Define to 1 if you have the <unistd.h> header file. */
+#undef HAVE_UNISTD_H
+
+/* "Whether to disable all preconditions checks of LEP and LEDA" */
+#undef LEDA_CHECKING_OFF
+
+/* Whether LEDA should define a template compare function */
+#undef LEDA_COMPARE_TEMPLATE
+
+/* "Whether LEDA v5.0 or newer is used" */
+#undef LEDA_GE_V5
+
+/* "Whether to enable debugging output" */
+#undef LEP_DEBUG_OUTPUT
+
+/* "Whether to output statistic information" */
+#undef LEP_STATS
+
+/* "Whether to disable the exchange heuristic" */
+#undef MCB_LEP_UNDIR_NO_EXCHANGE_HEURISTIC
+
+/* "Whether to disable the shortest paths heuristic" */
+#undef MCB_LEP_UNDIR_NO_SP_HEURISTIC
+
+/* Define to the address where bug reports for this package should be sent. */
+#undef PACKAGE_BUGREPORT
+
+/* Define to the full name of this package. */
+#undef PACKAGE_NAME
+
+/* Define to the full name and version of this package. */
+#undef PACKAGE_STRING
+
+/* Define to the one symbol short name of this package. */
+#undef PACKAGE_TARNAME
+
+/* Define to the version of this package. */
+#undef PACKAGE_VERSION
+
+/* Define to 1 if you have the ANSI C header files. */
+#undef STDC_HEADERS
