@@ -1,0 +1,8 @@
+LEPNAME = mcb
+LEDALIBS = leda.lib libGeoW.lib
+WINLIBS =
+LEDAFLAGS = -DLEDA_DLL
+PROGS = GW_MIN_CYCLE_BASIS_DEMO.exe
+
+
+

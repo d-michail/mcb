@@ -1,0 +1,358 @@
+\begin{manual}
+
+\resetmancounter
+
+\mansection{Definition}
+
+
+A numbering \ensuremath{T} provides a numbering of the edges of an undirected graph 
+from $0$ to $m-1$. The numbering is based on an arbitrary spanning tree $T$.
+Edges not on $T$ are numbered from $0$ to $m -n + \kappa -1$ where $\kappa$
+are the number of connected components of $G$. Edge on $T$ are numbered
+from $m-n+\kappa$ to $m-1$. 
+
+
+
+\mansection{Creation}
+
+\create{\ensuremath{\mathit{edge\nspaceunderscore\_num}}}{\ensuremath{T}}{\ensuremath{\mathit{leda}\DP\ \mathit{graph}\ G}}
+{creates a \ensuremath{\mathit{edge\nspaceunderscore\_num}} for a graph \ensuremath{G}.
+ 
+
+}
+
+\create{\ensuremath{\mathit{edge\nspaceunderscore\_num}}}{\ensuremath{T}}{\ensuremath{\mathit{edge\nspaceunderscore\_num}\ \mathit{enumb}}}
+{creates a \ensuremath{\mathit{edge\nspaceunderscore\_num}} from an edge numbering $enumb$.
+ 
+
+}
+
+\destruct{\ensuremath{\mathit{edge\nspaceunderscore\_num}}}
+{destroy a \ensuremath{\mathit{edge\nspaceunderscore\_num}}
+ 
+
+}
+
+\mansection{Operations}
+
+\operator{\ensuremath{\mathit{int}}}
+{\ensuremath{T(\mathit{leda}\DP\ \mathit{edge}\ e)}}
+{Takes edge \ensuremath{e} and returns its number.
+ 
+
+}
+
+\operator{\ensuremath{\mathit{leda}\DP\ \mathit{edge}}}
+{\ensuremath{T(\mathit{int}\ i)}}
+{Takes integer \ensuremath{i} and returns an edge with this number.
+ 
+
+}
+
+\function{\ensuremath{\mathit{bool}}}
+{tree}
+{\ensuremath{\mathit{leda}\DP\ \mathit{edge}\ e}}
+{Returns whether an edge \ensuremath{e} belongs to the tree used for constructing
+the numbering. 
+
+}
+
+\function{\ensuremath{\mathit{int}}}
+{dim\nspaceunderscore\_cycle\nspaceunderscore\_space}
+{$\,$}
+{Returns the dimension of the cycle space. More precisely \ensuremath{m-n+k}, where
+\ensuremath{k} is the number of connected components of the graph. 
+
+}
+
+\function{\ensuremath{\mathit{int}}}
+{num\nspaceunderscore\_connected\nspaceunderscore\_comp}
+{$\,$}
+{Returns the number of connected components of the graph.
+ 
+
+}
+
+\mansection{Implementation}
+
+
+The \ensuremath{\mathit{edge\nspaceunderscore\_num}} is implemented as two arrays, and therefore requires
+$O(m)$ space. All operations take constant time except construction
+which takes linear time. 
+
+
+
+
+  \newpage
+  
+  {\bf \large Minimum Cycle Basis Algorithms}\medskip
+
+  \settowidth{\typewidth}{\ensuremath{\mathit{int}}}
+  \addtolength{\typewidth}{\colsep}
+  \computewidths
+
+  Given an undirected graph $G(V,E)$ and a non-negative length function on the edges
+  $w: E \mapsto \mathcal{R}_{\ge 0}$, a minimum cycle basis is a set of cycles
+  which can generate the cycle space and at the same time has minimum total length.
+
+  Each cycle of the graph is assumed to be a 0-1 vector indexed on the edge set, and
+  operations between cycles is performed in GF(2). The length of a cycle basis is 
+  the sum of the length of its cycles and the length of a cycle is the sum of the 
+  length of its edges.
+
+  The solution of a minimum cycle basis problem can be in the following two forms.
+  \begin{enumerate}
+  	\item A pair \ensuremath{(\mathit{mcb},} \ensuremath{\mathit{proof})} where both are arrays of compressed integer sets, \ensuremath{\mathit{array}\Ltemplateless \ \mathit{d\nspaceunderscore\_int\nspaceunderscore\_set}\Ltemplategreater }.
+	      Each integer sets represents a cycle. In these integer sets, each edge of the graph 
+		  is represented by a unique number provided by the edge numbering, \ensuremath{\mathit{edge\nspaceunderscore\_num}}.
+	
+	\item A pair \ensuremath{(\mathit{mcb},} \ensuremath{\mathit{proof})} where both are arrays of lists of edges, \ensuremath{\mathit{array}\Ltemplateless \ \mathit{list}\Ltemplateless \mathit{edge}\Ltemplategreater }
+\ensuremath{\Ltemplategreater }.
+	      Each element of this array represents a cycle of the minimum cycle basis.
+  \end{enumerate}
+
+  Most functions of this section are templates functions. The template parameter \ensuremath{W} can be instantiated
+  with any number type. Attention must be paid in order to avoid overflow of values.
+
+  The whole package is protected using a namespace called "mcb", and therefore using 
+  anything requires {\em mcb::xxx} or the {\em using namespace mcb} directive.
+  
+   
+
+
+
+\function{\ensuremath{\mathit{int}}}
+{MIN\nspaceunderscore\_CYCLE\nspaceunderscore\_BASIS\nspaceunderscore\_DEPINA}
+{\ensuremath{\mathit{leda}\DP\ \mathit{graph}\ g,} \ensuremath{\mathit{leda}\DP\ \mathit{array}\Ltemplateless \ \mathit{leda}\DP\ \mathit{d\nspaceunderscore\_int\nspaceunderscore\_set}}
+\ensuremath{\Ltemplategreater \&\ \mathit{mcb},} \ensuremath{\mathit{leda}\DP\ \mathit{array}\Ltemplateless \ \mathit{leda}\DP\ \mathit{d\nspaceunderscore\_int\nspaceunderscore\_set}}
+\ensuremath{\Ltemplategreater \&\ \mathit{proof},} \ensuremath{\mathit{edge\nspaceunderscore\_num}\ \mathit{enumb}}}
+{$g$ is an undirected unweighted graph. The function computes a Minimum Cycle
+Basis $B$ of $g$, that is a cycle basis of $g$ with the smallest length (sum of lengths 
+of cycles). The basis is returned as an array of dynamic integer sets, \ensuremath{\mathit{d\nspaceunderscore\_int\nspaceunderscore\_set}}, 
+called $mcb$. \\
+Every edge is represented by some integer, by a fixed and arbitrary numbering. This
+numbering is represented by $enumb$. \\
+The function also returns a certificate of optimality of 
+the minimum cycle basis. More precisely a set of linearly independent vectors for 
+which cycle $i$ is the shortest cycle in $g$ with odd intersection with the 
+proof vector $i$. \\
+The function returns the weight of the Minimum Cycle Basis or is undefined
+if there were any errors. \\
+The running time is $O( m^3 )$ where $m$ are the number of edges of $g$. \\
+\precond $g$ is undirected, simple and loopfree\\
+ 
+
+}
+
+\function{\ensuremath{\mathit{int}}}
+{MIN\nspaceunderscore\_CYCLE\nspaceunderscore\_BASIS\nspaceunderscore\_DEPINA}
+{\ensuremath{\mathit{leda}\DP\ \mathit{graph}\ g,} \ensuremath{\mathit{leda}\DP\ \mathit{array}\Ltemplateless \ \mathit{leda}\DP\ \mathit{d\nspaceunderscore\_int\nspaceunderscore\_set}}
+\ensuremath{\Ltemplategreater \&\ \mathit{mcb},} \ensuremath{\mathit{edge\nspaceunderscore\_num}\ \mathit{enumb}}}
+{As above, but \ensuremath{\mathit{proof}} is not computed.
+ 
+
+}
+
+\function{\ensuremath{\mathit{int}}}
+{MIN\nspaceunderscore\_CYCLE\nspaceunderscore\_BASIS\nspaceunderscore\_DEPINA}
+{\ensuremath{\mathit{leda}\DP\ \mathit{graph}\ g,} \ensuremath{\mathit{leda}\DP\ \mathit{array}\Ltemplateless \ \mathit{leda}\DP\ \mathit{list}\Ltemplateless \mathit{leda}\DP\ \mathit{edge}\Ltemplategreater }
+\ensuremath{\Ltemplategreater \&\ \mathit{mcb},} \ensuremath{\mathit{leda}\DP\ \mathit{array}\Ltemplateless \ \mathit{leda}\DP\ \mathit{list}\Ltemplateless \mathit{leda}\DP\ \mathit{edge}\Ltemplategreater }
+\ensuremath{\Ltemplategreater \&\ \mathit{proof}}}
+{As above, but the minimum cycle basis is represented at an array of lists of edges. 
+
+}
+
+\function{\ensuremath{\mathit{int}}}
+{MIN\nspaceunderscore\_CYCLE\nspaceunderscore\_BASIS\nspaceunderscore\_DEPINA}
+{\ensuremath{\mathit{leda}\DP\ \mathit{graph}\ g,} \ensuremath{\mathit{leda}\DP\ \mathit{array}\Ltemplateless \ \mathit{leda}\DP\ \mathit{list}\Ltemplateless \mathit{leda}\DP\ \mathit{edge}\Ltemplategreater }
+\ensuremath{\Ltemplategreater \&\ \mathit{mcb}}}
+{As above, but \ensuremath{\mathit{proof}} is not computed.
+ 
+
+}
+
+\function[\ensuremath{\mathit{class}\ W}]{\ensuremath{W}}
+{MIN\nspaceunderscore\_CYCLE\nspaceunderscore\_BASIS\nspaceunderscore\_DEPINA}
+{\ensuremath{\mathit{graph}\ g,} \ensuremath{\mathit{edge\nspaceunderscore\_array}\Ltemplateless W\Ltemplategreater \ \mathit{len},} \ensuremath{\mathit{array}\Ltemplateless \ \mathit{d\nspaceunderscore\_int\nspaceunderscore\_set}}
+\ensuremath{\Ltemplategreater \&\ \mathit{mcb},} \ensuremath{\mathit{array}\Ltemplateless \ \mathit{d\nspaceunderscore\_int\nspaceunderscore\_set}}
+\ensuremath{\Ltemplategreater \&\ \mathit{proof},} \ensuremath{\mathit{edge\nspaceunderscore\_num}\ \mathit{enumb}}}
+{$g$ is an undirected graph and $len$ is a non-negative length function 
+on the edges of $g$. The function computes a Minimum Cycle Basis $B$ of $g$, that 
+is a cycle basis of $g$ with the smallest length (sum of lengths of cycles). The 
+basis is returned as an array of dynamic integer sets, \ensuremath{\mathit{d\nspaceunderscore\_int\nspaceunderscore\_set}}, called $mcb$. \\
+Every edge is represented by some integer, by a fixed and arbitrary numbering. This
+numbering is represented by $enumb$. \\
+The function also returns a certificate of optimality of 
+the minimum cycle basis. More precisely a set of linearly independent vectors for 
+which cycle $i$ is the shortest cycle in $g$ with odd intersection with the 
+proof vector $i$. \\
+The function returns the weight of the Minimum Cycle Basis or is undefined
+if there were any errors. \\
+The running time is $O( m^3 )$ where $m$ are the number of edges of $g$. \\
+\precond $g$ is undirected, simple and loopfree \\
+\precond $len$ is non-negative \\
+ 
+
+}
+
+\function[\ensuremath{\mathit{class}\ W}]{\ensuremath{W}}
+{MIN\nspaceunderscore\_CYCLE\nspaceunderscore\_BASIS\nspaceunderscore\_DEPINA}
+{\ensuremath{\mathit{graph}\ g,} \ensuremath{\mathit{edge\nspaceunderscore\_array}\Ltemplateless W\Ltemplategreater \ \mathit{len},} \ensuremath{\mathit{array}\Ltemplateless \ \mathit{d\nspaceunderscore\_int\nspaceunderscore\_set}}
+\ensuremath{\Ltemplategreater \&\ \mathit{mcb},} \ensuremath{\mathit{edge\nspaceunderscore\_num}\ \mathit{enumb}}}
+{As above, but \ensuremath{\mathit{proof}} is not computed. 
+
+}
+
+\function[\ensuremath{\mathit{class}\ W}]{\ensuremath{W}}
+{MIN\nspaceunderscore\_CYCLE\nspaceunderscore\_BASIS\nspaceunderscore\_DEPINA}
+{\ensuremath{\mathit{graph}\ g,} \ensuremath{\mathit{edge\nspaceunderscore\_array}\Ltemplateless W\Ltemplategreater \ \mathit{len},} \ensuremath{\mathit{array}\Ltemplateless \ \mathit{list}\Ltemplateless \mathit{edge}\Ltemplategreater }
+\ensuremath{\Ltemplategreater \&\ \mathit{mcb}}}
+{As above, but the minimum cycle basis is represented at an array of lists of edges
+and \ensuremath{\mathit{proof}} is not computed.
+ 
+
+}
+
+\function[\ensuremath{\mathit{class}\ W}]{\ensuremath{W}}
+{MIN\nspaceunderscore\_CYCLE\nspaceunderscore\_BASIS\nspaceunderscore\_DEPINA}
+{\ensuremath{\mathit{graph}\ g,} \ensuremath{\mathit{edge\nspaceunderscore\_array}\Ltemplateless W\Ltemplategreater \ \mathit{len},} \ensuremath{\mathit{array}\Ltemplateless \ \mathit{list}\Ltemplateless \mathit{edge}\Ltemplategreater }
+\ensuremath{\Ltemplategreater \&\ \mathit{mcb},} \ensuremath{\mathit{array}\Ltemplateless \ \mathit{list}\Ltemplateless \mathit{edge}\Ltemplategreater }
+\ensuremath{\Ltemplategreater \&\ \mathit{proof}}}
+{As above, but the minimum cycle basis is represented at an array of lists of edges. 
+
+}
+
+\function[\ensuremath{\mathit{class}\ W}]{\ensuremath{W}}
+{MIN\nspaceunderscore\_CYCLE\nspaceunderscore\_BASIS\nspaceunderscore\_HYBRID}
+{\ensuremath{\mathit{graph}\ g,} \ensuremath{\mathit{edge\nspaceunderscore\_array}\Ltemplateless W\Ltemplategreater \ \mathit{len},} \ensuremath{\mathit{array}\Ltemplateless \ \mathit{d\nspaceunderscore\_int\nspaceunderscore\_set}}
+\ensuremath{\Ltemplategreater \&\ \mathit{mcb},} \ensuremath{\mathit{array}\Ltemplateless \ \mathit{d\nspaceunderscore\_int\nspaceunderscore\_set}}
+\ensuremath{\Ltemplategreater \&\ \mathit{proof},} \ensuremath{\mathit{edge\nspaceunderscore\_num}\ \mathit{enumb}}}
+{$g$ is an undirected and $len$ is a non-negative length function 
+on the edges of $g$. The function computes a Minimum Cycle Basis $B$ of $g$, that 
+is a cycle basis of $g$ with the smallest length (sum of lengths of cycles). The 
+basis is returned as an array of dynamic integer sets, \ensuremath{\mathit{d\nspaceunderscore\_int\nspaceunderscore\_set}}, called $mcb$. \\
+Every edge is represented by some integer, by a fixed and arbitrary numbering. This
+numbering is represented by $enumb$. \\
+The function also returns a certificate of optimality of 
+the minimum cycle basis. More precisely a set of linearly independent vectors for 
+which cycle $i$ is the shortest cycle in $g$ with odd intersection with the 
+proof vector $i$. \\
+The function returns the weight of the Minimum Cycle Basis or is undefined
+if there were any errors. \\
+The running time is $O( m^2 n^2 )$ where $m$ are the number of edges of $g$ 
+and $n$ the number of vertices. \\
+\precond $g$ is undirected, simple and loopfree \\
+\precond $len$ is non-negative \\
+ 
+
+}
+
+\function[\ensuremath{\mathit{class}\ W}]{\ensuremath{W}}
+{MIN\nspaceunderscore\_CYCLE\nspaceunderscore\_BASIS\nspaceunderscore\_HYBRID}
+{\ensuremath{\mathit{graph}\ g,} \ensuremath{\mathit{edge\nspaceunderscore\_array}\Ltemplateless W\Ltemplategreater \ \mathit{len},} \ensuremath{\mathit{array}\Ltemplateless \ \mathit{d\nspaceunderscore\_int\nspaceunderscore\_set}}
+\ensuremath{\Ltemplategreater \&\ \mathit{mcb},} \ensuremath{\mathit{edge\nspaceunderscore\_num}\ \mathit{enumb}}}
+{As above, but \ensuremath{\mathit{proof}} is not computed. 
+
+}
+
+\function[\ensuremath{\mathit{class}\ W}]{\ensuremath{W}}
+{MIN\nspaceunderscore\_CYCLE\nspaceunderscore\_BASIS\nspaceunderscore\_HYBRID}
+{\ensuremath{\mathit{graph}\ g,} \ensuremath{\mathit{edge\nspaceunderscore\_array}\Ltemplateless W\Ltemplategreater \ \mathit{len},} \ensuremath{\mathit{array}\Ltemplateless \ \mathit{list}\Ltemplateless \mathit{edge}\Ltemplategreater }
+\ensuremath{\Ltemplategreater \&\ \mathit{mcb},} \ensuremath{\mathit{array}\Ltemplateless \ \mathit{list}\Ltemplateless \mathit{edge}\Ltemplategreater }
+\ensuremath{\Ltemplategreater \&\ \mathit{proof}}}
+{As above, but the minimum cycle basis is represented as an array of lists of edges. 
+
+}
+
+\function[\ensuremath{\mathit{class}\ W}]{\ensuremath{W}}
+{MIN\nspaceunderscore\_CYCLE\nspaceunderscore\_BASIS\nspaceunderscore\_HYBRID}
+{\ensuremath{\mathit{graph}\ g,} \ensuremath{\mathit{edge\nspaceunderscore\_array}\Ltemplateless W\Ltemplategreater \ \mathit{len},} \ensuremath{\mathit{array}\Ltemplateless \ \mathit{list}\Ltemplateless \mathit{edge}\Ltemplategreater }
+\ensuremath{\Ltemplategreater \&\ \mathit{mcb}}}
+{As above, but the minimum cycle basis is represented as an array of lists of 
+edges and \ensuremath{\mathit{proof}} is not computed. 
+
+}
+
+\function{\ensuremath{\mathit{int}}}
+{MIN\nspaceunderscore\_CYCLE\nspaceunderscore\_BASIS\nspaceunderscore\_HYBRID}
+{\ensuremath{\mathit{graph}\ g,} \ensuremath{\mathit{array}\Ltemplateless \ \mathit{d\nspaceunderscore\_int\nspaceunderscore\_set}}
+\ensuremath{\Ltemplategreater \&\ \mathit{mcb},} \ensuremath{\mathit{array}\Ltemplateless \ \mathit{d\nspaceunderscore\_int\nspaceunderscore\_set}}
+\ensuremath{\Ltemplategreater \&\ \mathit{proof},} \ensuremath{\mathit{edge\nspaceunderscore\_num}\ \mathit{enumb}}}
+{$g$ is an undirected. The function computes a Minimum Cycle Basis $B$ of $g$, that 
+is a cycle basis of $g$ with the smallest length (sum of lengths of cycles). The 
+basis is returned as an array of dynamic integer sets, \ensuremath{\mathit{d\nspaceunderscore\_int\nspaceunderscore\_set}}, called $mcb$. \\
+Every edge is represented by some integer, by a fixed and arbitrary numbering. This
+numbering is represented by $enumb$. \\
+The function also returns a certificate of optimality of 
+the minimum cycle basis. More precisely a set of linearly independent vectors for 
+which cycle $i$ is the shortest cycle in $g$ with odd intersection with the 
+proof vector $i$. \\
+The function returns the weight of the Minimum Cycle Basis or is undefined
+if there were any errors. \\
+The running time is $O( m^2 n^2 )$ where $m$ are the number of edges of $g$ 
+and $n$ the number of vertices. \\
+\precond $g$ is undirected, simple and loopfree \\
+ 
+
+}
+
+\function{\ensuremath{\mathit{int}}}
+{MIN\nspaceunderscore\_CYCLE\nspaceunderscore\_BASIS\nspaceunderscore\_HYBRID}
+{\ensuremath{\mathit{graph}\ g,} \ensuremath{\mathit{array}\Ltemplateless \ \mathit{d\nspaceunderscore\_int\nspaceunderscore\_set}}
+\ensuremath{\Ltemplategreater \&\ \mathit{mcb},} \ensuremath{\mathit{edge\nspaceunderscore\_num}\ \mathit{enumb}}}
+{As above, but \ensuremath{\mathit{proof}} is not computed.
+ 
+
+}
+
+\function{\ensuremath{\mathit{int}}}
+{MIN\nspaceunderscore\_CYCLE\nspaceunderscore\_BASIS\nspaceunderscore\_HYBRID}
+{\ensuremath{\mathit{graph}\ g,} \ensuremath{\mathit{array}\Ltemplateless \ \mathit{list}\Ltemplateless \mathit{edge}\Ltemplategreater }
+\ensuremath{\Ltemplategreater \&\ \mathit{mcb},} \ensuremath{\mathit{array}\Ltemplateless \ \mathit{list}\Ltemplateless \mathit{edge}\Ltemplategreater }
+\ensuremath{\Ltemplategreater \&\ \mathit{proof}}}
+{As above, but the minimum cycle basis is represented as an array of lists of edges.
+ 
+
+}
+
+\function{\ensuremath{\mathit{int}}}
+{MIN\nspaceunderscore\_CYCLE\nspaceunderscore\_BASIS\nspaceunderscore\_HYBRID}
+{\ensuremath{\mathit{graph}\ g,} \ensuremath{\mathit{array}\Ltemplateless \ \mathit{list}\Ltemplateless \mathit{edge}\Ltemplategreater }
+\ensuremath{\Ltemplategreater \&\ \mathit{mcb}}}
+{As above, but the minimum cycle basis is represented as an array of lists of 
+edges and \ensuremath{\mathit{proof}} is not computed. 
+
+}
+
+\function[\ensuremath{\mathit{class}\ W}]{\ensuremath{\mathit{bool}}}
+{MIN\nspaceunderscore\_CYCLE\nspaceunderscore\_BASIS\nspaceunderscore\_DEPINA\nspaceunderscore\_CHECK}
+{\ensuremath{\mathit{graph}\ g,} \ensuremath{\mathit{edge\nspaceunderscore\_array}\Ltemplateless W\Ltemplategreater \ \mathit{len},} \ensuremath{\mathit{array}\Ltemplateless \ \mathit{d\nspaceunderscore\_int\nspaceunderscore\_set}}
+\ensuremath{\Ltemplategreater \&\ \mathit{mcb},} \ensuremath{\mathit{array}\Ltemplateless \ \mathit{d\nspaceunderscore\_int\nspaceunderscore\_set}}
+\ensuremath{\Ltemplategreater \&\ \mathit{proof},} \ensuremath{\mathit{edge\nspaceunderscore\_num}\ \mathit{enumb}}}
+{$g$ is an undirected graph and $len$ is a non-negative length function on 
+the edges of $g$. $mcb$ is a minimum cycle basis and $proof$ a certificate of 
+optimality of $mcb$. \\
+$enumb$ is the numbering on the edges of the graph which was used in order to 
+construct the minimum cycle basis. \\
+The function checks whether the $mcb$ is indeed a minimum cycle basis. \\
+The running time is $O( m^3 )$ where $m$ are the number of edges of $g$. \\
+\precond $G$ is undirected, simple and loopfree \\
+\precond $len$ is non-negative \\
+\precond $enumb$ is the same numbering as the one used to construct the $mcb$.
+ 
+
+}
+
+\function[\ensuremath{\mathit{class}\ W}]{\ensuremath{\mathit{bool}}}
+{MIN\nspaceunderscore\_CYCLE\nspaceunderscore\_BASIS\nspaceunderscore\_DEPINA\nspaceunderscore\_CHECK}
+{\ensuremath{\mathit{graph}\ g,} \ensuremath{\mathit{edge\nspaceunderscore\_array}\Ltemplateless W\Ltemplategreater \ \mathit{len},} \ensuremath{\mathit{array}\Ltemplateless \ \mathit{list}\Ltemplateless \mathit{edge}\Ltemplategreater }
+\ensuremath{\Ltemplategreater \&\ \mathit{mcb},} \ensuremath{\mathit{array}\Ltemplateless \ \mathit{list}\Ltemplateless \mathit{edge}\Ltemplategreater }
+\ensuremath{\Ltemplategreater \&\ \mathit{proof}}}
+{As above, but using lists of edges to represent the cycles.
+ 
+
+}
+
+\end{manual}
+
+

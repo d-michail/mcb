@@ -1,0 +1,190 @@
+-------------------------------------------------------------------------------
+ A configure framework for LEDA Extension Packages (LEP) V0.1
+-------------------------------------------------------------------------------
+
+----------------------------------
+1. Target of the configure package
+----------------------------------
+The target is an easy installation of your LEP
+
+- The user should unzip your package and run the configure script.
+  (The script examines the environment and searches for the needed components.
+   If it was successful, make.general and make.config are
+   created, otherwise an error message is displayed)
+- At the end, the user gets a summary of the results and a short description,
+  how to reconfigure if needed.
+- Then the user can build the libraries by typing 'make' in the LEP directory.
+  The demo and test programs can be build by typing 'make' in the respective
+  directories or by typing 'make Demo' respectively 'make Test' in the LEP
+  root directory.
+  (the Makefile includes make.config and make.general for the system
+   and LEP specific variables)
+
+
+------------------------------------
+2.The files contained in the package
+------------------------------------
+
+To be found in the confdir directory:
+
+configure.in	: Input file for autoconf -> configure
+make.general.in	: Input file for configure -> make.general
+make.config.in	: Input file for configure -> make.config
+flagtable	: contains compiler and platform dependent flags
+userflagtable   : contains LEP specific compiler and platform dependent flags
+Makefile.root	: for calling the Makefiles in src-, demo- and test-directory
+Makefile.src	: for building the LEP library
+make.lst.src	: list of the sources
+Makefile.demo	: for building the demo programs
+make.lst.demo	: list of the demo programs to build
+Makefile.test	: for building the test programs
+make.lst.test	: list of the test programs to build
+Makefile	: for building the configure script out of configure.in and
+		  installing the Makefiles in the LEP directories:
+
+			Makefile.root -> ../Makefile 
+			Makefile.src  -> ../src/Makefile
+			make.lst.src  -> ../src/make.lst
+			Makefile.demo -> ../demo/Makefile
+			make.lst.demo -> ../demo/make.lst
+			Makefile.test -> ../test/Makefile
+			make.lst.test -> ../test/make.lst
+
+
+==============================================================================
+3.  Adapting the configure package to your LEP
+==============================================================================
+
+You should unzip the package in the root directory of your LEP and the confdir
+directory is installed. Now you have to modify some files, with respect to
+the requirements of your LEP (all files can be found in the confdir directoty).
+
+-----------------------------------------
+3.1  Adapting make.lst.src to your LEP
+-----------------------------------------
+
+The file make.lst.src will be installed as make.lst in the source directory and
+serves as input file for the Makefile. Modify as follows:
+
+- LEP_SOURCES should contain the source files of the LEP.
+  E.g. if you have the source codes src/src1.c and src/src2.c, you have to set
+  LEP_SOURCES = src1.c src2.c
+
+----------------------------------------------
+3.2  Modifying make.lst.demo and make.lst.test
+----------------------------------------------
+
+The file make.lst.demo resp. make.lst.test will be installed as make.lst in
+the demo directory resp. test directory and serves as input file for the
+Makefile. Modify as follows:
+
+- PROGS should contain a list of the demo resp. test programs to build.
+  Notice, that only for test programs with some special preconditions an
+  automatic compiler command is given in the Makefile. These preconditions are:
+  + The program has only one sourcefile
+  + The sourcefile is named prog.c, when prog should be the executable.
+
+  When your programs do not fit to this scheme, you have to add own rules
+  to the respective Makefile (using the predefined variables...)
+
+
+-------------------------------------------
+3.3  Adapting userflagtable to your LEP
+-------------------------------------------
+
+If you have to compile an link your source code with additional flags, which
+only depend on the used compiler, the linking mode (static/shared) or the
+operating system, you can specify these flags in the file 
+confdir/userflagtable.
+
+- COMPFLAGS are added to the compiler command when building object files
+- LIBFLAGS are added to the compiler command when building the library
+- LINKFLAGS are added to the compiler command when building executables
+- LEP_LIBS are additional libs, that have to be linked when building
+	executables (demo and/or test programs)
+
+Example: Your code has to be compiled with a flag -DCOMPILER_GCC when using g++
+and with -DCOMPILER_CC else. Search the rows where CXX equals a GNU compiler
+and insert into the COMPFLAG column '-DCOMPILER_GCC'. The other rows get the
+value '-DCOMPILER_CC'.
+
+configure extracts the flags out of this table in
+dependence on the choosen compliler, linking mode and operating system.
+The values are assigned to the variables
+- LEP_COMP_FLAGS, which is added to the compiler command
+- LEP_LIB_FLAGS, which is added to the linker command, when building libs
+- LEP_LINK_FLAGS, which is added to the linker command, when building execs
+- LEP_LIBS, which is appended to the linker command, when building execs
+in the Makefiles of this package.
+If you need a complexer flag setting system, you have to modify configure.in
+(chapter 3.4).
+
+---------------------------------------------------------------------------
+3.4 Modifying configure.in for naming the LEP and complex variable settings
+---------------------------------------------------------------------------
+
+The name of your LEP is given in configure.in . Search for the section
+'LEP Section' in the script and set the two variables LEP_NAME and
+LEP_PATH_NAME.
+
+If you have to compile and link your source codes with additional flags, that
+depend on more than compiler, linking mode or operating system, you can
+use the following variables, that are used automatically in the Makefiles:
+
+- LEP_COMP_FLAGS are added to the compiler command when building object files
+- LEP_LIB_FLAGS are added to the compiler command when building the library
+- LEP_LINK_FLAGS are added to the compiler command when building executables
+- LEP_LIBS are additional libs, that have to be linked when building
+	 executables (demo and test programs)
+
+For default, the flags get the values specified in the file userflagtable, in 
+dependence on the compiler, the linking mode and the operating system.
+You can overwrite or extend these settings.
+
+Example: Your test programs have to be linked with a library called dummy.so,
+that can be found in the directory <DUMMYROOT>/lib/<OS>/<COMPILER>. The
+include files are in a standard include directory (for simplicity).
+This is a possible implementation:
+- insert '-ldummy' in the column LEP_LIBS in the file userflagtable
+- insert '/lib/<OS>/<COMPILER>' in the column LINKFLAGS in the file 
+  userflagtable (e.g. /lib/sol/CC in the row "solaris, CC").
+- This value is assigned to the variable LEP_LINK_FLAG in the LEP section of
+  configure.in. Behind this you can change this variable to
+  LEP_LINK_FLAGS="-L${DUMMYROOT}${LEP_LINK_FLAGS} -R${DUMMYROOT}${LEP_LINK_FLAGS}"
+  so the library is found by the linker.
+
+
+--------------------------------
+4. Creating the configure script
+--------------------------------
+
+When you are done with these changes, you just have to type
+
+  make
+
+in the confdir directory. The makefile calls autoconf on configure.in, that
+creates the script configure. After that, the files are installed in the
+LEP tree:
+
+			configure     -> ../configure
+			Makefile.root -> ../Makefile 
+			Makefile.src  -> ../src/Makefile
+			make.lst.src  -> ../src/make.lst
+			Makefile.demo -> ../demo/Makefile
+			make.lst.demo -> ../demo/make.lst
+			Makefile.test -> ../test/Makefile
+			make.lst.test -> ../test/make.lst
+
+ATTENTION: Existing files could be overwritten!!! So rename your personal
+Makefiles or save them at another place.
+
+
+---------------------------------------
+5. Modifying the file flagtable
+---------------------------------------
+
+If you want to add new compilers, new OS or new standard compiler commands
+(DEFSETUP) to the file flagtable, just insert the respective row in the file.
+Notice, that you have to add the corresponding row in the file
+userflagtable. The order of the standard compilers
+specifies the default compiler command.

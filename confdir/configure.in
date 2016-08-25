@@ -1,0 +1,1154 @@
+dnl    $Id: configure.in,v 1.7 2005/02/22 14:44:10 michail Exp $
+dnl
+dnl    Modified for LEDA LEPS by M. Seel
+dnl
+dnl    Modified to support LEDA 5.x and headers compatibility,
+dnl    Fixes on acquiring g++ version number.
+dnl    by Dimitrios Michail
+dnl
+dnl    Process this file with autoconf to produce a configure script.
+dnl   
+
+dnl
+dnl    disable caching - just to be sure
+dnl  
+define([AC_CACHE_LOAD], )dnl
+define([AC_CACHE_SAVE], )dnl
+
+dnl 
+dnl    some initialization stuff...
+dnl 
+
+AC_INIT(confdir/make.config.in)
+
+dnl not used anymore, all output in make.general and make.config
+dnl AC_CONFIG_HEADER([
+dnl    confdir/config.h
+dnl ])
+
+dnl ---------------------------------------------------------------------------
+dnl
+dnl Variables to determine and export
+dnl
+dnl ---------------------------------------------------------------------------
+
+
+AC_SUBST(CXX_LIST)      dnl perl list of usable compilers, used by configure.pl
+AC_SUBST(CXX_NAME)      dnl standard compiler name, used by default
+AC_SUBST(CXX_STD_NAME)  dnl standard compiler name
+AC_SUBST(CXX_FOUND_LIST) dnl perl list of usable compilers (short names)
+AC_SUBST(LINKING_MODE)  dnl linking mode (shared/static)
+AC_SUBST(HEADER_COMPAT) dnl header compatibility mode for LEDA version >= 5.0
+AC_SUBST(LIB_SUFFIX)     dnl library suffix
+
+AC_SUBST(OSMAJOR)       dnl OS-version (First number)
+AC_SUBST(OS)            dnl OS-name
+AC_SUBST(OSREV)         dnl OS-version
+AC_SUBST(BINFMT)        dnl $OS-$architecture
+AC_SUBST(ARCHITECTURE)  dnl architecture
+
+AC_SUBST(SOCKET_LIBS)   dnl socket lib
+AC_SUBST(LEPROOT)       dnl root directory of LEP (normally pwd)
+AC_SUBST(LEP_INCL_PATH) dnl directory of LEP include files
+AC_SUBST(LEP_LIB_PATH)  dnl directory of LEP libraries
+AC_SUBST(LEDAROOT)      dnl root directory of LEDA
+AC_SUBST(LEDA_INCL_PATH)    dnl directory of LEDA include files
+AC_SUBST(LEDA_LIB_PATH)     dnl directory of LEDA libraries
+AC_SUBST(CXX)               dnl C++ compiler (absolute path)
+AC_SUBST(CXX_FLAGS)         dnl C++ compiler flags
+AC_SUBST(CXX_USER_FLAGS)    dnl C++ compiler flags
+AC_SUBST(CXX_COMP_FLAGS)    dnl C++ compiler flags 
+AC_SUBST(CXX_LIB_FLAGS)     dnl C++ linker flags for building libraries
+AC_SUBST(CXX_OPT)           dnl C++ optimization flag for compiling executables
+AC_SUBST(LEP_COMP_FLAGS)    dnl LEP specific C++ compiler flags
+AC_SUBST(LEP_LIB_FLAGS)     dnl LEP specific C++ linker flags
+AC_SUBST(LEP_LINK_FLAGS)    dnl LEP specific C++ linker flags for building exe
+AC_SUBST(LEP_LIBS)          dnl LEP specific additional libraries
+AC_SUBST(LEP_WLIBS)         dnl LEP extra libraries used when -lW is present
+AC_SUBST(RFLAG)             dnl C++ linker option -R
+AC_SUBST(HAS_GPLUSPLUS)     dnl true, if C++ compiler is g++
+AC_SUBST(STD_CPP_INCLUDES)  dnl standard include paths of C++ compiler
+
+
+dnl standard commands (absolute path) replaced in make.general
+
+AC_SUBST(MV)
+AC_SUBST(RM)
+AC_SUBST(CP)
+AC_SUBST(MKDIR)
+AC_SUBST(AR)
+AC_SUBST(AROPTS)
+
+dnl LEP specific constant variables replaced in make.general
+
+AC_SUBST(LEP_NAME)
+AC_SUBST(LEP_PATH_NAME)
+
+dnl not defined
+
+AC_SUBST(DYNAR)
+AC_SUBST(DYNAROPTS)
+AC_SUBST(LEP_LIBS)	    dnl libraries
+AC_SUBST(LDFLAGS)           dnl linker flags
+AC_SUBST(LIBS)              dnl linker libraries
+AC_SUBST(DEFINES)           dnl defines (part of LDFLAGS)
+AC_SUBST(CPPFLAGS_D)        dnl debug flags for compiler 
+AC_SUBST(CPPFLAGS_O)        dnl optimization flags for compiler 
+AC_SUBST(CPP_MODE_FLAGS)    dnl set to CPPFLAGS_D|CPPFLAGS_O, depending on LEP_DEBUG
+AC_SUBST(CPP_MODE_FLAGS_NO_OPTIMIZATION)    
+   			    dnl set to CPPFLAGS_D|"", depending on BALL_DEBUG
+
+
+dnl				  MISC
+
+dnl	
+dnl    make target "clean" should also remove 
+dnl    template repositories. The name of this directory 
+dnl    depends on the compiler and ist set in TEMPLATE_DIR
+dnl
+AC_SUBST(TEMPLATE_DIR)
+
+dnl
+dnl    testing, if echo interprets \n, if not, try with flag -e
+dnl
+
+AC_MSG_CHECKING("if echo interprets backslash-escaped characters")
+ECHOTEST=`echo "1\n2" | grep "\n"`
+if test  "${ECHOTEST}" = "" ; then
+  ECHO="echo"
+  AC_MSG_RESULT("yes")
+else
+  ECHOTEST=`echo -e "1\n2" | grep "\n"`
+  if test "${ECHOTEST}" = "" ; then
+    ECHO="echo -e"
+    AC_MSG_RESULT("no. Using echo -e")
+  else
+    ECHO="echo"
+    AC_MSG_RESULT("no. Using echo")
+  fi
+fi
+
+dnl
+dnl   macro for output on std and config.log
+dnl
+
+AC_DEFUN(AC_MSG_OUT, [
+  ${ECHO} $1 1>&6
+  ${ECHO} $1 >&5
+])
+
+dnl		macro for deleting leading and ending
+dnl		whitespaces
+
+AC_DEFUN(AC_DEL_SPACES,[
+  $1=`${ECHO} $2`
+])
+
+
+dnl		define a macro to remove the directory name
+dnl		from a fully specified path
+dnl
+AC_DEFUN(AC_BASENAME,[
+  TMP__DIR="$1/"
+  while test "${TMP__DIR}" != "" ; do
+    TMP__NAME=`${ECHO} ${TMP__DIR}|cut -d/ -f1`
+    TMP__DIR=`${ECHO} ${TMP__DIR}|cut -d/ -f2-`
+    if test "${TMP__DIR}" = "${TMP__NAME}" ; then
+      TMP__DIR=""
+    fi
+  done
+])
+	
+
+dnl    define a macro to inform the user about failed tests for programs
+dnl    it checks for the unix command given as second parameter and
+dnl    sets the shell variable given as second parameter to its absolute path
+dnl 
+AC_DEFUN(AC_MSG_PATH_PROG,[
+  AC_PATH_PROG($1,$2,no)
+  if test $$1 = no ; then
+    AC_MSG_RESULT()
+    AC_MSG_RESULT([This script requires the unix command $2, but cannot find it.])
+    AC_MSG_RESULT([You can either add the correct path to your \$PATH variable or])
+    AC_MSG_RESULT([try to edit ./configure. In the last case: good luck!])
+    AC_MSG_ERROR(aborted)
+    exit
+  fi
+])
+
+dnl
+dnl    define macro to search for header files that may be somewhere in the filesystem
+dnl    if ${FIND}!=- (i.e. it has been set BEFORE py AC_PATH_PROG!) find will be used
+dnl    too if everything fails - this may take some time...
+dnl
+dnl    syntax: AC_FIND_HEADER(<PATH_VAR>,<header.h>,<additional dirnames>)
+dnl    
+dnl        PATH_VAR will be set to the include path or to empty string (if not found)
+dnl        header.h is the header file name (e.g. wait.h, GL/gl.h)
+dnl        additional dirnames are included in searches these should be absolute names!
+dnl 
+
+AC_DEFUN(AC_FIND_HEADER,[
+  _INCLUDES=
+
+  dnl    immediate return on predefined directory (read from file?)
+  if test "${$1}" != "" ; then
+    _INCLUDES=${$1}
+  fi
+
+  if test "${_INCLUDES}" = "" ; then
+    for i in /usr/include /opt/include $3 ; do
+      if test -f "$i/$2" && test "${_INCLUDES}" = ""; then
+        _INCLUDES="$i"
+      fi
+    done
+  fi
+
+  if test "${_INCLUDES}" = "" ; then
+    for i in /usr/*/include /opt/*/include ; do
+      if test -f "$i/$2" && test "${_INCLUDES}" = ""; then
+        _INCLUDES="$i"
+      fi
+    done
+  fi
+	
+  if test "${_INCLUDES}" = "" ; then
+    for i in /opt/*/*/include /usr/*/*/include /usr/local/*/*/include ; do
+      if test -f "$i/$2" && test "${_INCLUDES}" = ""; then
+        _INCLUDES="$i"
+      fi
+    done
+  fi
+
+  if test "${_INCLUDES}" = "" && test "${FIND}" != "-" ; then
+    if test "${FIND_KNOWS_PATH}" = false ; then
+      FIND_OPT="-name"
+      _TMP_FIND_NAME="$2"
+      while test _`egrep / $_TMP_FIND_NAME`_ != __ ; do
+        _TMP_FIND_NAME=`${ECHO} ${_TMP_FIND_NAME}|${CUT} -d/ -f2-`
+      done
+			
+      FIND_ARG="\*${_TMP_FIND_NAME}\*"
+    else
+      FIND_OPT="-path"
+      FIND_ARG="\*$2\*"
+    fi
+
+    _TMP=`${FIND} /usr ${FIND_OPT} ${FIND_ARG} -print 2>/dev/null`
+    for j in ${_TMP} ; do
+      if test "${_INCLUDES}" = "" ; then
+        _INCLUDES=`${ECHO} $j|${SED} "s/include\/.\*\$/include/"`
+      fi
+    done
+		
+    if test "${_INCLUDES}" = "" ; then
+      _TMP=`${FIND} /opt ${FIND_OPT} ${FIND_ARG} -print 2>/dev/null`
+    for j in ${_TMP} ; do
+      if test "${_INCLUDES}" = "" ; then
+        _INCLUDES=`${ECHO} $j|${SED} "s/include\/.\*\$/include/"`
+      fi
+    done
+  fi
+
+  if test "${_INCLUDES}" = "" && test "$3" != ""; then
+    for i in $3 /dev/null ; do
+      _TMP=`${FIND} $i ${FIND_OPT} ${FIND_ARG} -print 2>/dev/null`
+      for j in ${_TMP} ; do
+        if test "${_INCLUDES}" = "" ; then
+          _INCLUDES=`${ECHO} $j|${SED} "s/include\/.\*\$/include/"`
+        fi
+      done
+    done
+  fi
+fi
+
+	$1="${_INCLUDES}"
+
+])
+
+
+dnl
+dnl    define macro to search for libraries that may be somewhere in the filesystem
+dnl    if ${FIND}!=- (i.e. it has been set BEFORE py AC_PATH_PROG!) find will be used
+dnl    too if everything fails - this may take some time...
+dnl
+dnl    syntax: AC_FIND_LIB(<PATH_VAR>,<libXXX>,<additional dirnames>)
+dnl    
+dnl    PATH_VAR will be set to the library path or to empty string (if not found)
+dnl    libXXX is the header file name (e.g. libGLUT, libGL) .a, .so etc. should be omitted
+dnl    additional dirnames ar included in searches these should be absolute names!
+dnl 
+
+AC_DEFUN(AC_FIND_LIB,[
+  _LIBS=
+
+  dnl   immediate "return" on preset directory (read from file?)
+  if test "${$1}" != "" ; then
+    _LIBS=${$1}
+  fi
+
+  if test "${_LIBS}" = "" ; then
+    for i in /usr/lib /opt/lib $3 ; do
+      for j in $i/$2.* ; do
+        if test -f "$j" && test "${_LIBS}" = ""; then
+          _LIBS="$i"
+        fi
+      done
+    done
+  fi
+
+  if test "${_LIBS}" = "" ; then
+    for i in /usr/*/lib /opt/*/lib ; do
+      for j in $i/$2.* ; do
+        if test -f "$j" && test "${_LIBS}" = ""; then
+          _LIBS="$i"
+        fi
+      done
+    done
+  fi
+	
+  if test "${_LIBS}" = "" ; then
+    for i in /opt/*/*/lib /usr/*/*/lib /usr/local/*/*/lib ; do
+      for j in $i/$2.* ; do
+        if test -f "$j" && test "${_LIBS}" = ""; then
+          _LIBS="$i"
+        fi
+      done
+    done
+  fi
+
+  if test "${_LIBS}" = "" && test "${FIND}" != "-" ; then
+    if test "${_LIBS}" = "" && test "$3" != ""; then
+      for i in $3 /dev/null; do
+        if test "${_LIBS}" = "" ; then
+          _TMP=`${FIND} $i -name "$2*" -print 2>/dev/null`
+          for j in ${_TMP} ; do
+            if test "${_LIBS}" = "" ; then
+              _LIBS=`${ECHO} $j|${SED} "s/\/$2.*/\//"`
+            fi
+          done
+        fi
+      done
+    fi
+		
+    if test "${_LIBS}" = "" ; then
+      _TMP=`${FIND} /opt -name "$2*" -print 2>/dev/null`
+      for j in ${_TMP} ; do
+        if test "${_LIBS}" = "" ; then
+          _LIBS=`${ECHO} $j|${SED} "s/\/$2.*/\//"`
+        fi
+      done
+    fi
+
+    if test "${_LIBS}" = "" ; then
+      _TMP=`${FIND} /usr -name "$2*" -print 2>/dev/null`
+      for j in ${_TMP} ; do
+        if test "${_LIBS}" = "" ; then
+          _LIBS=`${ECHO} $j|${SED} "s/\/$2.*/\//"`
+        fi
+      done
+    fi
+		
+  fi
+
+	$1="${_LIBS}"
+])
+	
+
+dnl --------------------------------------------------------------------------------
+dnl		Perl Config Section (not used anymore)
+dnl --------------------------------------------------------------------------------
+
+dnl if test "${CONFIGURE}" = "" ; then
+dnl   CONFIGURE="menu"
+dnl fi
+dnl if test "${CONFIGURE}" = "menu" ; then
+dnl   ${ECHO} ">>Menu Configuration<<"
+dnl   AC_PATH_PROG(PERL,perl,no)
+dnl   AC_MSG_CHECKING([perl/Tk])
+dnl   if test "${PERL}" != "no" 
+dnl   then
+dnl     if ${PERL} -e 'use Tk' > /dev/null; then
+dnl       AC_MSG_RESULT(ok)
+dnl     else
+dnl       AC_MSG_RESULT([no, using scriptconfig])
+dnl       CONFIGURE="script"
+dnl     fi
+dnl   fi
+dnl fi
+
+
+dnl --------------------------------------------------------------------------------
+dnl	Start of scripting
+dnl --------------------------------------------------------------------------------
+
+${ECHO} ">>Simple Tools<<"
+dnl
+dnl   check for programs used to determine architecture
+dnl
+
+AC_MSG_PATH_PROG(UNAME,uname)
+AC_MSG_PATH_PROG(CUT,cut)
+AC_MSG_PATH_PROG(TR,tr)
+AC_MSG_PATH_PROG(AR,ar)
+
+dnl
+dnl    check for programs needed for build
+dnl 
+
+AC_MSG_PATH_PROG(MKDIR,mkdir,no)
+AC_MSG_PATH_PROG(CP,cp,no)
+AC_MSG_PATH_PROG(RM,rm,no)
+AC_MSG_PATH_PROG(MV,mv,no)
+AC_MSG_PATH_PROG(SED,sed,no)
+AC_MSG_PATH_PROG(FIND,find,no)
+AC_MSG_PATH_PROG(MAKE,make,no)
+AC_PROG_LN_S
+
+${ECHO} ">>Platform Analysis<<"
+dnl
+dnl    determine OS and architecture and all this stuff
+dnl
+
+AC_MSG_CHECKING(your OS)
+OS=`${UNAME} -s`
+OSREV=`${UNAME} -r`
+OSMAJOR=`${ECHO} $OSREV|${CUT} -d"." -f1`
+
+dnl		default...
+BINFMT="${OS}"
+
+dnl by default use X11 libs
+LEP_WLIBS="-lX11"
+
+if test "$OS" = SunOS ; then
+	if test "$OSMAJOR" = 5 ; then
+		OS=Solaris
+		ARCHITECTURE=`${UNAME} -p`
+		BINFMT="${OS}-${ARCHITECTURE}"
+	else
+		OS=SunOS
+	fi
+dnl	SOLLIBS="-lsocket -lthread"
+fi
+
+if test "$OS" = Linux -o "$OS" = "CYGWIN_NT-5.0" ; then
+	if test "$OS" = "CYGWIN_NT-5.0" ; then
+		OS=Cygwin
+		LEP_WLIBS="-luser32 -lgdi32 -lcomdlg32 -lshell32 -lwsock32"
+	fi
+
+	PROCESSOR=`${UNAME} -m`
+	ARCHITECTURE=unknown
+	if test "${PROCESSOR}" = sparc -o "${PROCESSOR}" = SPARC ; then
+		ARCHITECTURE=sparc
+		BINFMT=Linux-sparc
+	fi
+	if test `${ECHO} $PROCESSOR|${CUT} -c1` = i ; then
+		ARCHITECTURE=i386
+		BINFMT=Linux-i386
+	fi
+
+	if test "${ARCHITECTURE}" = "unknown" ; then
+		AC_MSG_RESULT(OS: ${OS} / hardware: ${PROCESSOR})
+		AC_MSG_RESULT(Sorry - this architecture is currently not supported...)
+		AC_MSG_ERROR(aborted)
+	fi
+fi
+
+if test ${OS} = IRIX64 ; then
+	OS=IRIX
+fi
+
+if test $OS = IRIX ; then
+	if test "$OSMAJOR" = 5 ; then
+		BINFMT=IRIX5
+	fi
+	if test "$OSMAJOR" = 6 ; then
+		BINFMT=IRIX6
+	fi
+fi
+
+if test "$OS" != Linux -a "$OS" != Solaris -a "$OS" != IRIX -a "$OS" != Cygwin ; then
+	AC_MSG_RESULT(Sorry - your OS is currently not supported...)
+	AC_MSG_ERROR(aborted)
+fi
+
+dnl
+dnl 	create OS defines in config.h:
+dnl
+if test "$OS" = Linux ; then
+	AC_DEFINE(LINUX,)
+fi
+if test "$OS" = Solaris ; then
+	AC_DEFINE(SOLARIS,)
+fi
+if test "$OS" = IRIX ; then
+	AC_DEFINE(IRIX,)
+fi
+
+dnl
+dnl		create ARCHITECTURE defines
+dnl
+if test "$ARCHITECTURE" = sparc ; then
+	AC_DEFINE(SPARC,)
+fi
+if test "$ARCHITECTURE" = i386 ; then
+	AC_DEFINE(I386,)
+fi
+if test "$ARCHITECTURE" = mips ; then
+	AC_DEFINE(MIPS,)
+fi
+if test "$ARCHITECTURE" = alpha ; then
+	AC_DEFINE(ALPHA,)
+fi
+AC_MSG_RESULT($OS $OSREV (BINFMT=$BINFMT))
+
+
+dnl   
+dnl   check whether find can be called with the parameter -path
+dnl   (needed to find headers in a certain path like GL/libgl.h
+dnl
+if test "${FIND}" != "no" ; then
+  RESULT=`${FIND} KERNEL -path . -print 2>&1`
+  if test "${RESULT}" != "" ; then     dnl    did get an error message ... bad.
+    FIND_KNOWS_PATH=false
+  else
+    FIND_KNOWS_PATH=true
+  fi
+fi
+
+		
+
+dnl -------------------------------------------------------------------------------
+dnl		Declare compiler search order
+dnl			1) look for compiler defined in configure
+dnl			2) look for vendor supplied compilers (CC)
+dnl			3) check for g++, egcs, eg++, gcc
+dnl		Except for Solaris, where the vendor supplied compiler
+dnl		CC (at least releases 5.0 and below) is not usable.
+dnl -------------------------------------------------------------------------------
+
+
+dnl    define a macro to determine the executable name of the compiler
+dnl    (CXX_NAME is needed to name the default directory the libraries 
+dnl	reside in)
+dnl    syntax: AC_COMPILER_NAME(<compiler name>,<compiler>)
+dnl
+
+AC_DEFUN(AC_COMPILER_NAME,[
+
+  _CXX_NAME=
+  dnl local name!!!
+  if test "$2" = "" ; then
+    _CXX_NAME=unknown
+  else
+    _CXX_NAME="$2"
+  fi
+
+  while test "`${ECHO} ${_CXX_NAME}|grep /`" != "" ; do
+    _CXX_NAME=`${ECHO} ${_CXX_NAME} | ${CUT} -d/ -f2-`
+  done
+
+  dnl
+  dnl	Check whether the C++ compiler is a GNU compiler
+  dnl
+
+dnl the following has to go leftpacked
+cat > /tmp/$$.conftest.c << EOF
+#ifdef __GNUC__
+GXX:true
+#else
+GXX:false
+#endif
+EOF
+
+  IS_GXX=`$2 -E /tmp/$$.conftest.c |egrep GXX|${CUT} -d: -f2|${TR} -d " "`
+  dnl rm -f /tmp/$$.conftest.c
+  if test "${IS_GXX}" = "true" ; then
+    HAS_GPLUSPLUS=true
+    _CXX_NAME="g++"
+  else
+    HAS_GPLUSPLUS=false
+  fi
+
+  dnl
+  dnl  Try to find out the exact compiler release on different
+  dnl  operating systems and differntiate between gcc/egcs
+  dnl
+  if test "${IS_GXX}" = "true" ; then
+    AC_MSG_CHECKING(compiler version)
+
+dnl    CXX_VERSION=`$2 --version`
+    CXX_VERSION=`$2 -v 2>&1 | grep "gcc version" | ${CUT} -d' ' -f3`
+    CXX_COMPILER_NAME="g++"
+    VERSION_OUTPUT="g++ ${CXX_VERSION}"
+    IS_EGXX=false
+    AC_MSG_RESULT(${VERSION_OUTPUT})
+
+    CXX_VERSION_1=`${ECHO} ${CXX_VERSION} | ${CUT} -d. -f1`
+    CXX_VERSION_2=`${ECHO} ${CXX_VERSION} | ${CUT} -d. -f2`
+    CXX_VERSION_3=`${ECHO} ${CXX_VERSION} | ${CUT} -d. -f3`
+
+    if test "${CXX_VERSION_1}" -le 2 -a "${CXX_VERSION_2}" -lt 95 ; then
+        AC_MSG_RESULT()
+        AC_MSG_RESULT(Wrong version of g++!)
+        AC_MSG_RESULT(g++ below release 2.95.x won't compile.)
+        AC_MSG_RESULT(Please upgrade to a more recent version.)
+        AC_MSG_ERROR(aborted)
+    fi
+
+  dnl --------------------------------------------------------------------
+  elif test "${OS}" = "IRIX" ; then
+    dnl
+    dnl Now we got a problem: we have to identify the compiler
+    dnl	This is nearly impossible, but we give our best...
+    dnl
+    AC_MSG_CHECKING(compiler version)
+    CXX_VERSION_STRING=`$2 -n32 -version 2>&1 | egrep ersion`
+    if test "${CXX_VERSION_STRING}" = "" ; then
+      AC_BASENAME($2)
+      CXX_VERSION="${TMP__NAME}"
+      CXX_VERSION_OUTPUT="${CXX_VERSION} (unknown version)"
+    else
+      CXX_VERSION=`${ECHO} ${CXX_VERSION_STRING} | ${SED} "s/^.*ersion //g"`
+      CXX_COMPILER_NAME=`${ECHO} ${CXX_VERSION_STRING} | ${CUT} -d\  -f1`
+      CXX_VERSION_OUTPUT="${CXX_VERSION} (${CXX_COMPILER_NAME})"
+    fi
+    CXX_VERSION_1=`${ECHO} ${CXX_VERSION} | ${CUT} -d. -f1`
+    CXX_VERSION_2=`${ECHO} ${CXX_VERSION} | ${CUT} -d. -f2`
+    CXX_VERSION_3=`${ECHO} ${CXX_VERSION} | ${CUT} -d. -f3`
+    AC_MSG_RESULT(${CXX_VERSION_OUTPUT})
+
+  dnl --------------------------------------------------------------------
+  elif test "${OS}" = "Solaris" ; then
+    AC_MSG_CHECKING(compiler version)
+    CXX_VERSION_STRING=`$2 -V 2>&1 | egrep CC:`
+    CXX_VERSION=`${ECHO} ${CXX_VERSION_STRING} | ${TR} -d "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ:" | ${TR} -s " " | ${CUT} -d\  -f2`
+    changequote(<<,>>)
+    CXX_VERSION_TEST=`${ECHO} ${CXX_VERSION} | ${SED} s/\^\\[0-9\\.\\]*[a-zA-Z\\.]*//g`
+    changequote([,])
+    if test "${CXX_VERSION_TEST}" != "" ; then
+      AC_BASENAME(${CXX})
+      CXX_VERSION="${TMP__NAME}"
+      CXX_VERSION_OUTPUT="${CXX_VERSION} (unknown version)"
+    else
+      CXX_VERSION_1=`${ECHO} ${CXX_VERSION} | ${CUT} -d. -f1`
+      CXX_VERSION_2=`${ECHO} ${CXX_VERSION} | grep "\." | ${CUT} -d. -f2`
+      CXX_VERSION_3=`${ECHO} ${CXX_VERSION} | grep "\." | ${CUT} -d. -f3`
+      CXX_VERSION_OUTPUT="${CXX_VERSION}"
+    fi
+    AC_MSG_RESULT(${CXX_VERSION_OUTPUT})
+  fi
+  dnl --------------------------------------------------------------------
+  dnl
+  dnl  Assemble the complete compiler name by adding
+  dnl  the release numbers (if known) of the compiler
+  dnl
+
+  AC_MSG_CHECKING(standardized compiler name)
+  if test "${CXX_VERSION_1}" != "" ; then
+    _CXX_NAME="${_CXX_NAME}-${CXX_VERSION_1}"
+    if test "${CXX_VERSION_2}" != "" ; then
+      _CXX_NAME="${_CXX_NAME}.${CXX_VERSION_2}"
+      if test "${CXX_VERSION_3}" != "" ; then
+        _CXX_NAME="${_CXX_NAME}.${CXX_VERSION_3}"
+      fi
+    fi
+  fi
+
+  AC_MSG_RESULT(${_CXX_NAME})
+  $1=${_CXX_NAME}
+
+]) dnl  END of AC_COMPILER_NAME
+
+dnl -------------------------------------------------------------------
+dnl
+dnl 	shared/static libs ?
+dnl
+
+AC_MSG_CHECKING(whether to build shared libraries)
+if test "${LINKING_MODE}" != "static" -a "$OS" != Cygwin; then
+  LINKING_MODE="shared"
+  AC_MSG_RESULT(yes)
+else
+  LINKING_MODE="static"
+  AC_MSG_RESULT(no)
+fi
+
+dnl -------------------------------------------------------------------
+dnl
+dnl 	header compatibility mode?
+dnl
+
+AC_MSG_CHECKING(whether to enable header compatibility mode)
+if test "${HEADER_COMPAT}" != "yes"; then
+  HEADER_COMPAT="no";
+  AC_MSG_RESULT(no)
+else
+  HEADER_COMPAT="yes";
+  AC_MSG_RESULT(yes)
+fi
+
+
+dnl --------------------------------------------------------------------
+dnl
+dnl looking for standard compilers:
+dnl
+dnl if CXX2 is not given, we take the default entry marked with 'def'
+dnl
+
+if test "${CXX2}" = "" ; then
+	CXX2="no"
+fi
+
+dnl
+dnl Look in the flagtable for all compilers under this architecture
+dnl and with the given CXX2 flag
+dnl
+
+${ECHO} ">>C++ Compiler Search<<"
+CXX_SEARCH_LIST=`grep ${OS} confdir/flagtable | grep ${LINKING_MODE} | grep ${CXX2} | cut -f3 -d,`
+
+dnl
+dnl Return error message, when no line found, including the computed parameters
+dnl
+
+if test "${CXX_SEARCH_LIST}" = "" ; then
+  AC_MSG_RESULT()
+  AC_MSG_RESULT(No compiler specified in flagtable for building)
+  AC_MSG_RESULT(${LINKING_MODE} libraries under ${OS} with setting CXX2=${CXX2})
+  AC_MSG_ERROR(aborted)
+fi
+
+CXX_NAME=""
+
+dnl
+dnl		Search for the C++ compiler
+dnl
+
+if test "${CXX}" != "" ; then
+  AC_MSG_CHECKING(for compiler defined via CXX)
+  if test -f "${CXX}" ; then
+    AC_MSG_RESULT(${CXX})
+  else
+    AC_MSG_RESULT((${CXX} not local))
+    AC_PATH_PROG(CXXPATH,${CXX},no)
+    if test "${CXXPATH}" = no ; then
+      AC_MSG_RESULT()
+      AC_MSG_RESULT(Cannot find ${CXX}. Please add it to your PATH)
+      AC_MSG_RESULT(or specify an absolute path in configure.)
+      AC_MSG_ERROR(aborted)
+    else
+      CXX_STD_NAME=${CXX}
+      CXX=${CXXPATH}
+    fi
+  fi
+  AC_COMPILER_NAME(CXX_NAME,${CXX})
+
+dnl
+dnl  Update the list of found compilers
+dnl
+
+  changequote(<<, >>)dnl
+  CXX_LIST="['${CXX_NAME}   ${CXXPATH}', '${CXXPATH}']"
+  CXX_FOUND_LIST="'${CXX_STD_NAME}'"
+
+dnl
+dnl Generate an output table with the known CXX2 flags for the compiler
+dnl First get the list of the possible CXX2 flags, then generate an
+dnl output string.
+dnl ATTENTION: CXX2 flags must not be prefix of another flag with same
+dnl architecture linking mode and compiler
+dnl
+
+  CXX2SELECTION=`grep "${OS}" confdir/flagtable | grep "${LINKING_MODE}" | grep " ${CXX_STD_NAME}"`
+  CXX2_FOUND_LIST=`${ECHO} "${CXX2SELECTION}" | cut -d, -f4 | tr -s "\n" " "`
+
+  CXX2_OUTPUT="  <defsetting> is out of {"
+  first2="true"
+
+  for CXX2CAND in ${CXX2_FOUND_LIST}; do
+    _CXX2_COMMAND=`${ECHO} "${CXX2SELECTION}" | grep "${CXX2CAND}" | cut -d, -f5`
+    if test "${first2}" = "true" ; then
+      first2="false"
+      CXX2_OUTPUT="${CXX2_OUTPUT}'${CXX2CAND}'"
+    else
+      CXX2_OUTPUT="${CXX2_OUTPUT},'${CXX2CAND}'"
+    fi
+  done
+  CXX2_OUTPUT="${CXX2_OUTPUT}} for <compiler>='${CXX_STD_NAME}'\n"
+
+  changequote([,])
+else
+  first="true"
+  for CXXCAND in ${CXX_SEARCH_LIST}; do
+    AC_PATH_PROG(CXXPATH,${CXXCAND},no)
+    if test "${CXXPATH}" != "no" ; then
+      AC_COMPILER_NAME(THIS_CXX_NAME,${CXXCAND})
+      changequote(<<, >>)dnl
+      if test "${first}" = "true" ; then
+        CXX_STD_NAME=${CXXCAND}
+        CXX=${CXXPATH}
+
+dnl
+dnl  Update the list of found compilers
+dnl
+
+	CXX_NAME=${THIS_CXX_NAME}
+	CXX_LIST="['${THIS_CXX_NAME}   ${CXXPATH}', '${CXXPATH}']"
+	CXX_FOUND_LIST="'${CXXCAND}'"
+	first="false"
+
+dnl
+dnl Generate an output table with the known CXX2 flags for the compiler
+dnl First get the list of the possible CXX2 flags, then generate an
+dnl output string.
+dnl ATTENTION: CXX2 flags must not be prefix of another flag with same
+dnl architecture linking mode and compiler
+dnl
+
+        CXX2SELECTION=`grep "${OS}" confdir/flagtable | grep "${LINKING_MODE}" | grep " ${CXX_STD_NAME}"`
+        CXX2_FOUND_LIST=`${ECHO} "${CXX2SELECTION}" | cut -d, -f4 | tr -s "\n" " "`
+        CXX2_FOUND_LIST=`${ECHO} ${CXX2_FOUND_LIST}`
+        CXX2_OUTPUT="  <defsetting> is out of {"
+        first2="true"
+        for CXX2CAND in ${CXX2_FOUND_LIST}; do
+          _CXX2_COMMAND=`${ECHO} "${CXX2SELECTION}" | grep "${CXX2CAND}" | cut -d, -f5`
+          if test "${first2}" = "true" ; then
+            first2="false"
+            CXX2_OUTPUT="${CXX2_OUTPUT}'${CXX2CAND}'"
+          else
+            CXX2_OUTPUT="${CXX2_OUTPUT},'${CXX2CAND}'"
+          fi
+        done
+        CXX2_OUTPUT="${CXX2_OUTPUT}} for <compiler>='${CXXCAND}'\n"
+
+      else
+
+dnl
+dnl  Update the list of found compilers
+dnl
+
+        CXX_LIST="${CXX_LIST},['${THIS_CXX_NAME}   ${CXXPATH}', '${CXXPATH}']"
+	CXX_FOUND_LIST="${CXX_FOUND_LIST},'${CXXCAND}'"
+
+dnl
+dnl Generate an output table with the known CXX2 flags for the compiler
+dnl First get the list of the possible CXX2 flags, then generate an
+dnl output string.
+dnl ATTENTION: CXX2 flags must not be prefix of another flag with same
+dnl architecture linking mode and compiler
+dnl
+
+        CXX2SELECTION=`grep "${OS}" confdir/flagtable | grep "${LINKING_MODE}" | grep " ${CXXCAND}"`
+        CXX2_FOUND_LIST=`${ECHO} "${CXX2SELECTION}" | cut -d, -f4 | tr -s "\n" " "`
+        CXX2_FOUND_LIST=`${ECHO} ${CXX2_FOUND_LIST}`
+        CXX2_OUTPUT="${CXX2_OUTPUT}                         {"
+        first2="true"
+        for CXX2CAND in ${CXX2_FOUND_LIST}; do
+          _CXX2_COMMAND=`${ECHO} "${CXX2SELECTION}" | grep "${CXX2CAND}" | cut -d, -f5`
+          if test "${first2}" = "true" ; then
+            first2="false"
+            CXX2_OUTPUT="${CXX2_OUTPUT}'${CXX2CAND}'"
+          else
+            CXX2_OUTPUT="${CXX2_OUTPUT},'${CXX2CAND}'"
+          fi
+        done
+        CXX2_OUTPUT="${CXX2_OUTPUT}} for <compiler>='${CXXCAND}'\n"
+
+      fi
+      changequote([, ])dnl
+    fi
+    CXXPATH=""
+    unset ac_cv_path_CXXPATH 
+    dnl clear cached value
+  done
+
+  if test "${CXX}" = "" ; then
+	AC_MSG_RESULT()
+	AC_MSG_RESULT(Could not find a C++ compiler. Please change the settings)
+	AC_MSG_RESULT(of your PATH environment variable (using setenv export))
+	AC_MSG_RESULT(or specify an absolute path in configure by setting the)
+	AC_MSG_RESULT(variable CXX=<pathname>.)
+	AC_MSG_ERROR(aborted)
+  fi
+fi
+
+
+dnl ---------------------------------------------------------------------------
+dnl	Setting CXX compiler flags
+dnl ---------------------------------------------------------------------------
+dnl
+dnl compiler flags are set with respect to the file flagtable. Notice, that
+dnl the grep filter for CXX_STD_NAME has to start with a white space, as
+dnl we want to differ between 'g++' and 'eg++'
+dnl
+
+
+AC_MSG_CHECKING(compiler flags to build ${LINKING_MODE} libraries with ${CXX_STD_NAME} on ${OS})
+tableline=`grep "${OS}" confdir/flagtable | grep "${LINKING_MODE}" | grep " ${CXX_STD_NAME}" | grep ${CXX2}`
+CXX2_COMMAND=`${ECHO} ${tableline} | cut -d, -f5`
+CXX_COMP_FLAGS=`${ECHO} ${tableline} | cut -d, -f6`
+CXX_LIB_FLAGS=`${ECHO} ${tableline} | cut -d, -f7`
+if test "${CXX_OPT}" = "" ; then
+  CXX_OPT=`${ECHO} ${tableline} | cut -d, -f8`
+fi
+LIB_SUFFIX=`${ECHO} ${tableline} | cut -d, -f9`
+SOCKET_LIBS=`${ECHO} ${tableline} | cut -d, -f10`
+RFLAG=`${ECHO} ${tableline} | cut -d, -f11 | cut -d';' -f1`
+AC_DEL_SPACES(CXX_OPT,${CXX_OPT})
+AC_DEL_SPACES(CXX_LIB_FLAGS,${CXX_LIB_FLAGS})
+AC_DEL_SPACES(CXX_COMP_FLAGS,${CXX_COMP_FLAGS})
+
+dnl ----------------------------------------------------------------------
+dnl  Generate output string with the selectable default compiler commands
+dnl  for the current compiler
+dnl
+
+
+CXX2SELECTION=`grep "${OS}" confdir/flagtable | grep "${LINKING_MODE}" | grep " ${CXX_STD_NAME}"`
+CXX2_FOUND_LIST=`${ECHO} "${CXX2SELECTION}" | cut -d, -f4 | tr -s "\n" " "`
+_CXX2_COMMAND=""
+CXX2_OUTPUT2=""
+for CXX2CAND in ${CXX2_FOUND_LIST}; do
+  _CXX2_COMMAND=`${ECHO} "${CXX2SELECTION}" | grep "${CXX2CAND}" | cut -d, -f5`
+  AC_DEL_SPACES(_CXX2_COMMAND,${_CXX2_COMMAND})
+  CXX2_OUTPUT2="${CXX2_OUTPUT2}\nCXX2 = '${CXX2CAND}' -> compiler command = '${CXX} ${_CXX2_COMMAND}'"
+done
+AC_MSG_RESULT(done)
+
+dnl
+dnl we add the CXX2_COMMAND to the compiler command
+dnl 
+
+CXX="${CXX} ${CXX2_COMMAND}"
+AC_DEL_SPACES(CXX,${CXX})
+
+
+dnl ---------------------------------------------------------------------------
+dnl		LEP Section
+dnl ---------------------------------------------------------------------------
+
+dnl
+dnl Giving a name to the LEP
+dnl LEP_NAME : is the name of the LEP library ( lib<LEP_NAME>.<SUFFIX> )
+dnl LEP_PATH_NAME : the name of the include path 
+dnl                 ( <LEPHOME>/incl/LEP/<LEP_PATH_NAME>)
+dnl
+dnl !!! these to variables have to be set by the LEP designer
+dnl 
+
+LEP_NAME="mcb"
+LEP_PATH_NAME="mcb"
+
+${ECHO} ">>LEP Requirements<<"
+dnl
+dnl    just trying to find myself
+dnl
+
+AC_LANG_CPLUSPLUS
+LEPROOT=`pwd`
+LEP_INCL_PATH="${LEPROOT}/incl"
+if test "${LINKING_MODE}" = "shared" ; then
+  LEP_LIB_PATH="${LEPROOT}"
+else
+  LEP_LIB_PATH="${LEPROOT}/static"
+fi
+
+AC_MSG_CHECKING(LEDA Installation)
+_found_ledaroot="false"
+if test -f "${LEDAROOT}/incl/LEDA/basic.h"; then
+  AC_MSG_RESULT([found, v4.5 or older])
+  LEDA_INCL_PATH="${LEDAROOT}/incl"
+  _found_ledaroot="true"
+else
+    if test -f "${LEDAROOT}/incl/LEDA/system/basic.h"; then
+      AC_MSG_RESULT([found, v5.0 or newer])
+      LEDA_INCL_PATH="${LEDAROOT}/incl"
+
+      if test "${HEADER_COMPAT}" = "yes" && test -f "${LEDAROOT}/incl_old/LEDA/basic.h"; then
+        AC_MSG_RESULT([enabling header compatibility mode...])
+        LEDA_INCL_PATH="$LEDA_INCL_PATH ${LEDAROOT}/incl_old"
+      fi
+      _found_ledaroot="true"
+    else
+      AC_MSG_ERROR([LEDAROOT not defined!])
+    fi
+fi
+
+if test "$_found_ledaroot" = "true"; then 
+  if test "${LINKING_MODE}" = "shared" ; then
+    LEDA_LIB_PATH="${LEDAROOT}"
+  else
+    LEDA_LIB_PATH="${LEDAROOT}/static"
+  fi
+fi
+
+AC_CHECK_HEADER(assert.h)
+
+dnl ------------------------------------------------------------
+dnl the next variables could contain LEP specific compiler flags
+dnl ------------------------------------------------------------
+
+LEP_COMP_FLAGS=""   dnl set when compiling the source code
+LEP_LIB_FLAGS=""    dnl set when linking to library
+LEP_LINK_FLAGS=""   dnl set when linking to executable
+LEP_LIBS=""         dnl specify additional libs 
+		    dnl ( syntax: "-lXXX -lYYY -lZZZ" )
+
+dnl ------------------------------------------------------------
+dnl for default, they are set to the values given in userflagtable
+dnl ------------------------------------------------------------
+
+AC_MSG_CHECKING(Additional compiler and linker flags and libraries)
+tableline=`grep "${OS}" confdir/userflagtable | grep ${LINKING_MODE} | grep " ${CXX_STD_NAME}"`
+
+LEP_COMP_FLAGS=`${ECHO} ${tableline} | cut -d, -f4`
+AC_DEL_SPACES(LEP_COMP_FLAGS,${LEP_COMP_FLAGS})
+LEP_LIB_FLAGS=`${ECHO} ${tableline} | cut -d, -f5`
+AC_DEL_SPACES(LEP_LIB_FLAGS,${LEP_LIB_FLAGS})
+LEP_LINK_FLAGS=`${ECHO} ${tableline} | cut -d, -f6`
+AC_DEL_SPACES(LEP_LINK_FLAGS,${LEP_LINK_FLAGS})
+LEP_LIBS=`${ECHO} ${tableline} | cut -d, -f7 | cut -d';' -f1`
+AC_DEL_SPACES(LEP_LIBS,${LEP_LIBS})
+AC_MSG_RESULT(done)
+
+dnl ------------------------------------------------------------
+dnl Here you can modify these flags, if necessary
+dnl ------------------------------------------------------------
+
+
+
+
+
+dnl ---------------------------------------------------------------------------
+dnl		End of the LEP Section
+dnl ---------------------------------------------------------------------------
+
+
+dnl
+dnl	Checks for typedefs, structures, and compiler characteristics.
+dnl
+
+AC_TYPE_SIZE_T
+AC_HEADER_TIME
+
+
+dnl
+dnl		Checks for library functions
+dnl
+
+AC_CHECK_FUNCS(strstr)
+
+dnl
+dnl		expand BINFMT to include the compiler name
+dnl
+BINFMT="${BINFMT}-${CXX_NAME}"
+
+dnl
+dnl    try to find C++ standard include paths
+dnl    this is needed for make depend. If it doesn't work
+dnl    (quite probable the case) - it doesn't matter
+dnl    Don't try to find out how this bad hack works...
+dnl
+
+if test "${CXX_VERSION_1}" -le 2; then
+	IOSTREAM_HEADER="iostream.h"
+else
+	IOSTREAM_HEADER="iostream"
+fi
+
+AC_PATH_PROG(DIRNAME,dirname,no)
+AC_MSG_CHECKING(for ${CXX_STD_NAME} header files...)
+${ECHO} "#include <${IOSTREAM_HEADER}>" >/tmp/$$.test.C
+LINES=`${CXX} -E /tmp/$$.test.C | egrep /${IOSTREAM_HEADER}\"`
+${RM} /tmp/$$.test.C
+TEST=""
+for i in $LINES ; do
+  T=`${ECHO} $i | egrep /${IOSTREAM_HEADER}\"`
+  if test "$T" != "" && test "$TEST" = "" ; then
+    TEST=$i
+  fi
+done
+
+TEST=`${ECHO} $TEST|${CUT} -d\" -f2`
+STD_CPP_INCLUDES=
+if test "${DIRNAME}" = no ; then
+  while test _`egrep / $TEST`_ != __ ; do
+   STD_CPP_INCLUDES=${STD_CPP_INCLUDES}/`${ECHO} $TEST|${CUT} -d/ -f2`
+   TEST=/`${ECHO} $TEST|${CUT} -d/ -f3-`
+  done
+else
+  STD_CPP_INCLUDES=`dirname $TEST`
+fi
+AC_MSG_RESULT((${STD_CPP_INCLUDES}))
+STD_CPP_INCLUDES="-I${STD_CPP_INCLUDES} -I/usr/include"
+
+
+dnl  ARCHIVER
+dnl if nothing has been defined for AR/AROPTS,
+dnl use default
+
+if test "${AR}" = "no" ; then
+  AR="ar"
+fi
+if test "${AROPTS}" = "" ; then
+  AROPTS="cru"
+fi
+
+dnl
+dnl    create files
+dnl
+
+
+AC_OUTPUT([
+	make.config:confdir/make.config.in
+	confdir/make.general:confdir/make.general.in
+])
+
+
+
+dnl call menuconfig if there! (Not used anymore)
+dnl CONFIGURE="NoMenu"
+dnl if test "${CONFIGURE}" = "menu" ; then
+dnl   ${PERL} confdir/configure.pl
+dnl else
+  AC_MSG_OUT([""])
+  AC_MSG_OUT(["----------------------------------------------------------------------"])
+  AC_MSG_OUT([""])
+  AC_MSG_OUT(["Your Makefiles have been created with the following values for "])
+  AC_MSG_OUT([""])
+  AC_MSG_OUT(["C++ compiler command :     CXX = '${CXX}'"])
+  AC_MSG_OUT(["C++ compiler flags   :     CXX_FLAGS = '${CXX_FLAGS}'"])
+  AC_MSG_OUT(["linking mode         :     LINKING_MODE = '${LINKING_MODE}'"])
+  AC_MSG_OUT(["LEDA root dir        :     LEDAROOT = '${LEDAROOT}'"])
+  AC_MSG_OUT(["Header compatibility :     HEADER_COMPAT = '${HEADER_COMPAT}'"])
+  AC_MSG_OUT([""])
+  AC_MSG_OUT(["The following default compiler commands can be choosen by setting CXX2:"])
+  AC_MSG_OUT(["${CXX2_OUTPUT2}"])
+  AC_MSG_OUT([""])
+  AC_MSG_OUT(["You can change these settings by running configure again with"])
+  AC_MSG_OUT(["predefined variables. Type"])
+  AC_MSG_OUT([""])
+  AC_MSG_OUT(["  [CXX=<compiler>] [CXX2=<defsetting>] [CXX_FLAGS=<flags>] [LINKING_MODE=<linkmode>] [LEDAROOT=<ledaroot>] [HEADER_COMPAT=<boolean>] configure"])
+  AC_MSG_OUT([""])
+  AC_MSG_OUT(["where"])
+  AC_MSG_OUT([""])
+  AC_MSG_OUT(["  <compiler>   is out of {${CXX_FOUND_LIST}},"])
+  AC_MSG_OUT(["${CXX2_OUTPUT}\c"])
+  AC_MSG_OUT(["  <flags>      are compiler flags of <compiler>,"])
+  AC_MSG_OUT(["  <linkmode>   is out of {'static','shared'},"])
+  AC_MSG_OUT(["  <ledaroot>   specifies the LEDA installation directory and"])
+  AC_MSG_OUT(["  <boolean>    is out of {'yes','no'}."])
+  AC_MSG_OUT([""])
+  AC_MSG_OUT(["All variables have default values, if not predefined by the user!"])
+  AC_MSG_OUT([""])
+  AC_MSG_OUT([""])
+  AC_MSG_OUT(["If the settings are okay, just type"])
+  AC_MSG_OUT([""])
+  AC_MSG_OUT(["  make"])
+  AC_MSG_OUT([""])
+  AC_MSG_OUT(["to build the LEP."])
+dnl fi
+

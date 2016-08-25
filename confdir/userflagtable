@@ -1,0 +1,39 @@
+###############################################################################
+#
+# Editable input file for configure.
+# For every library mode, operating system, compiler and default compile mode
+# some additional LEP specific variables can be set.
+#
+# COMPFLAG   : compiler flags, added to the compiler command
+# LIBFLAG    : linker flags for building the library 
+# LINKFLAG   : linker flags for building executables
+# LEP_LIBS   : additional libraries required by the LEP
+#
+#
+# Attention: A table entry must be followed directly by a comma, except
+# the last one, that must be followed directly by a semi-colon. The entries
+# of the CXX column must be preceded by a space (so configure can differ
+# between 'g++' and 'eg++'.
+#
+#
+#LIB    OS       CXX    COMPFLAG LIBFLAG LINKFLAG  LEP_LIBS
+#                
+shared, Solaris, g++,   ,        ,       ,         ;
+shared, Solaris, CC,    ,        ,       ,         ;
+shared, SunOS,   g++,   ,        ,       ,         ;
+shared, SunOS,   CC,    ,        ,       ,         ;
+shared, Linux,   g++,   ,        ,       -L/usr/X11R6/lib ,         ;
+shared, IRIX,    g++,   ,        ,       ,         ;
+shared, IRIX,    CC,    ,        ,       ,         ;
+shared, HP-UX,   g++,   ,        ,       ,         ;
+shared, HP-UX,   CC,    ,        ,       ,         ;
+static, Solaris, g++,   ,        ,       ,         ;
+static, Solaris, CC,    ,        ,       ,         ;
+static, SunOS,   g++,   ,        ,       ,         ;
+static, SunOS,   CC,    ,        ,       ,         ;
+static, Linux,   g++,   ,        ,       -L/usr/X11R6/lib ,         ;
+static, Cygwin,  g++,   ,        ,       -L$(LEDAROOT) -L/usr/X11R6/lib ,         ;
+static, IRIX,    g++,   ,        ,       ,         ;
+static, IRIX,    CC,    ,        ,       ,         ;
+static, HP-UX,   g++,   ,        ,       ,         ;
+static, HP-UX,   CC,    ,        ,       ,         ;
