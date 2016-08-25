@@ -152,6 +152,10 @@
  *  - Source package (v0.2). [<a href="https://github.com/d-michail/mcb/archive/mcb-0.2.tar.gz">tar.gz</a>]
  *  - Source package (v0.1). [<a href="https://github.com/d-michail/mcb/archive/mcb-0.1.tar.gz">tar.gz</a>]
  *
+ *  \section source_sec Source
+ *
+ *  The repository can be found at <a href="https://github.com/d-michail/mcb">github</a>.
+ * 
  *  \section ex_sec Code Examples
  *  \subsection ex_undir Undirected MCB
  *  \code
