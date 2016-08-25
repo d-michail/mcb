@@ -24,11 +24,13 @@ permission.
 Note that this program uses the LEDA library, which is NOT free. For more
 details visit Algorithmic Solutions at http://www.algorithmic-solutions.com/
 
+```
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ! Any commercial use of this software is strictly !
 ! prohibited without explicit permission by the   !
 ! author.                                         !
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+```
 
 This software is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
