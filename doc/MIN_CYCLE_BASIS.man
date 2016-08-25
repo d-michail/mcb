@@ -1,51 +1,90 @@
 \begin{manual}
 
+{\bf \Huge Minimum Cycle Basis}\medskip
+ 
+
+
+
+\function[\ensuremath{\mathit{class}\ W}]{\ensuremath{W}}
+{MCB}
+{\ensuremath{\mathit{graph}\ g,} \ensuremath{\mathit{edge\nspaceunderscore\_array}\Ltemplateless W\Ltemplategreater \ \mathit{len},} \ensuremath{\mathit{array}\Ltemplateless \ \mathit{list}\Ltemplateless \mathit{edge}\Ltemplategreater }
+\ensuremath{\Ltemplategreater \&\ \mathit{mcb},} \ensuremath{\mathit{double}\ \mathit{errorp}=0\nspacedot.375}}
+{$g$ is a graph and $len$ is a non-negative (positive for directed graphs) 
+  length function on the edges of $g$. The function computes a Minimum Cycle Basis $B$ of $g$, 
+  that is a cycle basis of $g$ with the smallest length (sum of lengths of cycles). The 
+  basis is returned as an array of lists of edges, called $mcb$. \\
+  The function returns the weight of the Minimum Cycle Basis or is undefined
+  if there were any errors. \\
+  The running time is $O( m^3 )$ where $m$ are the number of edges of $g$. \\
+  If the graph is directed the algorithm is a Monte-Carlo with success probability
+  of returning a minimum cycle basis, $5/8$. The algorithm always returns a basis.
+  If the graph is undirected, the minimum cycle basis is always returned. \\
+  The parameter $errorp$ can be used to decrease the error probability to something
+  less than $3/8$, by repeating the algorithm multiple times. It has effect only in the
+  directed case. \\
+  The space requirement is linear. \\
+  \precond $g$ simple and loopfree \\
+  \precond $len$ is non-negative for undirected graphs, positive for directed \\
+  \precond $errorp$ is positive and less than one \\
+   
+
+}
+
+\function{\ensuremath{\mathit{int}}}
+{MCB}
+{\ensuremath{\mathit{graph}\ g,} \ensuremath{\mathit{array}\Ltemplateless \ \mathit{list}\Ltemplateless \mathit{edge}\Ltemplategreater }
+\ensuremath{\Ltemplategreater \&\ \mathit{mcb},} \ensuremath{\mathit{double}\ \mathit{errorp}\ =\ 0\nspacedot.375}}
+{The same as above, but the graphs are unweighted. \\
+  \precond $g$ simple and loopfree \\
+  \precond $errorp$ is positive and less than one \\
+   
+
+}
+
+\newpage {\bf \Large Edge Numbering (edge\_num)}\medskip 
+
+
+
 \resetmancounter
 
 \mansection{Definition}
 
 
-A numbering \ensuremath{T} provides a numbering of the edges of a graph 
+A numbering \ensuremath{l} provides a numbering of the edges of a graph 
 from $0$ to $m-1$. The numbering is based on an arbitrary spanning tree $T$.
-Edges not on $T$ are numbered from $0$ to $m -n + \kappa -1$ where $\kappa$
-are the number of (weakly) connected components of $G$. Edge on $T$ are numbered
+Edges not in $T$ are numbered from $0$ to $m -n + \kappa -1$ where $\kappa$
+are the number of (weakly) connected components of $G$. Edges in $T$ are numbered
 from $m-n+\kappa$ to $m-1$. 
 
 
 
 \mansection{Creation}
 
-\create{\ensuremath{\mathit{edge\nspaceunderscore\_num}}}{\ensuremath{T}}{\ensuremath{\mathit{leda}\DP\ \mathit{graph}\ G}}
+\create{\ensuremath{\mathit{edge\nspaceunderscore\_num}}}{\ensuremath{l}}{\ensuremath{\mathit{leda}\DP\ \mathit{graph}\ G}}
 {creates a \ensuremath{\mathit{edge\nspaceunderscore\_num}} for a graph \ensuremath{G}.
- 
+     
 
 }
 
-\create{\ensuremath{\mathit{edge\nspaceunderscore\_num}}}{\ensuremath{T}}{\ensuremath{\mathit{edge\nspaceunderscore\_num}\ \mathit{enumb}}}
+\create{\ensuremath{\mathit{edge\nspaceunderscore\_num}}}{\ensuremath{l}}{\ensuremath{\mathit{edge\nspaceunderscore\_num}\ \mathit{enumb}}}
 {creates a \ensuremath{\mathit{edge\nspaceunderscore\_num}} from an edge numbering $enumb$.
- 
-
-}
-
-\destruct{\ensuremath{\mathit{edge\nspaceunderscore\_num}}}
-{destroy a \ensuremath{\mathit{edge\nspaceunderscore\_num}}
- 
+     
 
 }
 
 \mansection{Operations}
 
 \operator{\ensuremath{\mathit{int}}}
-{\ensuremath{T(\mathit{leda}\DP\ \mathit{edge}\ e)}}
+{\ensuremath{l(\mathit{leda}\DP\ \mathit{edge}\ e)}}
 {Takes edge \ensuremath{e} and returns its number.
- 
+     
 
 }
 
 \operator{\ensuremath{\mathit{leda}\DP\ \mathit{edge}}}
-{\ensuremath{T(\mathit{int}\ i)}}
+{\ensuremath{l(\mathit{int}\ i)}}
 {Takes integer \ensuremath{i} and returns an edge with this number.
- 
+     
 
 }
 
@@ -53,7 +92,7 @@ from $m-n+\kappa$ to $m-1$.
 {tree}
 {\ensuremath{\mathit{leda}\DP\ \mathit{edge}\ e}}
 {Returns whether an edge \ensuremath{e} belongs to the tree used for constructing
-the numbering. 
+    the numbering. 
 
 }
 
@@ -61,7 +100,7 @@ the numbering.
 {dim\nspaceunderscore\_cycle\nspaceunderscore\_space}
 {$\,$}
 {Returns the dimension of the cycle space. More precisely \ensuremath{m-n+k}, where
-\ensuremath{k} is the number of (weakly) connected components of the graph. 
+    \ensuremath{k} is the number of (weakly) connected components of the graph. 
 
 }
 
@@ -69,23 +108,23 @@ the numbering.
 {num\nspaceunderscore\_weak\nspaceunderscore\_connected\nspaceunderscore\_comp}
 {$\,$}
 {Returns the number of (weakly) connected components of the graph.
- 
+     
 
 }
 
 \mansection{Implementation}
 
 
-The \ensuremath{\mathit{edge\nspaceunderscore\_num}} is implemented as two arrays, and therefore requires
-$O(m)$ space. All operations take constant time except construction
-which takes linear time. 
+    The \ensuremath{\mathit{edge\nspaceunderscore\_num}} is implemented as two arrays, and therefore requires
+    $O(m)$ space. All operations take constant time except construction
+    which takes linear time. 
 
 
 
 
   \newpage
   
-  {\bf \large Minimum Cycle Basis Algorithms}\medskip
+  {\bf \large Undirected Minimum Cycle Basis Algorithms}\medskip
 
   \settowidth{\typewidth}{\ensuremath{\mathit{int}}}
   \addtolength{\typewidth}{\colsep}
@@ -349,6 +388,107 @@ The running time is $O( m^3 )$ where $m$ are the number of edges of $g$. \\
 \ensuremath{\Ltemplategreater \&\ \mathit{mcb},} \ensuremath{\mathit{array}\Ltemplateless \ \mathit{list}\Ltemplateless \mathit{edge}\Ltemplategreater }
 \ensuremath{\Ltemplategreater \&\ \mathit{proof}}}
 {As above, but using lists of edges to represent the cycles.
+ 
+
+}
+
+
+
+  \newpage
+
+  {\bf \large Directed Minimum Cycle Basis Algorithms}\medskip
+
+  \settowidth{\typewidth}{\ensuremath{\mathit{int}}}
+  \addtolength{\typewidth}{\colsep}
+  \computewidths
+
+  Given an directed graph $G(V,E)$ and a non-negative length function on the edges
+  $w: E \mapsto \mathcal{R}_{\ge 0}$, a minimum cycle basis is a set of cycles
+  which can generate the cycle space and at the same time has minimum total length.
+
+  Each cycle of the graph is assumed to be a vector in $Q^m$ indexed on the edge set, and
+  operations between cycles is performed in $Q$. The length of a cycle basis is 
+  the sum of the length of its cycles and the length of a cycle is the sum of the 
+  length of its edges.
+
+  Most functions of this section are templates functions. The template parameter \ensuremath{W} denoting the 
+  type of the edge weights can be instantiated with any number type. Attention must be paid in order 
+  to avoid overflow of values.
+
+  The solution of a minimum cycle basis problem can be in the following three forms.
+  \begin{enumerate}
+    \item A pair \ensuremath{(\mathit{mcb},} \ensuremath{\mathit{proof})} where both are arrays of \ensuremath{\mathit{spvecfp}}. A \ensuremath{\mathit{spvecfp}} is a 
+          wrapper around Leda's list datatype. Each element in this list, is a 
+	  \ensuremath{\mathit{two\nspaceunderscore\_tuple}\Ltemplateless \mathit{long},\mathit{integer}\Ltemplategreater }, where the first argument is its index $(1 \dots m)$ and
+	  the second is in case of \ensuremath{\mathit{mcb}} a value of  ${\pm}1$ where positive is an arbitrary 
+	  direction of traversing the cycle and in case of \ensuremath{\mathit{proof}} a value in $Z_p$ for 
+	  some prime number $p$. 
+	  Each index represents an edge. {\em NOTE: index $i$ represents edge $i-1$.} The number
+	  of an edge can be found by the edge numbering, \ensuremath{\mathit{edge\nspaceunderscore\_num}}.
+    \item A solution \ensuremath{\mathit{mcb}} which is an array of list of edges, \ensuremath{\mathit{list}\Ltemplateless \mathit{edge}\Ltemplategreater }.
+          Each element of this array represents a cycle of the minimum cycle basis.
+    \item A solution \ensuremath{\mathit{mcb}} which is an array of arrays of mcb::etype (currently short ints), 
+	  \ensuremath{\mathit{array}\Ltemplateless \mathit{mcb}\DP\ \mathit{etype}\Ltemplategreater }.
+          Each element of this array represents a cycle of the minimum cycle basis.
+    
+	  Each entry $i$ of the array is $0$ or ${\pm}1$, based on whether the edge $e$ with 
+	  number $i$ ( \ensuremath{\mathit{enumb}(e)\ =\ i} ) belongs to the cycle and if yes in which direction
+	  compared with an arbitrary direction of traversing the cycle.
+  \end{enumerate}
+
+  The whole package is protected using a namespace called "mcb", and therefore using 
+  anything requires {\em mcb::xxx} or the {\em using namespace mcb} directive.
+
+ 
+
+
+
+\function[\ensuremath{\mathit{class}\ W}]{\ensuremath{W}}
+{DIR\nspaceunderscore\_MIN\nspaceunderscore\_CYCLE\nspaceunderscore\_BASIS}
+{\ensuremath{\mathit{graph}\ g,} \ensuremath{\mathit{edge\nspaceunderscore\_array}\Ltemplateless W\Ltemplategreater \ \mathit{len},} \ensuremath{\mathit{array}\Ltemplateless \ \mathit{spvecfp}}
+\ensuremath{\Ltemplategreater \&\ \mathit{mcb},} \ensuremath{\mathit{array}\Ltemplateless \ \mathit{spvecfp}}
+\ensuremath{\Ltemplategreater \&\ \mathit{proof},} \ensuremath{\mathit{edge\nspaceunderscore\_num}\ \mathit{enumb},} \ensuremath{\mathit{double}\ \mathit{error}\ =\ 0\nspacedot.375}}
+{$g$ is a directed graph and $len$ is a positive length function 
+on the edges of $g$. The function computes a directed Minimum Cycle Basis $B$ of $g$, that 
+is a cycle basis of $g$ with the smallest length (sum of lengths of cycles). The 
+basis is returned as an array of sparse vectors \ensuremath{\mathit{spvecfp}}, called $mcb$. \\
+Every edge is represented by some integer, by a fixed and arbitrary numbering. This
+numbering is represented by $enumb$. \\
+The function also returns a certificate of optimality of 
+the minimum cycle basis. More precisely a set of linearly independent vectors for 
+which cycle $i$ is the shortest cycle in $g$ with non-zero intersection with the 
+proof vector $i$. \\
+Since the algorithm is a randomized Monte-Carlo algorithm, the error argument 
+which should be less that 1 represents the acceptable error probability that the
+returns cycle basis is not a minimum cycle basis.
+The function returns the weight of the Minimum Cycle Basis or is undefined
+if there were any errors. \\
+The running time is $O( m^3 )$ where $m$ are the number of edges of $g$. \\
+\precond $g$ is simple and loopfree \\
+\precond $len$ is positive \\
+\precond $enumb$ is already initialized with $g$ \\
+\precond $error$ is positive and less than one \\
+ 
+
+}
+
+\function[\ensuremath{\mathit{class}\ W}]{\ensuremath{W}}
+{DIR\nspaceunderscore\_MIN\nspaceunderscore\_CYCLE\nspaceunderscore\_BASIS}
+{\ensuremath{\mathit{graph}\ g,} \ensuremath{\mathit{edge\nspaceunderscore\_array}\Ltemplateless W\Ltemplategreater \ \mathit{len},} \ensuremath{\mathit{array}\Ltemplateless \ \mathit{array}\Ltemplateless \mathit{etype}\Ltemplategreater }
+\ensuremath{\Ltemplategreater \&\ \mathit{mcb},} \ensuremath{\mathit{edge\nspaceunderscore\_num}\ \mathit{enumb},} \ensuremath{\mathit{double}\ \mathit{error}\ =\ 0\nspacedot.375}}
+{As above but the
+basis is returned as an array of arrays of ints. \\
+Each such array is indexed on $1 \dots m$ and its entry can be $0$ or $\pm 1$. Which 
+edge corresponds to which index in this array can be found by the edge numbering, \ensuremath{\mathit{enumb}}. \\
+ 
+
+}
+
+\function[\ensuremath{\mathit{class}\ W}]{\ensuremath{W}}
+{DIR\nspaceunderscore\_MIN\nspaceunderscore\_CYCLE\nspaceunderscore\_BASIS}
+{\ensuremath{\mathit{graph}\ g,} \ensuremath{\mathit{edge\nspaceunderscore\_array}\Ltemplateless W\Ltemplategreater \ \mathit{len},} \ensuremath{\mathit{array}\Ltemplateless \ \mathit{list}\Ltemplateless \mathit{edge}\Ltemplategreater }
+\ensuremath{\Ltemplategreater \&\ \mathit{mcb},} \ensuremath{\mathit{double}\ \mathit{error}\ =\ 0\nspacedot.375}}
+{As above but the basis is returned as an array of list of edges. \\
  
 
 }

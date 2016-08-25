@@ -46,19 +46,32 @@ demo/                     demo programs
        
        Example: CXX=g++ LEDAROOT=/Somepath/LEDA/ LINKING_MODE=static configure
 
+       The configure script, accepts a number of additional parameters
+
+       --disable-checking     Disable the check of any preconditions and invariants
+                              This is dangerous for general code, use it only for 
+			      doing measurements of running times.
+       --enable-debug-output  Enable the debugging output of the algorithms.
+       --enable-stats-output  Enable the statistic output of the algorithms.
+
    d)  In case configure fails, try changing to <LEP>/mcb/confdir and 
        running make. Then go back to <LEP>/mcb and retry the configure script.
 
 1.1 NOTE FOR LEDA VERSION 5.0 OR LATER
 --------------------------------------
-LEDA 5.0 has a different include structure, which might prevent the LEP
-from beeing compiled. In such a case there is a configure flag HEADER_COMPAT.
+Starting from version 5.0, LEDA has a different include structure, which might 
+prevent the LEP from beeing compiled.
+
+The configure script on unix platforms compiles the code with the flag
+LEDA_GE_V5 in case LEDA-5.0 or newer is detected.
+
+For older code there is another alternative, to set HEADER_COMPAT to yes
+when calling configure.
 Execute configure as:
 
 LEDAROOT=/path/to/LEDA/5.0 <other options> HEADER_COMPAT=yes configure
 
 and the old style include structure will be compiled as well.
-
 
 2. COMPILING
 -------------
@@ -129,7 +142,7 @@ a) Header Files
 The LEP can be compiled for use with the LEDA and Borland bcc32
 compiler. LEDA must be compiled as static.
 
-a) install LEDA with static variables, LEDAROOT=path to leda
+a) install LEDA with static variables, set LEDAROOT=path to leda
    The LEDAROOT directory should contains some or all of these files
 
 	libL.lib      basic library
@@ -218,5 +231,22 @@ d) To compile your program use something like
    bcc32 -P -DLEDA_DLL -I<LEP>/mcb/incl -I%LEDAROOT%/incl \
          -L<LEP>/mcb -L%LEDAROOT% \
 	  yoursource.c libmcb.lib leda.lib
+
+8. Optimization Options - IMPORTANT
+-----------------------------------
+
+Do not use this code with optimization flags -O2 or -O3.
+At the author's PC, the resulting code contains a memory leak.
+
+The configure script offers a flag 
+
+--disable-checking
+
+which compiles the LEP, with any internal check disabled
+by adding the flag -DLEDA_CHECKING_OFF, the same flag
+that LEDA uses to disable any preconditions' or invariants'
+checking.
+
+Note that no check is performed in such a case. 
 
 

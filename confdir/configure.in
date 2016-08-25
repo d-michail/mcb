@@ -1,11 +1,18 @@
-dnl    $Id: configure.in,v 1.8 2005/02/27 13:57:45 michail Exp $
+dnl    $Id: configure.in,v 1.20 2005/04/25 23:38:34 michail Exp $
 dnl
 dnl    Modified for LEDA LEPS by M. Seel
 dnl
+dnl    -- Changed by Dimitrios Michail <dimitrios.michail@gmail.com> --
 dnl    Modified to support LEDA 5.x and headers compatibility,
 dnl    Fixes on acquiring g++ version number.
 dnl    Support for CYGWIN_NT-5.x for x > 0 added.
-dnl    by Dimitrios Michail <michail@mpi-sb.mpg.de>
+dnl    Support for flag --enable-static-lib to link the LEP statically
+dnl    Support for flag --disable-checking to compile with LEDA_CHECKING_OFF
+dnl    Support for flag --enable-debug-output to compile with LEP_DEBUG_OUTPUT
+dnl    Support for flag --enable-stats-output to compile with LEP_STATS
+dnl 
+dnl    If LEDA 5.0 or newer is detected the code is compiled with the
+dnl    -DLEDA_GE_V5 flag.
 dnl
 dnl    Process this file with autoconf to produce a configure script.
 dnl   
@@ -669,6 +676,15 @@ dnl 	shared/static libs ?
 dnl
 
 AC_MSG_CHECKING(whether to build shared libraries)
+AC_ARG_ENABLE(
+  static-lib,
+  AC_HELP_STRING([--enable-static-lib],[build the LEP as static library [[default=no]]]),
+  lep_build_static=$enableval,
+  lep_build_static=no
+)
+if test "$lep_build_static" = "yes"; then
+	LINKING_MODE="static"
+fi
 if test "${LINKING_MODE}" != "static" -a "$OS" != Cygwin; then
   LINKING_MODE="shared"
   AC_MSG_RESULT(yes)
@@ -959,22 +975,29 @@ fi
 
 AC_MSG_CHECKING(LEDA Installation)
 _found_ledaroot="false"
-if test -f "${LEDAROOT}/incl/LEDA/basic.h"; then
+_found_leda_after_version5="false"
+if test -f "${LEDAROOT}/incl/LEDA/graph.h"; then
   AC_MSG_RESULT([found, v4.5 or older])
   LEDA_INCL_PATH="${LEDAROOT}/incl"
   _found_ledaroot="true"
 else
     if test -f "${LEDAROOT}/incl/LEDA/system/basic.h"; then
-      AC_MSG_RESULT([found, v5.0 or newer])
-      LEDA_INCL_PATH="${LEDAROOT}/incl"
+	AC_MSG_RESULT([found, v5.0 or newer])
+	_found_leda_after_version5="true"
+	LEDA_INCL_PATH="${LEDAROOT}/incl"
+	if test "${CXX_FLAGS}" = ""; then
+	    CXX_FLAGS="-DLEDA_GE_V5";
+	else
+	    CXX_FLAGS="-DLEDA_GE_V5 $CXX_FLAGS"
+	fi
 
-      if test "${HEADER_COMPAT}" = "yes" && test -f "${LEDAROOT}/incl_old/LEDA/basic.h"; then
-        AC_MSG_RESULT([enabling header compatibility mode...])
-        LEDA_INCL_PATH="$LEDA_INCL_PATH ${LEDAROOT}/incl_old"
-      fi
-      _found_ledaroot="true"
+	if test "${HEADER_COMPAT}" = "yes" && test -f "${LEDAROOT}/incl_old/LEDA/basic.h"; then
+	    AC_MSG_RESULT([enabling header compatibility mode...])
+	    LEDA_INCL_PATH="$LEDA_INCL_PATH ${LEDAROOT}/incl_old"
+	fi
+	_found_ledaroot="true"
     else
-      AC_MSG_ERROR([LEDAROOT not defined!])
+	AC_MSG_ERROR([LEDAROOT not defined!])
     fi
 fi
 
@@ -1098,6 +1121,76 @@ if test "${AROPTS}" = "" ; then
   AROPTS="cru"
 fi
 
+${ECHO} ">>LEP's extra requested flags<<"
+dnl
+dnl Check for LEDA_CHECKING_OFF flag
+dnl
+AC_MSG_CHECKING([whether to enable checking of preconditions and invariants])
+AC_ARG_ENABLE(
+  checking,
+  AC_HELP_STRING([--disable-checking],[disable or not checking of preconditions and invariants [[default=no]]]),
+  lep_leda_checking=$enableval,
+  lep_leda_checking=yes
+  )
+AC_MSG_RESULT($lep_leda_checking)
+
+if test "$lep_leda_checking" = "no"; then
+	CXX_FLAGS="-DLEDA_CHECKING_OFF $CXX_FLAGS"
+fi
+
+dnl
+dnl Check for LEP_DEBUG_OUTPUT flag
+dnl
+AC_MSG_CHECKING([whether to enable the LEP's debug output])
+AC_ARG_ENABLE(
+  debug-output,
+  AC_HELP_STRING([--enable-debug-output],[enable the LEP's debug output [[default=no]]]),
+  lep_debug_output=$enableval,
+  lep_debug_output=no
+  )
+AC_MSG_RESULT($lep_debug_output)
+
+if test "$lep_debug_output" = "yes"; then
+	CXX_FLAGS="-DLEP_DEBUG_OUTPUT $CXX_FLAGS"
+fi
+
+dnl
+dnl Check for enabling statistics output
+dnl
+AC_MSG_CHECKING([whether to enable statistics output])
+AC_ARG_ENABLE(
+  stats-output,
+  AC_HELP_STRING([--enable-stats-output],[enable the LEP's statistics output [[default=no]]]),
+  lep_stats_output=$enableval,
+  lep_stats_output=no
+)
+AC_MSG_RESULT($lep_stats_output)
+
+if test "$lep_stats_output" = "yes"; then
+	CXX_FLAGS="-DLEP_STATS $CXX_FLAGS"
+fi
+
+dnl
+dnl MCB specific flags to disable stuff
+dnl 
+${ECHO} ">>Particular LEP's Checks<<"
+dnl
+dnl Check whether to disable heuristic for reducing the shortest
+dnl path computations
+dnl
+AC_MSG_CHECKING([whether to use fewer shortest path computations (undirected case)])
+AC_ARG_ENABLE(
+  sp-heuristic,
+  AC_HELP_STRING([--disable-sp-heuristic],[disable or not the heuristic for fewer shortest path computations on undirected graphs [[default=no]]]),
+  mcb_lep_undir_sp_heuristic=$enableval,
+  mcb_lep_undir_sp_heuristic=yes
+  )
+AC_MSG_RESULT($mcb_lep_undir_sp_heuristic)
+
+if test "$mcb_lep_undir_sp_heuristic" = "no"; then
+	CXX_FLAGS="-DMCB_LEP_UNDIR_NO_SP_HEURISTIC $CXX_FLAGS"
+fi
+
 dnl
 dnl    create files
 dnl
@@ -1125,6 +1218,9 @@ dnl else
   AC_MSG_OUT(["linking mode         :     LINKING_MODE = '${LINKING_MODE}'"])
   AC_MSG_OUT(["LEDA root dir        :     LEDAROOT = '${LEDAROOT}'"])
   AC_MSG_OUT(["Header compatibility :     HEADER_COMPAT = '${HEADER_COMPAT}'"])
+  AC_MSG_OUT(["Preconditions' checks:     ${lep_leda_checking}"])
+  AC_MSG_OUT(["Debugging output     :     ${lep_debug_output}"])
+  AC_MSG_OUT(["Statistics output    :     ${lep_stats_output}"])
   AC_MSG_OUT([""])
   AC_MSG_OUT(["The following default compiler commands can be choosen by setting CXX2:"])
   AC_MSG_OUT(["${CXX2_OUTPUT2}"])
@@ -1144,6 +1240,14 @@ dnl else
   AC_MSG_OUT(["  <boolean>    is out of {'yes','no'}."])
   AC_MSG_OUT([""])
   AC_MSG_OUT(["All variables have default values, if not predefined by the user!"])
+  AC_MSG_OUT([""])
+  AC_MSG_OUT(["Configure accepts also the following options:"])
+  AC_MSG_OUT([""])
+  AC_MSG_OUT(["--enable-static-lib    Build the LEP as static library"])
+  AC_MSG_OUT(["--disable-checking     Disable checking of preconditions and invariants"])
+  AC_MSG_OUT(["--enable-debug-output  Enable the LEP's debugging output"])
+  AC_MSG_OUT(["--enable-stats-output  Enable the LEP's statistic output"])
+  AC_MSG_OUT(["--disable-sp-heuristic Disable the shortest path heuristic for undirected graphs"])
   AC_MSG_OUT([""])
   AC_MSG_OUT([""])
   AC_MSG_OUT(["If the settings are okay, just type"])

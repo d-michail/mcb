@@ -2,8 +2,8 @@
 # BORLAND Version 5.x (win32)
 #-----------------------------------------------------------------------------
 
-CC  = bcc32 -c -P -O2
-PLAIN_C = bcc32 -c -P- -O2
+CC  = bcc32 -c -P -O
+PLAIN_C = bcc32 -c -P- -O
 LD  = bcc32
 
 !include Make.lst

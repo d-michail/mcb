@@ -2,11 +2,17 @@
 Minimum Cycle Basis Library
 ---------------------------
 
-This program implements two algorithms to compute a minimum 
-cycle basis of an undirected weighted graph.
+This package implements algorithms to compute Minimum 
+Cycle Bases of weighted graphs.
 
-   - An O(m^3 + m n^2 \log n) algorithm
-   - An O( m^2 n^2) algorithm
+For undirected graphs, two algorithms:
+
+   - An O(m^3 + m n^2 \log n ) algorithm
+   - An O( m^2 n^2 ) algorithm
+
+For directed graphs:
+
+   - An O(m^3 + m n^2 \log n ) Monte-Carlo algorithm
 
 This program can be freely used in an academic environment
 ONLY for research purposes, subject to the following restrictions:
@@ -37,3 +43,4 @@ but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 Copyright (C) 2004-2005 Dimitrios Michail
+
