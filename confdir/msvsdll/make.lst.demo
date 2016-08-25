@@ -1,6 +1,0 @@
-LEPNAME = mcb
-LEDALIBS = $(LEDAROOT)\leda$(LINKVER).lib
-WINLIBS = wsock32.lib user32.lib gdi32.lib comdlg32.lib shell32.lib advapi32.lib
-LEDAFLAGS = -DLEDA_DLL
-PROGS = GW_MCB_DEMO.exe
-

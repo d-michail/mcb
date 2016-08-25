@@ -1,9 +1,0 @@
-#------------------------------------------------------------------------------
-#
-# LEP_SOURCES defines the sources of the library
-#
-#------------------------------------------------------------------------------
-
-
-LEP_SOURCES = hybrid.C edge_num.C spvecfp.C spvecgf2.C mcb_approx.C verify.C transform.C ushortpath.C determinant.C
-
