@@ -7,6 +7,9 @@ This page is the source repository for the package located at
 This package implements algorithms to compute exact and approximate 
 Minimum Cycle Bases of weighted graphs.
 
+A newer package containing a subset of these algorithms using the Boost Graph libraries and TBB, can 
+be found at https://github.com/d-michail/parmcb.
+
 For undirected graphs, four algorithms:
 
    - An O(m^3 + m n^2 \log n ) time exact algorithm
